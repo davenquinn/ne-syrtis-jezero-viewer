@@ -9,8 +9,8 @@ const dataset = (id) => {
 };
 
 const opts = {
-  "/terrain": dataset("dem.terrain-rgb"),
-  "/ctx-global": dataset("ctx-global"),
+  "/terrain/": dataset("dem.terrain-rgb"),
+  "/ctx-global/": dataset("ctx-global"),
 };
 
 console.log(opts);

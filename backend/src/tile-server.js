@@ -1,15 +1,17 @@
 const appFactory = require("tessera");
-let tilelive = require("@mapbox/tilelive");
+const tilelive = require("@mapbox/tilelive");
 const express = require("express");
 const responseTime = require("response-time");
 const cors = require("cors");
 const morgan = require("morgan");
-const loader = require("tilelive-modules/loader");
 const tileliveCache = require("tilelive-cache");
+const { promisify } = require("util");
 
 // have to require mbtiles to make sure it is consumed by loader
 // when we have packaged the server
-require("@mapbox/mbtiles");
+const MBTiles = require("@mapbox/mbtiles");
+
+MBTiles.registerProtocols(tilelive);
 
 // This tile server is based on the tessera server.js code.
 
@@ -22,12 +24,6 @@ const tileServer = function (opts) {
   if (process.env.NODE_ENV !== "production") {
     app.use(morgan("dev"));
   }
-
-  // Real tessera server caches, we don't.
-  tilelive = require("@mapbox/tilelive");
-  tilelive = tileliveCache(tilelive);
-
-  loader(tilelive, {});
 
   for (let prefix in opts) {
     const uri = opts[prefix];
