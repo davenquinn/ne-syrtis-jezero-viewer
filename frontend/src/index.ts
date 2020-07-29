@@ -5,7 +5,7 @@ import "leaflet/dist/leaflet.css";
 import "./main.styl";
 
 const position = [16.5, 76];
-const map = h(Map, { center: position, zoom: 10 }, [
+const map = h(Map, { center: position, zoom: 10, maxZoom: 14 }, [
   h(TileLayer, {
     url: "http://0.0.0.0:8080/ctx-global/{z}/{x}/{y}.png",
     attribution:
