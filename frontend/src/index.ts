@@ -4,10 +4,10 @@ import { Map, Marker, Popup, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "./main.styl";
 
-const position = [51.505, -0.09];
+const position = [16.5, 76];
 const map = h(Map, { center: position, zoom: 10 }, [
   h(TileLayer, {
-    url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    url: "http://0.0.0.0:8080/ctx-global/{z}/{x}/{y}.png",
     attribution:
       "&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors",
   }),
