@@ -80,6 +80,12 @@ module.exports = {
     alias: {
       // CesiumJS module name
       cesiumSource: path.resolve(__dirname, cesiumSource),
+      "cesium-viewer": path.resolve(
+        __dirname,
+        "bundledDeps",
+        "cesium-viewer",
+        "src"
+      ),
       "~": path.resolve(__dirname, "src"),
     },
   },
