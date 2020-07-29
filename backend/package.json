@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src",
+    "start": "tessera -c tessera-config.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
