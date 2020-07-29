@@ -15,6 +15,7 @@
     "browser-sync": "^2.26.7",
     "browser-sync-webpack-plugin": "^2.2.2",
     "cesium": "^1.71.0",
+    "connect-history-api-fallback": "^1.6.0",
     "copy-webpack-plugin": "^5.1.1",
     "css-loader": "^3.5.3",
     "dotenv-webpack": "^1.7.0",
@@ -30,12 +31,18 @@
   },
   "main": "webpack.config.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack --watch"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@macrostrat/hyper": "^1.2.6",
+    "leaflet": "^1.6.0",
     "mapbox-gl": "^1.11.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-leaflet": "^2.7.0",
     "resium": "^1.12.0"
   }
 }

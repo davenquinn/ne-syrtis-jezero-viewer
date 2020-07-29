@@ -10,7 +10,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 let mode = "development";
 
 let browserSync = new BrowserSyncPlugin({
-  server: { baseDir: "./" },
+  server: { baseDir: "./dist" },
   middleware: [historyApiFallback()],
 });
 
