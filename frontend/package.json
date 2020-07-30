@@ -42,6 +42,7 @@
     "@macrostrat/hyper": "^1.2.6",
     "@mapbox/sphericalmercator": "^1.1.0",
     "@znemz/cesium-navigation": "^4.0.0",
+    "d3-format": "^1.4.4",
     "leaflet": "^1.6.0",
     "mapbox-gl": "^1.11.1",
     "react": "^16.13.1",
