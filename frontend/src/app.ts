@@ -1,40 +1,24 @@
 import h from "@macrostrat/hyper";
 import { FlatMap } from "./map";
-import { Provider } from 'react-redux'
+import { Provider, useSelector, useDispatch } from 'react-redux'
 import {createStore} from 'redux'
-import SphericalMercator from '@mapbox/sphericalmercator'
+import {CTXLayer, HillshadeLayer, SyrtisTerrainProvider} from './layers'
 
-import MapboxTerrainProvider, {TileCoordinates} from "@macrostrat/cesium-martini"
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 import CesiumViewer, {DisplayQuality} from "cesium-viewer";
 import "./main.styl";
 
-import {reducer} from 'cesium-viewer/actions'
+import {reducer, ActiveMapLayer} from 'cesium-viewer/actions'
 
-
-let merc = new SphericalMercator({size: 256})
-let bounds = {
-  w: 74.4,
-  s: 15.8,
-  e: 78.7,
-  n: 19.5
-}
 
 let store = createStore(reducer)
 
-class SyrtisTerrainProvider extends MapboxTerrainProvider {
-  buildTileURL(tileCoords: TileCoordinates) {
-    const {z,x,y} = tileCoords
-    const hires = this.highResolution ? '@2x' : ''
-    return `http://localhost:8080/terrain/${z}/${x}/${y}${hires}.png`
-  }
-
-  getTileDataAvailable(x, y, z) {
-    const [w,s,e,n] = merc.bbox(x,y,z)
-    if (e < bounds.w || w > bounds.e || n < bounds.s || s > bounds.n) return false
-    return z <= 13
-  }
-
-  fillValue: -4000
+const ImageryLayers = ()=>{
+  const mapLayer = useSelector(s => s.activeMapLayer)
+  return h([
+    h.if(mapLayer != ActiveMapLayer.Hillshade)(CTXLayer),
+    h.if(mapLayer == ActiveMapLayer.Hillshade)(HillshadeLayer)
+  ])
 }
 
 const Viewer = ()=>{
@@ -42,13 +26,41 @@ const Viewer = ()=>{
     terrainProvider: new SyrtisTerrainProvider(),
     terrainExaggeration: 1.5*6371/3390,
     displayQuality: DisplayQuality.High
-  })
+  }, h(ImageryLayers))
 }
 
+const FlyToButton = ({camera})=>{
+  const dispatch = useDispatch()
+  return h("button", {onClick() {
+    dispatch({type: "fly-to-position", value: camera})
+  }}, "Fly to position")
+}
+
+const CopyPositionButton = ()=>{
+  const pos = useSelector(s => s.cameraPosition)
+  let text = ""
+  if (pos != null) {
+    const {position, orientation} = pos
+    text = JSON.stringify({position, orientation})
+  }
+  return h(CopyToClipboard, {text, onCopy(){
+    console.log(text)
+  }}, h("button", "Copy"))
+}
+
+const UI = ()=> {
+  return h("div.app-ui", [
+    h("div.lower-right", [
+      h(CopyPositionButton),
+      h(FlyToButton, {camera: {"position": {"x":1225418.7488849903,"y":5944308.47404358,"z":1993660.2917541615},"orientation":{"x":0.859592562774336,"y":-0.492166838136322,"z":0.13737696117597314}}})
+    ]),
+    h(Viewer)
+  ])
+}
 
 const App = () => {
   return h("div.app-container", [
-    h(Provider, {store}, h(Viewer)) // h(FlatMap)
+    h(Provider, {store}, h(UI)) // h(FlatMap)
   ]);
 };
 
