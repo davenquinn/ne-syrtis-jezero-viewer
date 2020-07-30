@@ -1,3 +1,6 @@
 [submodule "frontend/bundledDeps/cesium-viewer"]
 	path = frontend/bundledDeps/cesium-viewer
 	url = git://github.com/UW-Macrostrat/cesium-viewer.git
+[submodule "frontend/bundledDeps/cesium-martini"]
+	path = frontend/bundledDeps/cesium-martini
+	url = git://github.com/davenquinn/cesium-martini.git

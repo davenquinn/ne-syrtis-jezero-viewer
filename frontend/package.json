@@ -31,18 +31,26 @@
   },
   "main": "webpack.config.js",
   "scripts": {
+    "preinstall": "linklocal",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack --watch"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@macrostrat/cesium-martini": "file:./bundledDeps/cesium-martini",
     "@macrostrat/hyper": "^1.2.6",
+    "@mapbox/sphericalmercator": "^1.1.0",
+    "@znemz/cesium-navigation": "^4.0.0",
     "leaflet": "^1.6.0",
     "mapbox-gl": "^1.11.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-leaflet": "^2.7.0",
+    "react-redux": "^7.2.1",
+    "redux": "^4.0.5",
+    "regenerator-runtime": "^0.13.7",
+    "regl": "^1.6.1",
     "resium": "^1.12.0"
   }
 }
