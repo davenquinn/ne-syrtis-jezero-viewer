@@ -2,16 +2,11 @@
   display block
   scroll-snap-type: y proximity
 
-.intersection-sensor
-  position absolute
-  top 200px
-  right 0
-  height 0.5em
-  background-color #aaa
-  z-index 10
-  width 1.5em
-
 .location-link
-  height 0.5em
-  width 0.5em
-  background-color black
+  border-left 2px solid #aaa
+  min-height 1em
+  padding-bottom 4em
+  margin-bottom 1em
+
+:global(.active)
+  border-left-color salmon

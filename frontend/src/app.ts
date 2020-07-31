@@ -1,4 +1,5 @@
 import {hyperStyled} from "@macrostrat/hyper";
+import {useRef} from 'react'
 import { Provider, useSelector } from 'react-redux'
 import {createStore} from 'redux'
 import {CTXLayer, HillshadeLayer, SyrtisTerrainProvider} from './layers'
@@ -33,11 +34,13 @@ const Viewer = ()=>{
 }
 
 const UI = ()=> {
+  const ref = useRef()
+
   return h("div.app-ui", [
     h("div.left", [
-      h("div.content", [
-        h(TextPanel, {positions}),
-        h(PositionListEditor, {positions})    
+      h("div.content", {ref}, [
+        h(TextPanel, {positions, scrollParentRef: ref }),
+        h(PositionListEditor, {positions})
       ])
     ]),
     h("div.right", null, h(Viewer))
