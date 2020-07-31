@@ -1,0 +1,5 @@
+references.bib:
+	
+
+all:
+	pandoc

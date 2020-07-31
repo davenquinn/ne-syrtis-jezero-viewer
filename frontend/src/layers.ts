@@ -10,6 +10,7 @@ import {GeoLayerProps, HillshadeLayer} from "cesium-viewer/layers"
 import MapboxTerrainProvider, {TileCoordinates} from "@macrostrat/cesium-martini"
 import SphericalMercator from '@mapbox/sphericalmercator'
 
+const MARS_RADIUS_SCALAR = 3390/6371
 
 const CTXLayer = (props: GeoLayerProps)=>{
   let ctx = useRef(new WebMapTileServiceImageryProvider({
@@ -48,10 +49,17 @@ let bounds = {
 }
 
 class SyrtisTerrainProvider extends MapboxTerrainProvider {
+  RADIUS_SCALAR = MARS_RADIUS_SCALAR
+  meshErrorScalar = 1
+  fillValue = -4000
   buildTileURL(tileCoords: TileCoordinates) {
     const {z,x,y} = tileCoords
     const hires = this.highResolution ? '@2x' : ''
     return `http://localhost:8080/terrain/${z}/${x}/${y}${hires}.png`
+  }
+
+  preprocessHeight(x, y, height) {
+    return height < 2000 ? height : -2000;
   }
 
   getTileDataAvailable(x, y, z) {
@@ -59,8 +67,6 @@ class SyrtisTerrainProvider extends MapboxTerrainProvider {
     if (e < bounds.w || w > bounds.e || n < bounds.s || s > bounds.n) return false
     return z <= 13
   }
-
-  fillValue: -4000
 }
 
 export {CTXLayer, MOLALayer, HillshadeLayer, SyrtisTerrainProvider}
