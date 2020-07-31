@@ -10,4 +10,4 @@ for line in sys.stdin:
     for key in citekeys:
         if key not in ignores:
             print(key[1:])
-            keys.add(key)
+            ignores.add(key)

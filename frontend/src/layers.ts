@@ -52,6 +52,7 @@ class SyrtisTerrainProvider extends MapboxTerrainProvider {
   RADIUS_SCALAR = MARS_RADIUS_SCALAR
   meshErrorScalar = 1
   fillValue = -4000
+  credit = new Credit("University of Arizona - HiRISE, CTX, PDS Imaging Node, HRSC Mission Team")
   buildTileURL(tileCoords: TileCoordinates) {
     const {z,x,y} = tileCoords
     const hires = this.highResolution ? '@2x' : ''

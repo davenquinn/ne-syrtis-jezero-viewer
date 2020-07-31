@@ -49,6 +49,10 @@ module.exports = {
         use: ["style-loader", cssModuleLoader, "stylus-loader"],
         exclude,
       },
+      {
+        test: /\.html$/i,
+        loader: 'html-loader',
+      },
       { test: /\.css$/, use: ["style-loader", cssModuleLoader], exclude },
       { test: /\.css$/, use: ["style-loader", "css-loader"] },
       {

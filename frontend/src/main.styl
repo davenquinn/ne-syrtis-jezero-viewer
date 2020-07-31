@@ -1,6 +1,7 @@
 :global
   *
     font-family: "Helvetica Neue", Arial, sans-serif
+    box-sizing: border-box;
 
   body
     margin 0
@@ -16,6 +17,9 @@
     bottom 5
     max-width 300px
 
+  .cesium-credit-logoContainer
+    display none !important
+
   div.positions-panel
     margin 1em
     padding 1em
@@ -24,3 +28,23 @@
     a.fly-to
       color: dodgerblue
       cursor: pointer
+
+.app-ui
+  display flex
+  flex-direction: row
+  height 100vh
+
+.right
+  flex-grow 1
+  position relative
+
+.left
+  .content
+    height 100vh
+    overflow-y scroll
+    width 100%
+    padding 2em
+  min-width 25em
+  max-width 20%
+  height 100vh
+  position relative
