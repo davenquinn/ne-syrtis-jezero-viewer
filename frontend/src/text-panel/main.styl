@@ -1,12 +1,22 @@
 .text
   display block
-  scroll-snap-type: y proximity
+  scroll-snap-type: y mandatory
 
 .location-link
-  border-left 2px solid #aaa
+  border-left 0.5em solid #eee
+  margin-left -1em
+  padding-left 0.5em
   min-height 1em
-  padding-bottom 4em
+  padding-bottom 1em
   margin-bottom 1em
+  scroll-snap-align: center;
 
 :global(.active)
-  border-left-color salmon
+  border-left-color var(--accent-background)
+
+:global
+  #refs
+    font-size 0.8em
+    p
+      text-indent -1em
+      margin-left 1em

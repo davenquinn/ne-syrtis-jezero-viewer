@@ -29,20 +29,26 @@ const TextPanel = (props)=>{
   const [offsetCache, setCache] = useState([])
 
   const onScroll = ()=>{
-    const pos = scrollParentRef.current.scrollTop + 250
-    let selected = offsetCache[0].name
-    for (const {name, offset} of offsetCache) {
-      if (offset > pos) break
-      selected = name
+    const scrollPos = scrollParentRef.current.scrollTop
+    const pos = scrollPos + 250
+    let selected = offsetCache[0]
+    for (const offs of offsetCache) {
+      if (offs.offset > pos) break
+      selected = offs
     }
+    if (selected.offset < scrollPos-100) {
+      // Don't do anything if we've scrolled too far
+      return
+    }
+
     // Set up class name
     const elements = ref.current.querySelectorAll(`[data-location]`);
     for (const e of elements) {
       const elName = e.getAttribute("data-location")
-      e.className = classNames(styles["location-link"], {active: elName == selected})
+      e.className = classNames(styles["location-link"], {active: elName == selected.name})
     }
     // Dispatch the location
-    dispatch({type: "fly-to-named-location", value: selected, positions})
+    dispatch({type: "fly-to-named-location", value: selected.name, positions})
   }
 
   let scrollHandler = debounce(onScroll, 200)
@@ -58,12 +64,10 @@ const TextPanel = (props)=>{
 
       for (const e of elements) {
         e.className = styles["location-link"]
-        //const dv = document.createElement("div")
-        //dv.className = styles["handle"]
-        //e.appendChild(dv)
-        //observer.observe(e)
+
         const name = e.getAttribute("data-location")
-        //const {height} = e.getBoundingClientRect()
+        e.id = name
+
         cache.push({name, offset: e.offsetTop})
       }
 

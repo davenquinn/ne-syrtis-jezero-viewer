@@ -19,17 +19,16 @@ const CopyPositionButton = ()=>{
   }
   return h(CopyToClipboard, {text, onCopy(){
     console.log(text)
-  }}, h("button", "Copy current position"))
+  }}, h("button.copy-position-button", "Copy current position"))
 }
 
 const PositionListEditor = ({positions})=>{
   return h("div.positions-panel", [
-    h("h1", "Positions"),
+    h("h3", "Positions"),
     h("div.position-list", Object.entries(positions).map(entry => {
       const [k,v] = entry
       return h("p", null, h(FlyToButton, {camera: v}, k))
     })),
-    h(CopyPositionButton)
   ])
 }
 

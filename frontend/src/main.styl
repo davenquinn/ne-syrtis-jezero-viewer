@@ -1,11 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap');
+
+:root
+  --accent-color: salmon
+  --accent-dark: darken(salmon, 25%)
+  --accent-background: rgb(247, 221, 210)
+
 :global
   *
-    font-family: "Helvetica Neue", Arial, sans-serif
+    font-family: "Source Serif Pro", "Times New Roman", serif
     box-sizing: border-box;
 
   body
     margin 0
     padding 0
+    font-size 18px
 
   .leaflet-container
     height: 100vh
@@ -21,13 +29,19 @@
     display none !important
 
   div.positions-panel
-    margin 1em
-    padding 1em
-    background #fff
-    border-radius 4px
     a.fly-to
-      color: dodgerblue
+      color: var(--accent-color)
       cursor: pointer
+
+  .copy-position-button
+    z-index: 50
+    color: white
+    position: absolute;
+    left 80px
+    bottom 2px
+    font-size 10px
+    text-decoration: underline;
+    cursor pointer
 
 .app-ui
   display flex
@@ -48,3 +62,72 @@
   max-width 20%
   height 100vh
   position relative
+
+nav
+  text-align: center
+  ul
+    list-style none
+    display flex
+    flex-direction row
+    align-items space-between
+    padding-left: 0
+    margin-right: -0.5em
+    justify-content: baseline
+  li
+    vertical-align: baseline
+    a
+      text-decoration none
+      font-weight 300
+      font-size 1.2em
+      display block
+      color var(--accent-dark)
+      padding 0.2em 0.5em
+      margin-right 0.5em
+      border-radius 3px
+      &:visited
+        color var(--accent-dark)
+      &.is-active
+        background-color var(--accent-background)
+
+.positions
+  color: #ccc !important
+  &:visited
+    color: #ccc
+  &.is-active
+    background-color #eee
+
+.title-block
+  h1,h2,h3,h4, p
+    margin-bottom 0.2em
+    margin-top 0
+    padding-bottom 0
+    font-weight: 600
+    line-height: 1.0
+  .title
+    font-size 1.8rem
+    font-weight 700
+    padding-bottom 0.6em
+  .subtitle
+    padding-top 0
+    font-weight 300
+    color #888
+  .version
+    color #888
+  .auth-affil
+    display flex
+    flex-direction: row
+    justify-content baseline
+    align-items: space-between
+    font-weight 500
+    color #888
+    margin-top 0.5em
+    .author
+      min-width 40%
+      margin-right 1em
+      font-weight 600
+      font-style italic
+    &>*
+      a
+        color: inherit
+        &:visited
+          color: inherit

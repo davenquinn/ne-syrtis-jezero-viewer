@@ -11,5 +11,7 @@ output/text.html: main.md references.bib
 	cat main.md \
 	| pandoc \
 		--section-divs \
+		--csl=resources/nature.csl \
 		--bibliography references.bib \
+		--metadata link-citations=true \
 		--filter pandoc-citeproc > $@
