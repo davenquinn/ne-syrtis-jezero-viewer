@@ -19,7 +19,7 @@ const CopyPositionButton = ()=>{
   }
   return h(CopyToClipboard, {text, onCopy(){
     console.log(text)
-  }}, h("button.copy-position-button", "Copy current position"))
+  }}, h("a.copy-position-button", "Copy current position"))
 }
 
 const PositionListEditor = ({positions})=>{

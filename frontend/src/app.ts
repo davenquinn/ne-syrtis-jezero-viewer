@@ -35,7 +35,7 @@ const Viewer = ()=>{
   return h(CesiumViewer, {
     terrainProvider,
     terrainExaggeration: 1.5/terrainProvider.RADIUS_SCALAR,
-    displayQuality: DisplayQuality.Low
+    displayQuality: DisplayQuality.High
   }, h(ImageryLayers))
 }
 
@@ -47,9 +47,8 @@ const TitleBlock = ()=>{
   return h("div.title-block", [
     h("h1.title", [
       "Jezero Crater's context within northeast Syrtis Major",
-      h("span.subtitle", " — an interactive, multiscale exploration")
+      h("span.subtitle", " — a multiscale interactive exploration")
     ]),
-    h("p.version", "v0.1 – July 2020"),
     h("div.auth-affil", [
       h("h3.author", null, h("a", {href: "https://davenquinn.com"}, "Daven Quinn")),
       h("h4.affiliation", [
@@ -57,6 +56,7 @@ const TitleBlock = ()=>{
         h("a", {href: "https://macrostrat.org"}, "Macrostrat")
       ])
     ]),
+    h("p.version", "v0.1 – July 2020"),
     h("nav", null, h("ul", [
       h(Link, {to: "/", exact: true}, "Story"),
       h(Link, {to: "/about"}, "The viewer"),

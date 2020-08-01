@@ -4,7 +4,7 @@ import styles from "./main.styl"
 import {useEffect, useRef, useState} from 'react'
 import {PositionListEditor} from '../editor'
 import positions from '../positions.js'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {debounce} from "underscore"
 import classNames from "classnames"
 
@@ -25,6 +25,8 @@ const TextPanel = (props)=>{
 
   const dispatch = useDispatch()
 
+  const currentLocation = useSelector(s => s.namedLocation)
+
 
   const [offsetCache, setCache] = useState([])
 
@@ -36,6 +38,7 @@ const TextPanel = (props)=>{
       if (offs.offset > pos) break
       selected = offs
     }
+    if (selected.name == currentLocation) return
     if (selected.offset < scrollPos-100) {
       // Don't do anything if we've scrolled too far
       return
@@ -51,7 +54,7 @@ const TextPanel = (props)=>{
     dispatch({type: "fly-to-named-location", value: selected.name, positions})
   }
 
-  let scrollHandler = debounce(onScroll, 200)
+  let scrollHandler = onScroll //debounce(onScroll, 10)
 
 
   useEffect(()=>{
