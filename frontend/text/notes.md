@@ -54,3 +54,12 @@ that could follow.
 Similar initiatives:
 - CTX mosaic
 - OpenPlanetary
+
+# Todo
+
+## Future collaborative work
+
+- Build integrated mapping datasets covering the Syrtis Major region
+- Build large-scale elevation basemaps (CTX + HRSC), ideally using
+  automated processes
+- Package data and make it available in globally consistent, web-scale

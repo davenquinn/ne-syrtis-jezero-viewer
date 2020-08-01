@@ -1,10 +1,11 @@
 <div data-location="initial">
 
-This is Jezero Crater, the landing site of the **Perseverance** rover,
-currently *en route* to Mars after launching on July 30th, 2020. Jezero is
-a great landing site, in a region with a rich and multifaceted
-geological history. Part of the challenge of the Mars 2020 mission will be to
-reconstruct this sequence with access to only a part of it.
+This is Jezero Crater, the landing site of the **Perseverance** rover, currently
+*en route* to Mars after launching on July 30th, 2020. Jezero sits within the
+northeast Syrtis region, an area with a rich and multifaceted geological
+history. If the Mars 2020 mission can reconstruct parts of this regional
+sequence from its small study area, it will provide major new information
+on the history and fate of water (and *perhaps* life) on Mars.
 
 </div>
 
@@ -30,40 +31,41 @@ debated [e.g. @Gaidos2003; @Wordsworth2015].
 
 <div data-location="full_of_sediment">
 
-Understanding the significance of
-In addition to hosting a delta, Jezero
-is filled to the brim with sediment.
-Reasonable timescales of deposition suggest that filling the entire crater
-with sediment took upwards of 1–10 Myr [@Goudge2015].
-Crater-counting studies on the resistant crater floor unit suggest a minimum
-age of ~3.8-3.5 Ga for this sedimentary fill [@Fassett2008; @Goudge2015].
+In addition to hosting a delta, Jezero is filled to the brim with sediment,
+likely at least 1 km thick. Reasonable timescales of deposition rate suggest
+that filling the entire crater took upwards of 1–10 Myr [@Goudge2015].
+Crater-counting studies on the resistant crater floor unit suggest
+that this sedimentary fill was deposited before 3.5–3.8 Gyr ago
+[@Fassett2008; @Goudge2015].
 
 <div class="side-note">
-The sedimentary fill presents an interesting parallel to Gale Crater, where the Curiosity rover has been operating since 2012. Gale hosts a
-similar (although much thicker) sedimentary sequence, of which much has been
-excavated by wind erosion. Here, it remains buried and inaccessible.
+The sediments filling Jezero Crater present an
+interesting parallel to Gale Crater, where the Curiosity rover has been
+operating since 2012. Gale hosts a similar (although much thicker) sedimentary
+sequence, much of which has been excavated by wind erosion. Here, it remains
+buried and inaccessible.
 </div>
 
 </div>
 
 <div data-location="outlet_channel">
-Jezero also has an outlet channel, apparent changes over time in its geometry
+Jezero also has an outlet channel, and apparent changes in its geometry over time
 suggest a long-lived lacustrine system [@Salese2020a; @Schon2012].
 </div>
 
 <div data-location="jezero_delta_2">
-One of the most interesting aspects of Jezero is the extent of its river system
-and *source* of the sediments stored there.
-</div>
-
-
-<div data-location="jezero_upriver">
-*Neretva Valles*, the river valley that eventually leads to the Jezero delta,
-continues eastward into the uplands surrounding Isidis Basin.
+One of the most interesting aspects of the Jezero fluvial system is the extent
+of its drainage system, which integrates sediment from a large area of the Martian highlands.
 </div>
 
 
 <div data-location="river_nili_fossae">
+The river valley upstream of the Jezero delta
+continues eastward into the uplands surrounding Isidis Basin.
+</div>
+
+
+<div data-location="river_nili_fossae_detail">
 
 It cuts across the Nili Fossae ring graben system, concentric valleys formed shortly
 after the Isidis Basin–forming impact.
@@ -72,14 +74,32 @@ after the Isidis Basin–forming impact.
 
 <div data-location="river_nilosyrtis">
 
-...and continues for over 200 km past the northern rim of Hargraves crater,
+The upstream extension of the paleoriver that deposited sediment in Jezero Crater
+continues for over 200 km past the northern rim of Hargraves crater,
 and into the Nilosyrtis highlands.
+With careful geochemical
+analysis and deconvolution [e.g. @Siebach2017], the sediments might provide a
+window into bedrock formation and alteration across a wide area.
+
+
+</div>
+
+<div data-location="ne-syrtis-overview">
+
+Jezero crater sits in one of the most-studied and significant regional contexts
+on Mars. The stratigraphy of Northeast Syrtis contains rock units representing
+the first billion years of Mars history in close proximity.
 
 </div>
 
 
 The northeast Syrtis region is also fascinating.
 
+<div data-location="syrtis_major_edge">
+
+The edge of the Syrtis Major lavas
+
+</div>
 
 
 @Scheller2020 reports lots of interesting structure
@@ -88,7 +108,21 @@ The northeast Syrtis region is also fascinating.
 Linear ridges suggest voluminous subsurface water flow during the early
 Noachian e.g. @Pascuzzo2019.
 
+<div data-location="layered-sulfates">
 
+The layered sulfates are sediments on top of this stuff.
+They are capped by an enigmatic capping unit that was originally mapped as
+part of the Syrtis Major lava flows. However, recent mapping work
+
+</div>
+
+<div data-location="boxwork-fractures">
+Boxwork fractures in the layered sulfates.
+</div>
+
+<div data-location="boxwork-fractures-2">
+Boxwork fractures area.
+</div>
 
 
 <div data-location="river_nilosyrtis"></div>

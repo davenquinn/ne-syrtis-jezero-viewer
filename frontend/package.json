@@ -34,7 +34,8 @@
   "scripts": {
     "preinstall": "linklocal",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack --watch"
+    "watch:text": "ls text/*.md | entr make",
+    "dev": "npm run watch:text & webpack --watch"
   },
   "author": "",
   "license": "ISC",
