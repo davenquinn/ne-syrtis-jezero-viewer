@@ -1,13 +1,27 @@
 <div data-location="initial">
 
 This is Jezero Crater, the landing site of the **Perseverance** rover, currently
-*en route* to Mars after launching on July 30th, 2020. Jezero sits within the
-northeast Syrtis region, an area with a rich and multifaceted geological
-history. If the Mars 2020 mission can reconstruct parts of this regional
-sequence from its small study area, it will provide major new information
-on the history and fate of water (and *perhaps* life) on Mars.
+_en route_ to Mars after launching on July 30th, 2020. Jezero sits within
+northeast Syrtis Major, a region with a rich and multifaceted geological
+history.
+
+If the Mars 2020 mission can effectively use its direct observations of Jezero
+and its surroundings
+to answer questions posed by regional contextual studies, we will develop
+a much richer accounting of
+the history and fate of water (and _perhaps_ life) on early Mars.
+
+<!-- Much of my PhD was dedicated to interpreting the geologic history of Syrtis Major,
+particularly aspects involving the "layered sulfates" exposed ~50 km southwest of
+Jezero Crater [@Quinn2019]. High-resolution terrain models
+covering a wide area were critical to that work, leading to the discovery
+of key geological features and relationships. Building integrated elevation data
+products is thus a critical aspect of driving regional-scale science in the northeast
+Syrtis Region and globally. -->
 
 </div>
+
+## Jezero crater lake
 
 <div data-location="jezero_w">
 
@@ -15,8 +29,6 @@ Jezero is a ~40 km–diameter impact crater on the western margin of Isidis Basi
 Perseverance will land just inside its western rim.
 
 </div>
-
-
 
 <div data-location="jezero_delta">
 
@@ -48,22 +60,26 @@ buried and inaccessible.
 
 </div>
 
-<div data-location="outlet_channel">
-Jezero also has an outlet channel, and apparent changes in its geometry over time
-suggest a long-lived lacustrine system [@Salese2020a; @Schon2012].
+<div data-location="outlet_channel"> Jezero also has several different outlet
+channels, and changes in their geometry over time suggest a long-lived
+lacustrine system [@Salese2020a; @Schon2012]. This feature has great
+paleoenvironmental importance — an "overfilled" lake with a throughgoing river
+system would potentially have a much more neutral water chemistry than a
+terminal evaporitic sump.
+
 </div>
+
+## Jezero fluvial system
 
 <div data-location="jezero_delta_2">
-One of the most interesting aspects of the Jezero fluvial system is the extent
-of its drainage system, which integrates sediment from a large area of the Martian highlands.
+One of the most compelling features of the Jezero fluvial system is its extensive
+drainage system, which integrates sediment from a large area of the Martian highlands.
 </div>
-
 
 <div data-location="river_nili_fossae">
 The river valley upstream of the Jezero delta
 continues eastward into the uplands surrounding Isidis Basin.
 </div>
-
 
 <div data-location="river_nili_fossae_detail">
 
@@ -77,23 +93,33 @@ after the Isidis Basin–forming impact.
 The upstream extension of the paleoriver that deposited sediment in Jezero Crater
 continues for over 200 km past the northern rim of Hargraves crater,
 and into the Nilosyrtis highlands.
-With careful geochemical
-analysis and deconvolution [e.g. @Siebach2017], the sediments might provide a
-window into bedrock formation and alteration across a wide area.
-
 
 </div>
+
+With careful geochemical analysis and deconvolution [e.g. @Siebach2017],
+sediments within Jezero might provide a window into bedrock formation and
+alteration across a wide area.
+
+## Northeast Syrtis
 
 <div data-location="ne-syrtis-overview">
 
-Jezero crater sits in one of the most-studied and significant regional contexts
-on Mars. The stratigraphy of Northeast Syrtis contains rock units representing
-the first billion years of Mars history in close proximity.
+Jezero crater sits in a well-studied and globally significant regional context.
+The stratigraphy of Northeast Syrtis contains rock units representing
+the first billion years of Mars history in close proximity. Jezero's delta and
+lacustrine features seem to be related to the latter part of this history.
+
+The stratigraphy, emplaced after the Isidis Basin-forming impact around 3.9 Ga
+[e.g. @Mustard2009a], broadly consists of universal
+
+record many globally-characteristic long-term evolutions in
+igneous mineralogy, hydrated mineral alteration products, and
+
+basement alteration by a vigorous and long-lived groundwater system, followed
+by the accumulation and partial erosion of thick sedimentary sequences. All
+of this activity predates the most recent phase of Jezero's fluvial system.
 
 </div>
-
-
-The northeast Syrtis region is also fascinating.
 
 <div data-location="syrtis_major_edge">
 
@@ -101,9 +127,7 @@ The edge of the Syrtis Major lavas
 
 </div>
 
-
 @Scheller2020 reports lots of interesting structure
-
 
 Linear ridges suggest voluminous subsurface water flow during the early
 Noachian e.g. @Pascuzzo2019.
@@ -123,7 +147,6 @@ Boxwork fractures in the layered sulfates.
 <div data-location="boxwork-fractures-2">
 Boxwork fractures area.
 </div>
-
 
 <div data-location="river_nilosyrtis"></div>
 

@@ -97,7 +97,7 @@ nav
     background-color #eee
 
 .title-block
-  h1,h2,h3,h4, p
+  h1,h2,h3,h4
     margin-bottom 0.2em
     margin-top 0
     padding-bottom 0
@@ -111,13 +111,11 @@ nav
     padding-top 0
     font-weight 300
     color #888
-  .version
-    color #888
   .auth-affil
-    display flex
-    flex-direction: row
-    justify-content baseline
-    align-items: space-between
+    //display flex
+    //flex-direction: row
+    //justify-content baseline
+    //align-items: space-between
     font-weight 500
     color #888
     margin-top 0.5em
@@ -126,8 +124,16 @@ nav
       margin-right 1em
       font-weight 600
       font-style italic
+    .affiliation
+      font-size 0.9em
     &>*
       a
         color: inherit
         &:visited
           color: inherit
+  .software-info
+    color #888
+    font-weight 300
+    font-size 0.8em
+    p
+      margin 0.4em 0 0.2em
