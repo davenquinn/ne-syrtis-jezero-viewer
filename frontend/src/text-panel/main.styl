@@ -1,6 +1,7 @@
 .text
   display block
   scroll-snap-type: y mandatory
+  scroll-behavior: smooth
 
 .location-link
   border-left 0.5em solid #eee
@@ -9,9 +10,11 @@
   min-height 1em
   margin-bottom 2em
   scroll-snap-align: center;
-
-:global(.active)
-  border-left-color var(--accent-background)
+  //cursor: pointer
+  //&:hover
+  //  border-left-color var(--accent-background-light)
+  &:global(.active)
+    border-left-color var(--accent-background)
 
 :global
   #refs

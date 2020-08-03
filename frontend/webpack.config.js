@@ -51,7 +51,7 @@ module.exports = {
       },
       {
         test: /\.html$/i,
-        loader: 'html-loader',
+        loader: "html-loader",
       },
       { test: /\.css$/, use: ["style-loader", cssModuleLoader], exclude },
       { test: /\.css$/, use: ["style-loader", "css-loader"] },
@@ -113,12 +113,10 @@ module.exports = {
     new DotenvPlugin(),
     new CopyPlugin([
       { from: path.join(cesiumSource, cesiumWorkers), to: "Workers" },
-    ]),
-    new CopyPlugin([{ from: path.join(cesiumSource, "Assets"), to: "Assets" }]),
-    new CopyPlugin([
+      { from: path.join(cesiumSource, "Assets"), to: "Assets" },
       { from: path.join(cesiumSource, "Widgets"), to: "Widgets" },
     ]),
-    new HtmlWebpackPlugin(),
+    new HtmlWebpackPlugin({ title: "Syrtis – Jezero explorer" }),
     new DefinePlugin({
       // Define relative base path in cesium for loading assets
       CESIUM_BASE_URL: JSON.stringify("/"),
