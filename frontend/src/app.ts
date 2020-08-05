@@ -66,13 +66,15 @@ const About = () => {
 const UI = () => {
   const ref = useRef();
   return h(Router, [
-    h("div.content", { ref }, [
-      h(TitleBlock),
-      h(Switch, [
-        h(Route, { path: "/about" }, [h(About)]),
-        h(Route, { path: "/list" }, [h(PositionListEditor, { positions })]),
-        h(Route, { path: "/" }, [
-          h(TextPanel, { positions, scrollParentRef: ref }),
+    h("div.left-panel", { ref }, [
+      h("div.content", [
+        h(TitleBlock),
+        h(Switch, [
+          h(Route, { path: "/about" }, [h(About)]),
+          h(Route, { path: "/list" }, [h(PositionListEditor, { positions })]),
+          h(Route, { path: "/" }, [
+            h(TextPanel, { positions, scrollParentRef: ref }),
+          ]),
         ]),
       ]),
     ]),

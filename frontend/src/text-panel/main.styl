@@ -1,5 +1,4 @@
 .text
-  display block
   scroll-snap-type: y mandatory
   scroll-behavior: smooth
 
@@ -15,6 +14,14 @@
   //  border-left-color var(--accent-background-light)
   &:global(.active)
     border-left-color var(--accent-background)
+
+.scroll-indicator
+  position fixed
+  height 5px
+  background-color: var(--accent-background)
+  left 0
+  top 250px
+  width 10px
 
 :global
   #refs
