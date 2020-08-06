@@ -15,8 +15,9 @@ services:
     volumes:
       - ./data:/data
   frontend:
-    build: frontend
+    build:
+      context: frontend
+      args:
+        - PUBLIC_URL=/syrtis-jezero
+        - NODE_ENV=production
     image: syrtis-jezero-frontend
-    environment:
-      API_BASE_URL: /tiles
-      NODE_ENV: production
