@@ -7,7 +7,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 const DotenvPlugin = require("dotenv-webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-let mode = "development";
+let mode = process.env.NODE_ENV || "development";
 
 let browserSync = new BrowserSyncPlugin({
   server: { baseDir: "./dist" },

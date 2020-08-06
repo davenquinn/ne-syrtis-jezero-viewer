@@ -35,7 +35,8 @@
     "preinstall": "linklocal",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch:text": "ls text/*.md | entr make",
-    "dev": "npm run watch:text & webpack --watch"
+    "dev": "npm run watch:text & webpack --watch",
+    "build": "make && NODE_ENV=production webpack"
   },
   "author": "",
   "license": "ISC",
