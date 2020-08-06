@@ -10,17 +10,9 @@ and its surroundings to answer questions posed by regional contextual studies,
 we will develop a much richer accounting of the history and fate of water (and
 _perhaps_ life) on early Mars.
 
-<!-- Much of my PhD was dedicated to interpreting the geologic history of Syrtis Major,
-particularly aspects involving the "layered sulfates" exposed ~50 km southwest of
-Jezero Crater [@Quinn2019]. High-resolution terrain models
-covering a wide area were critical to that work, leading to the discovery
-of key geological features and relationships. Building integrated elevation data
-products is thus a critical aspect of driving regional-scale science in the northeast
-Syrtis Region and globally. -->
-
 </div>
 
-## Jezero crater lake
+## The Jezero crater lake
 
 <div data-location="jezero_w">
 
@@ -40,7 +32,7 @@ debated [e.g. @Gaidos2003; @Wordsworth2015].
 
 </div>
 
-<div data-location="full_of_sediment">
+<div data-location="full-of-sediment">
 
 In addition to hosting a delta, Jezero is filled to the brim with sediment,
 likely at least 1 km thick. Reasonable rates of deposition suggest
@@ -68,11 +60,12 @@ terminal evaporitic sump.
 
 </div>
 
-## Jezero fluvial system
+## The Jezero upstream fluvial system
 
 <div data-location="jezero_delta_2">
-One of the most compelling features of the Jezero fluvial system is its extensive
-drainage system, which integrates sediment from a large area of the Martian highlands.
+One of the most compelling features of Jezero is the extensive
+drainage system that feeds into the crater. This system
+captures sediment from a large area of the Martian highlands.
 </div>
 
 <div data-location="river_nili_fossae">
@@ -292,6 +285,8 @@ boundaries on both sides of the valley.
 
 ## Summary
 
+### A multistage history of subsurface and surface water
+
 <div data-location="syrtis-overview-2">
 
 The northeast Syrtis Major stratigraphy records a phase of intense bedrock
@@ -318,12 +313,14 @@ of early Mars.
 
 </div>
 
+### The importance of 3D visualization and regional data products
+
 <div data-location="viewer-guts">
 
-This viewer interface is an adaptation of a
+[This viewer interface](/about) is an adaptation of a
 digital globe renderer currently under construction for the
 [Macrostrat](https://macrostrat.org) composite geologic map interface. Here, the
-code is adapted for Mars; critically, it integrates topography data products
+code is adapted for Mars; most critically, it integrates topography data products
 (especially, a multistrip CTX elevation model) that extend medium-resolution
 elevation maps over a large area. These context-scale regional products are
 difficult to generate using current tooling, but are important basic precursors
@@ -333,10 +330,7 @@ The potential for 3D visualization in the geosciences is evolving rapidly; the
 field can benefit from a growing ecosystem of impressive Earth observation
 software. The Mars science community must prioritize the generation of wide-area
 composite products that can unlock the potential of these new media and drive
-the assessment of geologic context.
-
-More information on the vision and technology behind this viewer can be found
-[here](/about).
+assessment of geologic context.
 
 </div>
 

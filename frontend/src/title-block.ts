@@ -1,6 +1,6 @@
 import { hyperStyled } from "@macrostrat/hyper";
 import styles from "./main.styl";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { DisplayQuality } from "cesium-viewer";
 
@@ -20,7 +20,10 @@ const Control = (props) => {
     h("span.control-title", title + ":"),
     h(
       Object.entries(options).map((d) => {
-        const onClick = () => onChange(d[1]);
+        const onClick = (e) => {
+          onChange(d[1]);
+          e.preventDefault();
+        };
         let main;
         if (d[1] == selected) {
           main = h("span.option.selected", { key: d[0] }, d[0]);
@@ -35,21 +38,33 @@ const Control = (props) => {
 
 const QualityControl = () => {
   const selected = useSelector((s) => s.displayQuality);
+  const dispatch = useDispatch();
   const options = {
     low: DisplayQuality.Low,
     high: DisplayQuality.High,
   };
-  return h(Control, { title: "Quality", options, selected });
+  const onChange = (value: DisplayQuality) =>
+    dispatch({ type: "set-display-quality", value });
+  return h(Control, { title: "Quality", options, selected, onChange });
 };
 
 const ExaggerationControl = () => {
   const selected = useSelector((s) => s.verticalExaggeration);
+  const dispatch = useDispatch();
+
   const options = {
     none: 1,
     "1.5x": 1.5,
     "2x": 2,
   };
-  return h(Control, { title: "terrain exaggeration", options, selected });
+  const onChange = (value: number) =>
+    dispatch({ type: "set-exaggeration", value });
+  return h(Control, {
+    title: "terrain exaggeration",
+    options,
+    selected,
+    onChange,
+  });
 };
 
 const MiniControls = () => {
@@ -66,7 +81,7 @@ const SoftwareInfo = () => {
     h("p.version", "v0.1 – July 2020"),
     h(
       "p.directions",
-      "Navigate by scrolling or with arrow keys. \
+      "Navigate by scrolling. \
        Drag the 3D display to pan, Ctrl+drag to rotate."
     ),
     h(MiniControls),

@@ -1,23 +1,16 @@
 <div data-location="initial">
 <p>This is Jezero Crater, the landing site of the <strong>Perseverance</strong> rover, currently <em>en route</em> to Mars after launching on July 30th, 2020. Jezero sits within northeast Syrtis Major, a region with a rich and multifaceted geological history.</p>
 <p>If the Mars 2020 mission can employ direct observations of Jezero and its surroundings to answer questions posed by regional contextual studies, we will develop a much richer accounting of the history and fate of water (and <em>perhaps</em> life) on early Mars.</p>
-<!-- Much of my PhD was dedicated to interpreting the geologic history of Syrtis Major,
-particularly aspects involving the "layered sulfates" exposed ~50 km southwest of
-Jezero Crater [@Quinn2019]. High-resolution terrain models
-covering a wide area were critical to that work, leading to the discovery
-of key geological features and relationships. Building integrated elevation data
-products is thus a critical aspect of driving regional-scale science in the northeast
-Syrtis Region and globally. -->
 </div>
-<section id="jezero-crater-lake" class="level2">
-<h2>Jezero crater lake</h2>
+<section id="the-jezero-crater-lake" class="level2">
+<h2>The Jezero crater lake</h2>
 <div data-location="jezero_w">
 <p>Jezero is a ~40 km–diameter impact crater on the western margin of Isidis Basin. Perseverance will land just inside its western rim.</p>
 </div>
 <div data-location="jezero_delta">
 <p>The centerpiece of Jezero Crater is its delta, deposited where a river entered a shallow lake filling the crater.<span class="citation" data-cites="Schon2012"><sup><a href="#ref-Schon2012" role="doc-biblioref">1</a></sup></span> This impressive feature is the most charismatic surface expression of a long-lived regional drainage network. However, whether this and similar features are indicative of a global hydrosphere and “warm and wet” early Martian climate is hotly debated.<span class="citation" data-cites="Gaidos2003 Wordsworth2015"><sup><a href="#ref-Gaidos2003" role="doc-biblioref">2</a>,<a href="#ref-Wordsworth2015" role="doc-biblioref">3</a></sup></span></p>
 </div>
-<div data-location="full_of_sediment">
+<div data-location="full-of-sediment">
 <p>In addition to hosting a delta, Jezero is filled to the brim with sediment, likely at least 1 km thick. Reasonable rates of deposition suggest that filling the entire crater took upwards of 1–10 Myr.<span class="citation" data-cites="Goudge2015"><sup><a href="#ref-Goudge2015" role="doc-biblioref">4</a></sup></span> Crater-counting studies on the resistant crater floor unit suggest that this sedimentary fill was deposited before 3.5–3.8 Gyr ago.<span class="citation" data-cites="Fassett2008 Goudge2015"><sup><a href="#ref-Goudge2015" role="doc-biblioref">4</a>,<a href="#ref-Fassett2008" role="doc-biblioref">5</a></sup></span></p>
 <div class="side-note">
 <p>The sediments filling Jezero Crater present an interesting parallel to Gale Crater, where the Curiosity rover has been operating since 2012. Gale hosts a similar (although much thicker) sedimentary sequence, much of which has been excavated by wind erosion. Here, it remains buried and inaccessible.</p>
@@ -27,10 +20,10 @@ Syrtis Region and globally. -->
 <p>Jezero also has several different outlet channels, and changes in their geometry over time suggest a long-lived lacustrine system.<span class="citation" data-cites="Salese2020a Schon2012"><sup><a href="#ref-Schon2012" role="doc-biblioref">1</a>,<a href="#ref-Salese2020a" role="doc-biblioref">6</a></sup></span> This feature has great paleoenvironmental importance — an “overfilled” lake with a throughgoing river system would potentially have a much more neutral water chemistry than a terminal evaporitic sump.</p>
 </div>
 </section>
-<section id="jezero-fluvial-system" class="level2">
-<h2>Jezero fluvial system</h2>
+<section id="the-jezero-upstream-fluvial-system" class="level2">
+<h2>The Jezero upstream fluvial system</h2>
 <div data-location="jezero_delta_2">
-<p>One of the most compelling features of the Jezero fluvial system is its extensive drainage system, which integrates sediment from a large area of the Martian highlands.</p>
+<p>One of the most compelling features of Jezero is the extensive drainage system that feeds into the crater. This system captures sediment from a large area of the Martian highlands.</p>
 </div>
 <div data-location="river_nili_fossae">
 <p>The river valley upstream of the Jezero delta continues eastward into the uplands surrounding Isidis Basin.</p>
@@ -121,87 +114,92 @@ Together, the draping depositional style of the layered sulfates and the volume-
 </section>
 <section id="summary" class="level2">
 <h2>Summary</h2>
+<section id="a-multistage-history-of-subsurface-and-surface-water" class="level3">
+<h3>A multistage history of subsurface and surface water</h3>
 <div data-location="syrtis-overview-2">
 <p>The northeast Syrtis Major stratigraphy records a phase of intense bedrock alteration in a vigorous subsurface water system. A thick sedimentary sequence above this was likely emplaced by underwater deposition followed by progressive erosion and capping by both lavas and thin, enigmatic capping units. The last substantial stage of erosion carved small channels and built deltas and shallow lake deposits within localized basins. These lake deposits are often close in elevation and similar form to the Jezero deposits, suggesting that they may be products of the same system.</p>
 <p>As the Perseverance mission progresses, it will be critical to engage with the richness of this regional context, particularly the implications for a multiphase history of abundant water, both in the subsurface and as surface bodies of water. Much of this history likely predates the surface features expressed in Jezero crater, but the records of these phases will have been preserved in fluvial sediments; the challenge is unmixing them!</p>
 <p>This long history also emphasizes the importance of the rover’s planned extended mission out of Jezero Crater and south towards the proposed “Midway” landing site. This will allow the rover to see many northeast Syrtis Major units <em>in situ</em>, which will provide an incredible wealth of information about the groundwater system of early Mars.</p>
 </div>
+</section>
+<section id="the-importance-of-3d-visualization-and-regional-data-products" class="level3">
+<h3>The importance of 3D visualization and regional data products</h3>
 <div data-location="viewer-guts">
-<p>This viewer interface is an adaptation of a digital globe renderer currently under construction for the <a href="https://macrostrat.org">Macrostrat</a> composite geologic map interface. Here, the code is adapted for Mars; critically, it integrates topography data products (especially, a multistrip CTX elevation model) that extend medium-resolution elevation maps over a large area. These context-scale regional products are difficult to generate using current tooling, but are important basic precursors for any study emphasizing regional geologic context.</p>
-<p>The potential for 3D visualization in the geosciences is evolving rapidly; the field can benefit from a growing ecosystem of impressive Earth observation software. The Mars science community must prioritize the generation of wide-area composite products that can unlock the potential of these new media and drive the assessment of geologic context.</p>
-<p>More information on the vision and technology behind this viewer can be found <a href="/about">here</a>.</p>
+<p><a href="/about">This viewer interface</a> is an adaptation of a digital globe renderer currently under construction for the <a href="https://macrostrat.org">Macrostrat</a> composite geologic map interface. Here, the code is adapted for Mars; most critically, it integrates topography data products (especially, a multistrip CTX elevation model) that extend medium-resolution elevation maps over a large area. These context-scale regional products are difficult to generate using current tooling, but are important basic precursors for any study emphasizing regional geologic context.</p>
+<p>The potential for 3D visualization in the geosciences is evolving rapidly; the field can benefit from a growing ecosystem of impressive Earth observation software. The Mars science community must prioritize the generation of wide-area composite products that can unlock the potential of these new media and drive assessment of geologic context.</p>
 </div>
+</section>
 <section id="references" class="level3 unnumbered">
 <h3>References</h3>
 <div id="refs" class="references" role="doc-bibliography">
 <div id="ref-Schon2012">
-<p>1. Schon, S. C., Head, J. W. &amp; Fassett, C. I. An overfilled lacustrine system and progradational delta in Jezero crater, Mars: Implications for Noachian climate. <em>Planetary and Space Science</em> <strong>67</strong>, 28–45 (2012).</p>
+<p>1. Schon, S. C., Head, J. W. &amp; Fassett, C. I. An overfilled lacustrine system and progradational delta in Jezero crater, Mars: Implications for Noachian climate. <em>Planetary and Space Science</em> <strong>67</strong>, 28–45 (2012) doi:<a href="https://doi.org/10.1016/j.pss.2012.02.003">10.1016/j.pss.2012.02.003</a>.</p>
 </div>
 <div id="ref-Gaidos2003">
-<p>2. Gaidos, E. &amp; Marion, G. M. Geological and geochemical legacy of a cold early Mars. <em>Journal of Geophysical Research</em> <strong>108</strong>, 5055 (2003).</p>
+<p>2. Gaidos, E. &amp; Marion, G. M. Geological and geochemical legacy of a cold early Mars. <em>Journal of Geophysical Research</em> <strong>108</strong>, 5055 (2003) doi:<a href="https://doi.org/10.1029/2002JE002000">10.1029/2002JE002000</a>.</p>
 </div>
 <div id="ref-Wordsworth2015">
-<p>3. Wordsworth, R. D., Kerber, L., Pierrehumbert, R. T., Forget, F. &amp; Head, J. W. Comparison of "warm and wet" and "cold and icy" scenarios for early Mars in a 3D climate model. <em>arXiv.org</em> <strong>astro-ph.E</strong>, 1201–1219 (2015).</p>
+<p>3. Wordsworth, R. D., Kerber, L., Pierrehumbert, R. T., Forget, F. &amp; Head, J. W. Comparison of "warm and wet" and "cold and icy" scenarios for early Mars in a 3D climate model. <em>arXiv.org</em> <strong>astro-ph.E</strong>, 1201–1219 (2015) doi:<a href="https://doi.org/10.1002/2015JE004787.Received">10.1002/2015JE004787.Received</a>.</p>
 </div>
 <div id="ref-Goudge2015">
 <p>4. Goudge, T. A., Mustard, J. F., Head, J. W., Fassett, C. I. &amp; Wiseman, S. M. Assessing the mineralogy of the watershed and fan deposits of the Jezero crater paleolake system, Mars. (2015) doi:<a href="https://doi.org/10.1002/2014JE004782.Received">10.1002/2014JE004782.Received</a>.</p>
 </div>
 <div id="ref-Fassett2008">
-<p>5. Fassett, C. I. &amp; Head, J. W. The timing of martian valley network activity: Constraints from buffered crater counting. <em>Icarus</em> <strong>195</strong>, 61–89 (2008).</p>
+<p>5. Fassett, C. I. &amp; Head, J. W. The timing of martian valley network activity: Constraints from buffered crater counting. <em>Icarus</em> <strong>195</strong>, 61–89 (2008) doi:<a href="https://doi.org/10.1016/j.icarus.2007.12.009">10.1016/j.icarus.2007.12.009</a>.</p>
 </div>
 <div id="ref-Salese2020a">
 <p>6. Salese, F. <em>et al.</em> Estimated Minimum Life Span of the Jezero Fluvial Delta (Mars). <em>Astrobiology</em> ast.2020.2228 (2020) doi:<a href="https://doi.org/10.1089/ast.2020.2228">10.1089/ast.2020.2228</a>.</p>
 </div>
 <div id="ref-Siebach2017">
-<p>7. Siebach, K. L. <em>et al.</em> Sorting out compositional trends in sedimentary rocks of the Bradbury group (Aeolis Palus), Gale crater, Mars: Bradbury Group Compositional Trends in Gale Crater. <em>Journal of Geophysical Research: Planets</em> <strong>122</strong>, 295–328 (2017).</p>
+<p>7. Siebach, K. L. <em>et al.</em> Sorting out compositional trends in sedimentary rocks of the Bradbury group (Aeolis Palus), Gale crater, Mars: Bradbury Group Compositional Trends in Gale Crater. <em>Journal of Geophysical Research: Planets</em> <strong>122</strong>, 295–328 (2017) doi:<a href="https://doi.org/10.1002/2016JE005195">10.1002/2016JE005195</a>.</p>
 </div>
 <div id="ref-Mustard2009a">
-<p>8. Mustard, J. F. <em>et al.</em> Composition, Morphology, and Stratigraphy of Noachian Crust around the Isidis basin. <em>Journal of Geophysical Research</em> <strong>114</strong>, E00D12 (2009).</p>
+<p>8. Mustard, J. F. <em>et al.</em> Composition, Morphology, and Stratigraphy of Noachian Crust around the Isidis basin. <em>Journal of Geophysical Research</em> <strong>114</strong>, E00D12 (2009) doi:<a href="https://doi.org/10.1029/2009JE003349">10.1029/2009JE003349</a>.</p>
 </div>
 <div id="ref-Pascuzzo2019">
-<p>9. Pascuzzo, A. C., Mustard, J. F., Kremer, C. H. &amp; Ebinger, E. The formation of irregular polygonal ridge networks, Nili Fossae, Mars: Implications for extensive subsurface channelized fluid flow in the Noachian. <em>Icarus</em> <strong>319</strong>, 852–868 (2019).</p>
+<p>9. Pascuzzo, A. C., Mustard, J. F., Kremer, C. H. &amp; Ebinger, E. The formation of irregular polygonal ridge networks, Nili Fossae, Mars: Implications for extensive subsurface channelized fluid flow in the Noachian. <em>Icarus</em> <strong>319</strong>, 852–868 (2019) doi:<a href="https://doi.org/10.1016/j.icarus.2018.10.020">10.1016/j.icarus.2018.10.020</a>.</p>
 </div>
 <div id="ref-Scheller2020">
-<p>10. Scheller, E. L. &amp; Ehlmann, B. L. Composition, Stratigraphy, and Geological History of the Noachian Basement Surrounding the Isidis Impact Basin. <em>Journal of Geophysical Research: Planets</em> <strong>125</strong>, (2020).</p>
+<p>10. Scheller, E. L. &amp; Ehlmann, B. L. Composition, Stratigraphy, and Geological History of the Noachian Basement Surrounding the Isidis Impact Basin. <em>Journal of Geophysical Research: Planets</em> <strong>125</strong>, (2020) doi:<a href="https://doi.org/10.1029/2019JE006190">10.1029/2019JE006190</a>.</p>
 </div>
 <div id="ref-Bramble2017">
-<p>11. Bramble, M. S., Mustard, J. F. &amp; Salvatore, M. R. The geological history of Northeast Syrtis Major, Mars. <em>Icarus</em> <strong>293</strong>, 66–93 (2017).</p>
+<p>11. Bramble, M. S., Mustard, J. F. &amp; Salvatore, M. R. The geological history of Northeast Syrtis Major, Mars. <em>Icarus</em> <strong>293</strong>, 66–93 (2017) doi:<a href="https://doi.org/10.1016/j.icarus.2017.03.030">10.1016/j.icarus.2017.03.030</a>.</p>
 </div>
 <div id="ref-Quinn2019">
-<p>12. Quinn, D. P. &amp; Ehlmann, B. L. The Deposition and Alteration History of the Northeast Syrtis Major Layered Sulfates. <em>Journal of Geophysical Research: Planets</em> <strong>124</strong>, 1743–1782 (2019).</p>
+<p>12. Quinn, D. P. &amp; Ehlmann, B. L. The Deposition and Alteration History of the Northeast Syrtis Major Layered Sulfates. <em>Journal of Geophysical Research: Planets</em> <strong>124</strong>, 1743–1782 (2019) doi:<a href="https://doi.org/10.1029/2018JE005706">10.1029/2018JE005706</a>.</p>
 </div>
 <div id="ref-Ehlmann2008a">
 <p>13. Ehlmann, B., Mustard, J. &amp; Murchie, S. Orbital identification of carbonate-bearing rocks on Mars. <em>Science</em> <strong>322</strong>, 1828–1832 (2008).</p>
 </div>
 <div id="ref-Mustard2007">
-<p>14. Mustard, J. F. <em>et al.</em> Mineralogy of the Nili Fossae region with OMEGA/Mars Express data: 1. Ancient impact melt in the Isidis Basin and implications for the transition from the Noachian to Hesperian. <em>Journal of Geophysical Research</em> <strong>112</strong>, E08S03 (2007).</p>
+<p>14. Mustard, J. F. <em>et al.</em> Mineralogy of the Nili Fossae region with OMEGA/Mars Express data: 1. Ancient impact melt in the Isidis Basin and implications for the transition from the Noachian to Hesperian. <em>Journal of Geophysical Research</em> <strong>112</strong>, E08S03 (2007) doi:<a href="https://doi.org/10.1029/2006JE002834">10.1029/2006JE002834</a>.</p>
 </div>
 <div id="ref-Ehlmann2009">
-<p>15. Ehlmann, B. L. <em>et al.</em> Identification of hydrated silicate minerals on Mars using MRO-CRISM: Geologic context near Nili Fossae and implications for aqueous alteration. <em>Journal of Geophysical Research</em> <strong>114</strong>, 1–33 (2009).</p>
+<p>15. Ehlmann, B. L. <em>et al.</em> Identification of hydrated silicate minerals on Mars using MRO-CRISM: Geologic context near Nili Fossae and implications for aqueous alteration. <em>Journal of Geophysical Research</em> <strong>114</strong>, 1–33 (2009) doi:<a href="https://doi.org/10.1029/2009JE003339">10.1029/2009JE003339</a>.</p>
 </div>
 <div id="ref-Ehlmann2008b">
-<p>16. Ehlmann, B. L. <em>et al.</em> Clay minerals in delta deposits and organic preservation potential on Mars. <em>Nature Geoscience</em> <strong>1</strong>, 355–358 (2008).</p>
+<p>16. Ehlmann, B. L. <em>et al.</em> Clay minerals in delta deposits and organic preservation potential on Mars. <em>Nature Geoscience</em> <strong>1</strong>, 355–358 (2008) doi:<a href="https://doi.org/10.1038/ngeo207">10.1038/ngeo207</a>.</p>
 </div>
 <div id="ref-Ehlmann2012">
-<p>17. Ehlmann, B. L. &amp; Mustard, J. F. An in-situ record of major environmental transitions on early Mars at Northeast Syrtis Major. <em>Geophysical Research Letters</em> <strong>39</strong>, 1–7 (2012).</p>
+<p>17. Ehlmann, B. L. &amp; Mustard, J. F. An in-situ record of major environmental transitions on early Mars at Northeast Syrtis Major. <em>Geophysical Research Letters</em> <strong>39</strong>, 1–7 (2012) doi:<a href="https://doi.org/10.1029/2012GL051594">10.1029/2012GL051594</a>.</p>
 </div>
 <div id="ref-Saper2013">
 <p>18. Saper, L. &amp; Mustard, J. F. Extensive linear ridge networks in Nili Fossae and Nilosyrtis, Mars: Implications for fluid flow in the ancient crust. <em>Geophysical Research Letters</em> <strong>40</strong>, 245–249 (2013).</p>
 </div>
 <div id="ref-Skok2014LPSC">
-<p>19. Skok, J. &amp; Mustard, J. Glaciation and volcanic interaction to form the modern Northeast Syrtis region of Mars. in <em>Lunar and Planetary Science Conference</em> vol. 45 1924 (2014).</p>
+<p>19. Skok, J. &amp; Mustard, J. Glaciation and volcanic interaction to form the modern Northeast Syrtis region of Mars. in <em>Lunar and Planetary Science Conference</em> vol. 45 1924 (2014). doi:<a href="https://doi.org/10.1002/jgre.20118.">10.1002/jgre.20118.</a></p>
 </div>
 <div id="ref-Cartwright2011">
-<p>20. Cartwright, J. Diagenetically induced shear failure of fine-grained sediments and the development of polygonal fault systems. <em>Marine and Petroleum Geology</em> <strong>28</strong>, 1593–1610 (2011).</p>
+<p>20. Cartwright, J. Diagenetically induced shear failure of fine-grained sediments and the development of polygonal fault systems. <em>Marine and Petroleum Geology</em> <strong>28</strong>, 1593–1610 (2011) doi:<a href="https://doi.org/10.1016/j.marpetgeo.2011.06.004">10.1016/j.marpetgeo.2011.06.004</a>.</p>
 </div>
 <div id="ref-Soucek2015">
-<p>21. Souček, O., Bourgeois, O., Pochat, S. &amp; Guidat, T. A 3 Ga old polythermal ice sheet in Isidis Planitia, Mars: Dynamics and thermal regime inferred from numerical modeling. <em>Earth and Planetary Science Letters</em> <strong>426</strong>, 176–190 (2015).</p>
+<p>21. Souček, O., Bourgeois, O., Pochat, S. &amp; Guidat, T. A 3 Ga old polythermal ice sheet in Isidis Planitia, Mars: Dynamics and thermal regime inferred from numerical modeling. <em>Earth and Planetary Science Letters</em> <strong>426</strong>, 176–190 (2015) doi:<a href="https://doi.org/10.1016/j.epsl.2015.06.038">10.1016/j.epsl.2015.06.038</a>.</p>
 </div>
 <div id="ref-Hiesinger2004">
-<p>22. Hiesinger, H. &amp; Head, J. W. The Syrtis Major volcanic province, Mars: Synthesis from Mars Global Surveyor data. <em>Journal of Geophysical Research</em> <strong>109</strong>, E01004 (2004).</p>
+<p>22. Hiesinger, H. &amp; Head, J. W. The Syrtis Major volcanic province, Mars: Synthesis from Mars Global Surveyor data. <em>Journal of Geophysical Research</em> <strong>109</strong>, E01004 (2004) doi:<a href="https://doi.org/10.1029/2003JE002143">10.1029/2003JE002143</a>.</p>
 </div>
 <div id="ref-Mangold2008">
-<p>23. Mangold, N. <em>et al.</em> Identification of a new outflow channel on Mars in Syrtis Major Planum using HRSC/MEx data. <em>Planetary and Space Science</em> <strong>56</strong>, 1030–1042 (2008).</p>
+<p>23. Mangold, N. <em>et al.</em> Identification of a new outflow channel on Mars in Syrtis Major Planum using HRSC/MEx data. <em>Planetary and Space Science</em> <strong>56</strong>, 1030–1042 (2008) doi:<a href="https://doi.org/10.1016/j.pss.2008.01.011">10.1016/j.pss.2008.01.011</a>.</p>
 </div>
 </div>
 </section>

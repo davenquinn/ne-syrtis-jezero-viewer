@@ -35,14 +35,6 @@
       <et-al font-style="italic"/>
     </names>
   </macro>
-  <macro name="access">
-    <choose>
-      <if variable="volume"/>
-      <else-if variable="DOI">
-        <text variable="DOI" prefix="doi:"/>
-      </else-if>
-    </choose>
-  </macro>
   <macro name="issuance">
     <choose>
       <if type="bill book graphic legal_case legislation motion_picture song thesis chapter paper-conference" match="any">
@@ -125,7 +117,7 @@
         <text macro="volume"/>
         <text variable="page"/>
         <text macro="issuance"/>
-        <text macro="access"/>
+        <text variable="DOI" prefix="doi:"/>
       </group>
     </layout>
   </bibliography>

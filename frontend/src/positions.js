@@ -1,3 +1,5 @@
+import { ActiveMapLayer } from "cesium-viewer/actions";
+
 export default {
   initial: {
     longitude: 77.433,
@@ -23,7 +25,7 @@ export default {
     pitch: -32.638,
     roll: 0,
   },
-  full_of_sediment: {
+  "full-of-sediment": {
     longitude: 77.704,
     latitude: 17.743,
     height: 18496.042,
@@ -238,6 +240,17 @@ export default {
     heading: 2.904,
     pitch: -42.159,
     roll: 360,
+  },
+  "viewer-guts": {
+    camera: {
+      longitude: 76.873,
+      latitude: 16.05,
+      height: 45155.729,
+      heading: 2.904,
+      pitch: -42.159,
+      roll: 360,
+    },
+    mapLayer: ActiveMapLayer.Hillshade,
   },
   "high-terrain-detail-jezero": {
     longitude: 77.717,

@@ -1,7 +1,6 @@
 import { hyperStyled } from "@macrostrat/hyper";
-import html from "../../text/output/text.html";
 import styles from "./main.styl";
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState } from "react";
 import { PositionListEditor } from "../editor";
 import positions from "../positions.js";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,24 +8,16 @@ import classNames from "classnames";
 
 const h = hyperStyled(styles);
 
-const onIntersection = (dispatch) => (entries, observer) => {
-  for (const e of entries) {
-    if (!e.isIntersecting) continue;
-    const loc = e.target.getAttribute("data-location");
-    console.log(e.target);
-    dispatch({ type: "fly-to-named-location", value: loc, positions });
-  }
-};
-
 const buildPositionCache = (container: HTMLElement) => {
   let cache = [];
   const elements = container.querySelectorAll("[data-location]");
+  const { scrollTop } = container.offsetParent;
 
   for (const e of elements) {
     const name = e.getAttribute("data-location");
     e.id = name;
     const { top, height } = e.getBoundingClientRect();
-    const data = { name, top, height };
+    const data = { name, top: top + scrollTop, height };
     cache.push(data);
   }
   return cache;
@@ -34,7 +25,7 @@ const buildPositionCache = (container: HTMLElement) => {
 
 const TextPanel = (props) => {
   const ref = useRef<HTMLElement>();
-  const { scrollParentRef } = props;
+  const { scrollParentRef, html } = props;
 
   const dispatch = useDispatch();
   const [offsetCache, setCache] = useState([]);
@@ -53,7 +44,7 @@ const TextPanel = (props) => {
       });
     }
   };
-  useEffect(setSelectionStyles, [currentLocation]);
+  useEffect(setSelectionStyles, [currentLocation, ref.current, html]);
 
   const onScroll = (evt) => {
     const scrollPos = scrollParentRef.current.scrollTop;
@@ -68,8 +59,6 @@ const TextPanel = (props) => {
     }
     if (selected == null) return;
 
-    console.log(scrollPos, pos, selected.top);
-
     // Don't do anything if we're already viewing this location
     if (selected.name == currentLocation) return;
     // Don't do anything if we've scrolled past all the items
@@ -82,9 +71,15 @@ const TextPanel = (props) => {
     });
   };
 
+  useEffect(() => {
+    scrollParentRef.current.onscroll = onScroll;
+  }, [offsetCache]);
+
   // Set up initial handlers, etc.
   useEffect(() => {
     if (ref.current == null || scrollParentRef.current == null) return;
+
+    console.log("Setting up positions cache");
 
     // We set a 1 second timeout here to make sure we are getting correctly laid-out
     // positions. This is an annoying bug.
@@ -93,13 +88,11 @@ const TextPanel = (props) => {
       setCache(cache);
     }, 1000);
 
-    scrollParentRef.current.onscroll = onScroll;
-
     setSelectionStyles();
-  }, [ref.current]);
+  }, [ref.current, html]);
 
   return h("div.text-panel", { ref }, [
-    h("div.scroll-indicator"),
+    //h("div.scroll-indicator"),
     h("div.text", { dangerouslySetInnerHTML: { __html: html } }),
   ]);
 };

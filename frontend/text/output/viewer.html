@@ -1,0 +1,68 @@
+<div data-location="syrtis-overview-2">
+<p>Much of my PhD was dedicated to interpreting the geologic history of Syrtis Major, particularly aspects involving the “layered sulfates” exposed ~50 km southwest of Jezero Crater.<span class="citation" data-cites="Quinn2019"><sup><a href="#ref-Quinn2019" role="doc-biblioref">1</a></sup></span> As part of this work, I built high-resolution terrain models covering a wide area; these data products supported the discovery of key geological features and relationships.</p>
+</div>
+<p>This viewer brings together the two key components of a sustainable visualization strategy: <strong>high-resolution, regionally extensive data products</strong>, displayed in a <strong>configurable user interface</strong>. Earth and planetary scientists must work to improve both of these tools for representing the physical world. If you are interested in collaborating in this direction, or have resources I should be aware of, <a href="mailto:dev@davenquinn.com">I’d love to hear from you</a>.</p>
+<section id="d-terrain-visualization" class="level2">
+<h2>3D terrain visualization</h2>
+<p>The relationships between rock units in the natural world are critical geological concepts. At the <a href="https://macrostrat.org"><em>Macrostrat</em></a> lab, we are building multi-scale global geologic maps that integrate data from worldwide sources; we seek to visualize these data atop the landscape which they describe. Since <em>Macrostrat</em> is a primarily a data-sharing platform, any visualization capabilities built for that system must operate on the web. The overall goal of these 3D visualizers would be to emphasize accessibility and communication of geologic concepts above their initial scientific assessment.</p>
+<p>In orbital Mars science, software-based simulations of the natural world must fully substitute for on-the-ground field methods. Thus, visualizing terrain data was a major component of my work. These tools I employed were based around complex software packages such as <a href="https://www.geospatialexploitationproducts.com/content/socet-gxp/">SOCET Set</a> and <a href="http://osgearth.org/">OSGEarth</a>, and targeted at high-end visualization laboratories (e.g. the Caltech Murray Lab). These viewers were highly effective for specific tasks but not simple to set up, customize, and keep running.</p>
+<p>With the advent of <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API">WebGL</a>, many of the advanced capabilities formerly confined to high-end lab can be packaged for browser environments. Because of the robustness of the web software stack, such code will be much more portable and easy to maintain than similar desktop software. This viewer experiments with bringing the best aspects of high-performance 3D visualization to the browser, balancing performance, flexibility, and accessibility; it is based on open-source, widely used components that can be improved over time.</p>
+<p>The code for this application is available <a href="https://github.com/davenquinn/ne-syrtis-jezero-viewer">on GitHub</a>, and its <a href="https://github.com/UW-Macrostrat/cesium-viewer">basic map interface</a>. is a thin skin over the open-source <a href="https://cesium.com/cesiumjs/">CesiumJS</a> digital globe. This core software package drives many other 3D mapping interfaces, including digital Earth viewers (<a href="https://terria.io/">TerriaJS</a>) and NASA’s <a href="https://github.com/NASA-AMMOS/MMGIS">MMGIS</a> and <a href="https://trek.nasa.gov/mars/">Mars Trek</a> 3D data viewers. Advances made for any of these platforms can be readily integrated into this software.</p>
+<p>This viewer incorporates a few small technical contributions that support the display of dynamic, high-resolution terrain in this medium. Most important, elevation maps have been encoded using the <a href="https://blog.mapbox.com/global-elevation-data-6689f1d0ba65">Mapbox Terrain RGB</a> format, which is an efficient format for storage and streaming to the browser. I wrote <a href="https://github.com/davenquinn/cesium-martini">a new Cesium “terrain provider”</a> to parse these tiles and convert them to 3D meshes, the critical step for supporting 3D visualization of raster data. Additionally, I built an on-the-fly hillshade generation step in WebGL. These features are both unoptimized, but they provide key visualization primitives that will be improved going forward.</p>
+</section>
+<section id="high-scale-combined-data-products" class="level2">
+<h2>High-scale, combined data products</h2>
+<p>The main barriers to building a highly scalable interface like this for Mars are the availability of deconflicted, multi-scale data products. Data that can be accessed through a unified interface and format globally is a critical precursor to building interactive visualizations of Mars locale.</p>
+<p>For Earth, both imagery and topography data are readily available in globally-consistent interfaces. For instance, Mapbox’s Terrain RGB tileset provides elevation at ~30 m horizontal resolution globally that can be accessed in the web browser. Efforts to standardize Mars data products at a global scale have not gained comparable traction. Inevitably, these products sacrifice some level of local precision for global consistency. However, the loss of accuracy is inconsequential for most purposes, especially when weighed against the potential gains.</p>
+<p>This viewer relies on several efforts to build consistent regional and global context datasets. Most apparent is the <a href="http://murray-lab.caltech.edu/CTX/">CTX mosaic of Mars</a>, created by Jay Dickson at the Caltech <a href="http://murray-lab.caltech.edu/">Murray Lab</a>, which has been automatically seam-matched, smoothed, and contrast-balanced globally to form a geodetically consistent and useful product. It is employed here to great effect.</p>
+<div class="side-note">
+<p>Low-resolution, global basemaps maintained by the <a href="https://www.openplanetary.org/opm">OpenPlanetary</a> project will be integrated in the future.</p>
+</div>
+<div data-location="viewer-guts">
+<p>The elevation products underlying this map are anchored by a 21-image mosaicked CTX elevation model that I prepared in SOCET Set in 2015-16, covering the northeast Syrtis region. This is augmented by seven HiRISE DEMs for targeted areas, and HRSC and MOLA topography for outlying areas. All of this data is aligned and merged into Terrain RGB tileset. This is a fraction of the high-resolution topography available, particularly in the vicinity of Jezero crater, and more data will be integrated into future iterations of this viewer.</p>
+</div>
+</section>
+<section id="the-path-forward" class="level2">
+<h2>The path forward</h2>
+<p>This viewer highlights emerging capabilities for visualizing and communicating regional geology using the web platform, and outlines the software and data requirements to drive such work forward. I am excited to assemble collaborative efforts to work in the areas outlined below, and to hear from colleagues also working in this domain.</p>
+<section id="d-viewers-for-geologic-field-trips" class="level3">
+<h3>3D viewers for geologic “field trips”</h3>
+<p>3D visualization software can be pushed forward in any number of new directions, but I think the most exciting work here involves using 3D topography as a guided exploration and science communication tool. This viewer is designed along these lines, but a more scalable approach will be to integrate it with a curation system for “field trips” such as <a href="https://rockd.org/trip/122"><em>Rockd</em> trips</a>. Much of this work will be most impactful for Earth data, but the infrastructure to design immersive field trips could be tailored to Mars as well.</p>
+</section>
+<section id="scalable-data-products-for-northeast-syrtis-and-mars" class="level3">
+<h3>Scalable data products for northeast Syrtis and Mars</h3>
+<p>A common data backbone is a necessary precursor to new visualization approaches. The greatest effort in assembling this viewer, by far, went towards building integrated elevation data products covering the entire northeast Syrtis region. This type of task should be seen as a critical component of regional-scale science in the northeast Syrtis Region and globally.</p>
+<p>In this context, a global, multiscale elevation product incorporating the highest-resolution data for any given location on Mars would be a great improvement on current fragmented processes. This should incorporate existing DEMs, but a more powerful approach would integrate software components such as the <a href="https://github.com/NeoGeographyToolkit/StereoPipeline">Ames Stereo Pipeline</a> and/or other photogrammetry techniques to build a fully-automated DEM processing pipeline that can be applied globally. Steps in this direction <a href="https://www.hou.usra.edu/meetings/lpsc2018/pdf/1604.pdf">are already being taken</a>, but integrating components into a common data infrastructure will be a major advance.</p>
+<p>Geologic mapping data should also be compiled into a cohesive product: Northeast Syrtis Major has an unusual concentration of regional-scale geologic maps focused on different processes and geologic units. Combining these into a composite product would provide an ongoing mechanism to focus on uncertainty and debates surrounding geologic processes.</p>
+</section>
+<section id="near-term-goals" class="level3">
+<h3>Near-term goals</h3>
+<section id="viewer" class="level4">
+<h4>Viewer</h4>
+<ul>
+<li>Integrate a keyframe system for smoother and more controllable animations</li>
+<li>Add highlighting of locations and geologic map units</li>
+<li>Add the ability to go back to a specific location</li>
+<li>Provide more controls on data layers, etc. (components of existing projects based on CesiumJS such as <a href="https://terria.io/">TerriaJS</a> can be adapted here).</li>
+<li>Fix terrain pre-processing, which blocks the main browser rendering thread and causes major display lag during view transitions.</li>
+</ul>
+</section>
+<section id="data-backend" class="level4">
+<h4>Data backend</h4>
+<ul>
+<li>Fix elevation artifacts caused by smoothing and off-by-one errors</li>
+<li>Integrate aligned HiRISE imagery into the imagery viewer to show sub-meter-scale features.</li>
+<li>Add more high-resolution elevation surrounding Jezero crater</li>
+<li>Add geologic map polygons as a layer</li>
+</ul>
+</section>
+</section>
+<section id="references" class="level3 unnumbered">
+<h3>References</h3>
+<div id="refs" class="references" role="doc-bibliography">
+<div id="ref-Quinn2019">
+<p>1. Quinn, D. P. &amp; Ehlmann, B. L. The Deposition and Alteration History of the Northeast Syrtis Major Layered Sulfates. <em>Journal of Geophysical Research: Planets</em> <strong>124</strong>, 1743–1782 (2019) doi:<a href="https://doi.org/10.1029/2018JE005706">10.1029/2018JE005706</a>.</p>
+</div>
+</div>
+</section>
+</section>

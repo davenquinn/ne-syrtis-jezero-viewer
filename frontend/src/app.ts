@@ -18,18 +18,23 @@ import { PositionListEditor, CopyPositionButton } from "./editor";
 import positions from "./positions.js";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { flyToParams } from "cesium-viewer/position";
+import mainText from "../text/output/main.html";
+import viewerText from "../text/output/viewer.html";
 
 const h = hyperStyled(styles);
 
-const flyToProps = flyToParams(positions["initial"], {
-  duration: 0,
-  once: true,
-});
-
 const initialState = createInitialState({
   positions,
-  flyToProps,
+  flyToProps: flyToParams(positions["initial"], {
+    duration: 0,
+    once: true,
+  }),
   namedLocation: "initial",
+  verticalExaggeration: 1.5,
+  // Set a lower display quality for mobile
+  displayQuality: window.matchMedia("(max-width: 600px)").matches
+    ? DisplayQuality.Low
+    : DisplayQuality.High,
 });
 let store = createStore(
   reducer,
@@ -38,7 +43,7 @@ let store = createStore(
 );
 
 const ImageryLayers = () => {
-  const mapLayer = useSelector((s) => s.activeMapLayer);
+  const mapLayer = useSelector((s) => s.mapLayer);
   return h([
     h.if(mapLayer != ActiveMapLayer.Hillshade)(CTXLayer),
     h.if(mapLayer == ActiveMapLayer.Hillshade)(HillshadeLayer),
@@ -48,19 +53,18 @@ const ImageryLayers = () => {
 const terrainProvider = new SyrtisTerrainProvider();
 
 const Viewer = () => {
+  const displayQuality = useSelector((s) => s.displayQuality);
+  const exaggeration = useSelector((s) => s.verticalExaggeration);
+
   return h(
     CesiumViewer,
     {
       terrainProvider,
-      terrainExaggeration: 1.5 / terrainProvider.RADIUS_SCALAR,
-      displayQuality: DisplayQuality.High,
+      terrainExaggeration: exaggeration / terrainProvider.RADIUS_SCALAR,
+      displayQuality,
     },
     h(ImageryLayers)
   );
-};
-
-const About = () => {
-  return h("div.about", {}, []);
 };
 
 const UI = () => {
@@ -70,10 +74,12 @@ const UI = () => {
       h("div.content", [
         h(TitleBlock),
         h(Switch, [
-          h(Route, { path: "/about" }, [h(About)]),
+          h(Route, { path: "/about" }, [
+            h(TextPanel, { html: viewerText, scrollParentRef: ref }),
+          ]),
           h(Route, { path: "/list" }, [h(PositionListEditor, { positions })]),
           h(Route, { path: "/" }, [
-            h(TextPanel, { positions, scrollParentRef: ref }),
+            h(TextPanel, { html: mainText, scrollParentRef: ref }),
           ]),
         ]),
       ]),
