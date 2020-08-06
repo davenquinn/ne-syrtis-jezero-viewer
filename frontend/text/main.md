@@ -25,7 +25,7 @@ Perseverance will land just inside its western rim.
 
 The centerpiece of Jezero Crater is its delta, deposited where a river
 entered a shallow lake filling the crater [@Schon2012]. This impressive feature
-is the most charismatic surface expression of a long-lived regional drainage network.
+is the most charismatic surface expression of an extensive and long-lived regional drainage network.
 However, whether this and similar features are indicative of a global hydrosphere
 and "warm and wet" early Martian climate is hotly
 debated [e.g. @Gaidos2003; @Wordsworth2015].

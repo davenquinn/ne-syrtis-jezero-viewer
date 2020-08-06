@@ -24,6 +24,10 @@ const buildPositionCache = (container: HTMLElement) => {
   return cache;
 };
 
+const scrollRefOffset = window.matchMedia("(max-width: 600px)").matches
+  ? 50
+  : 250;
+
 const TextPanel = (props) => {
   const ref = useRef<HTMLElement>();
   const { scrollParentRef, html } = props;
@@ -51,7 +55,7 @@ const TextPanel = (props) => {
     const scrollPos = scrollParentRef.current.scrollTop;
 
     // Our reference position is 250 px below the top of the panel
-    const pos = scrollPos + 250;
+    const pos = scrollPos + scrollRefOffset;
     let selected = offsetCache[0];
     for (const offs of offsetCache) {
       // If we have gone too far, stop selecting offsets

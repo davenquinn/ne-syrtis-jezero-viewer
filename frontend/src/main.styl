@@ -64,6 +64,7 @@ $main=rgb(250, 128, 114)
 .app-ui
   display flex
   flex-direction: row
+  overflow-x: hidden;
   height 100vh
 
 .right
@@ -74,6 +75,7 @@ $main=rgb(250, 128, 114)
   height 100vh
   .left-panel
     overflow-y scroll
+    overflow-x hidden
     height: 100vh
     position relative
   .content
@@ -81,8 +83,18 @@ $main=rgb(250, 128, 114)
     padding 2em
   min-width 25em
   max-width 20%
-  height 100vh
   position relative
+
+@media screen and (max-width 600px)
+  .app-ui
+    flex-flow: column-reverse;
+    width 100vw
+
+  .left
+    height 45vh
+    width 100%
+    .left-panel
+      height 45vh
 
 nav
   text-align: center
