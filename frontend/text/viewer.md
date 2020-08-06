@@ -167,5 +167,6 @@ focus on uncertainty and debates surrounding geologic processes.
 - Integrate aligned HiRISE imagery into the imagery viewer to show sub-meter-scale features.
 - Add more high-resolution elevation surrounding Jezero crater
 - Add geologic map polygons as a layer
+- Add landing ellipses, feature highlights, and labels
 
 ### References

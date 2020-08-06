@@ -1,6 +1,9 @@
 .text
   scroll-snap-type: y mandatory
   scroll-behavior: smooth
+  :global
+    @require "./typography.styl"
+
 
 .location-link
   border-left 0.5em solid #eee
@@ -26,6 +29,8 @@
 :global
   #refs
     font-size 0.8em
+    color: #444
+    line-height 1
     p
       text-indent -1em
       margin-left 1em

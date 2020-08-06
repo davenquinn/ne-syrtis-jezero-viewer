@@ -5,6 +5,7 @@ import { PositionListEditor } from "../editor";
 import positions from "../positions.js";
 import { useDispatch, useSelector } from "react-redux";
 import classNames from "classnames";
+import typeset from "typeset";
 
 const h = hyperStyled(styles);
 
@@ -91,9 +92,11 @@ const TextPanel = (props) => {
     setSelectionStyles();
   }, [ref.current, html]);
 
+  const __html = typeset(html);
+
   return h("div.text-panel", { ref }, [
     //h("div.scroll-indicator"),
-    h("div.text", { dangerouslySetInnerHTML: { __html: html } }),
+    h("div.text", { dangerouslySetInnerHTML: { __html } }),
   ]);
 };
 

@@ -295,17 +295,12 @@ above this was likely emplaced by underwater deposition followed by progressive
 erosion and capping by both lavas and thin, enigmatic capping units. The last
 substantial stage of erosion carved small channels and built deltas and shallow
 lake deposits within localized basins. These lake deposits are often close in
-elevation and similar form to the Jezero deposits, suggesting that they may be
-products of the same system.
+elevation and similar form to the Jezero deposits, suggesting formation in
+the same system.
 
-As the Perseverance mission progresses, it will be critical to engage with the
-richness of this regional context, particularly the implications for a multiphase
-history of abundant water, both in the subsurface and as surface bodies of water.
-Much of this history likely predates the surface features expressed in Jezero
-crater, but the records of these phases will have been preserved in fluvial sediments;
-the challenge is unmixing them!
-
-This long history also emphasizes the importance of the rover's planned extended
+As the Perseverance mission progresses, it will be critical to situate the
+rover's findings in this multiphase history of subsurface and surface hydrology.
+The breadth of the system also underscores the importance of the rover's planned extended
 mission out of Jezero Crater and south towards the proposed "Midway" landing
 site. This will allow the rover to see many northeast Syrtis Major units _in situ_,
 which will provide an incredible wealth of information about the groundwater system
