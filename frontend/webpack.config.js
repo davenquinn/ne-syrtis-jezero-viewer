@@ -1,5 +1,5 @@
 const path = require("path");
-const { DefinePlugin } = require("webpack");
+const { DefinePlugin, EnvironmentPlugin } = require("webpack");
 const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
 //UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const historyApiFallback = require("connect-history-api-fallback");
@@ -110,7 +110,6 @@ module.exports = {
   },
   plugins: [
     browserSync,
-    new DotenvPlugin(),
     new CopyPlugin([
       { from: path.join(cesiumSource, cesiumWorkers), to: "Workers" },
       { from: path.join(cesiumSource, "Assets"), to: "Assets" },
@@ -118,8 +117,10 @@ module.exports = {
     ]),
     new HtmlWebpackPlugin({ title: "Syrtis – Jezero explorer" }),
     new DefinePlugin({
-      // Define relative base path in cesium for loading assets
       CESIUM_BASE_URL: JSON.stringify("/"),
+    }),
+    new EnvironmentPlugin({
+      API_BASE_URL: "http://localhost:8080",
     }),
   ],
 };

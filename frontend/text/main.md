@@ -5,8 +5,8 @@ _en route_ to Mars after launching on July 30th, 2020. Jezero sits within
 northeast Syrtis Major, a region with a rich and multifaceted geological
 history.
 
-If the Mars 2020 mission can employ direct observations of Jezero
-and its surroundings to answer questions posed by regional contextual studies,
+If the Mars 2020 mission can employ its direct observations in and around Jezero
+Crater to probe the broader history of the northeast Syrtis region,
 we will develop a much richer accounting of the history and fate of water (and
 _perhaps_ life) on early Mars.
 
@@ -145,9 +145,10 @@ a later version of this viewer.
 <div data-location="basement-fractures">
 
 The Syrtis Major basement is pervasively fractured; these fractures
-were mediated by the geodynamic stresses of the Isidis Basin and formed conduits
-channelizing fluid flow and alteration, which was widespread and intense
-during Noachian time [@Saper2013; @Pascuzzo2019].
+were mediated by the geodynamic stresses of Isidis Basin formation. They
+channelized widespread and intense fluid flow
+during Noachian time, altering the bedrock to smectite clays
+[@Saper2013; @Pascuzzo2019; @Ehlmann2011].
 
 </div>
 
@@ -200,8 +201,8 @@ likely sulfate-cemented, clastic sedimentary rocks.
 <div class="side-note">
 Much of my PhD was devoted to studying the layered sulfates and their position
 within the upper stratigraphy of northeast Syrtis Major. @Quinn2019 reports many
-of the units and relationships described below. Most of these discoveries relied
-were driven by the basic physical relationships exhibited in this viewer.
+of the units and relationships described below. Many of these discoveries
+were largely informed by the basic physical relationships exhibited in this viewer.
 </div>
 
 </div>
@@ -209,9 +210,9 @@ were driven by the basic physical relationships exhibited in this viewer.
 <div data-location="smooth-capping-surface">
 
 The layered sulfates have been substantially eroded, and are preserved only in
-mesas capped by a more erosionally resistant unit.
+mesas capped by an erosionally resistant unit.
 In some places, the layered sulfates occur beneath the Syrtis Major lavas, but
-much of the unit is instead topped by an enigmatic "smooth capping unit." This
+much of their preserved area is instead topped by an enigmatic "smooth capping unit." This
 ~5-20 m thick cap is significantly smoother than the lava flows, occurs at higher
 elevation, and retains craters poorly [@Quinn2019]. Its origin is currently unknown.
 
@@ -219,7 +220,7 @@ elevation, and retains craters poorly [@Quinn2019]. Its origin is currently unkn
 
 <div data-location="boxwork-fractures-area">
 
-One of the more striking features of the layered sulfates are "boxwork"
+A particularly striking feature of the layered sulfates are "boxwork"
 ridges that cover large portions of the unit. These ridges show spectral
 signatures of jarosite, an iron sulfate mineral indicative of
 acidic waters (on Earth, it is usually associated with ore deposits). They were

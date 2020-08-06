@@ -1,3 +1,4 @@
+# Note: this doesn't build text with pandoc
 from node:12-alpine
 RUN npm install -g linklocal
 
@@ -13,6 +14,7 @@ RUN npm install
 
 COPY ./ ./
 
-# Note: this doesn't build text with pandoc
+ENV NODE_ENV=production
+ENV API_BASE_URL=/tiles
 
-RUN NODE_ENV=production node_modules/.bin/webpack
+RUN node_modules/.bin/webpack

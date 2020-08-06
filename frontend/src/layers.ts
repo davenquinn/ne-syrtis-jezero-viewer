@@ -18,7 +18,8 @@ const CTXLayer = (props: GeoLayerProps) => {
   let ctx = useRef(
     new WebMapTileServiceImageryProvider({
       url:
-        "http://localhost:8080/ctx-global/{TileMatrix}/{TileCol}/{TileRow}.png",
+        process.env.API_BASE_URL +
+        "/ctx-global/{TileMatrix}/{TileCol}/{TileRow}.png",
       style: "default",
       format: "image/png",
       maximumLevel: 14,
@@ -64,7 +65,7 @@ class SyrtisTerrainProvider extends MapboxTerrainProvider {
   buildTileURL(tileCoords: TileCoordinates) {
     const { z, x, y } = tileCoords;
     const hires = this.highResolution ? "@2x" : "";
-    return `http://localhost:8080/terrain/${z}/${x}/${y}${hires}.png`;
+    return `${process.env.API_BASE_URL}/terrain/${z}/${x}/${y}${hires}.png`;
   }
 
   preprocessHeight(x, y, height) {
