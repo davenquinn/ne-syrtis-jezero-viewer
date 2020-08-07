@@ -14,7 +14,8 @@ RUN npm install
 
 COPY ./ ./
 
-ENV NODE_ENV=production
-ENV API_BASE_URL=/tiles
+ARG PUBLIC_URL=""
+ARG NODE_ENV=production
+ARG API_BASE_URL=${PUBLIC_URL}/tiles
 
 RUN node_modules/.bin/webpack

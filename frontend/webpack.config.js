@@ -16,6 +16,7 @@ let browserSync = new BrowserSyncPlugin({
 
 const cesiumSource = "node_modules/cesium/Source";
 const cesiumWorkers = "../Build/Cesium/Workers";
+const cesiumBase = (process.env.PUBLIC_URL || "")+"/"
 
 //uglify = new UglifyJsPlugin()
 
@@ -117,7 +118,7 @@ module.exports = {
     ]),
     new HtmlWebpackPlugin({ title: "Syrtis – Jezero explorer" }),
     new DefinePlugin({
-      CESIUM_BASE_URL: JSON.stringify("/"),
+      CESIUM_BASE_URL: JSON.stringify(cesiumBase),
     }),
     new EnvironmentPlugin({
       API_BASE_URL: "http://localhost:8080",
