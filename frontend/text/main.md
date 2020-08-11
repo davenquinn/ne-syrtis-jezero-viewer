@@ -2,13 +2,13 @@
 
 This is Jezero Crater, the landing site of the **Perseverance** rover, currently
 _en route_ to Mars after launching on July 30th, 2020. Jezero sits within
-northeast Syrtis Major, a region with a rich and multifaceted geological
-history.
+northeast Syrtis Major, a region with a multifaceted and globally significant
+geological history.
 
-If the Mars 2020 mission can employ its direct observations in and around Jezero
+If the rover can employ its direct observations in and around Jezero
 Crater to probe the broader history of the northeast Syrtis region,
 we will develop a much richer accounting of the history and fate of water (and
-_perhaps_ life) on early Mars.
+_maybe_ life!) on early Mars.
 
 </div>
 
@@ -23,18 +23,18 @@ Perseverance will land just inside its western rim.
 
 <div data-location="jezero_delta">
 
-The centerpiece of Jezero Crater is its delta, deposited where a river
-entered a shallow lake filling the crater [@Schon2012]. This impressive feature
-is the most charismatic surface expression of an extensive and long-lived regional drainage network.
-However, whether this and similar features are indicative of a global hydrosphere
-and "warm and wet" early Martian climate is hotly
-debated [e.g. @Gaidos2003; @Wordsworth2015].
+The centerpiece of Jezero Crater is its delta, deposited where a river entered a
+shallow lake within the crater [@Fassett2005; @Schon2012]. This impressive
+feature is the most charismatic surface expression of an extensive and
+long-lived regional drainage network. However, whether this and similar features
+are indicative of a global hydrosphere and "warm and wet" early Martian climate
+is hotly debated [e.g. @Gaidos2003; @Wordsworth2015].
 
 </div>
 
 <div data-location="full-of-sediment">
 
-In addition to hosting a delta, Jezero is filled to the brim with sediment,
+In addition to hosting a delta, Jezero Crater is filled to the brim with sediment,
 likely at least 1 km thick. Reasonable rates of deposition suggest
 that filling the entire crater took upwards of 1–10 Myr [@Goudge2015].
 Crater-counting studies on the resistant crater floor unit suggest
@@ -42,7 +42,7 @@ that this sedimentary fill was deposited before 3.5–3.8 Gyr ago
 [@Fassett2008; @Goudge2015].
 
 <div class="side-note">
-The sediments filling Jezero Crater present an
+The sediments filling Jezero present an
 interesting parallel to Gale Crater, where the Curiosity rover has been
 operating since 2012. Gale hosts a similar (although much thicker) sedimentary
 sequence, much of which has been excavated by wind erosion. Here, it remains
@@ -51,21 +51,23 @@ buried and inaccessible.
 
 </div>
 
-<div data-location="outlet_channel"> Jezero also has several different outlet
+<div data-location="outlet_channel">
+
+Jezero Crater is drained by several different outlet
 channels, and changes in their geometry over time suggest a long-lived
 lacustrine system [@Salese2020a; @Schon2012]. This feature has great
-paleoenvironmental importance — an "overfilled" lake with a throughgoing river
-system would potentially have a much more neutral water chemistry than a
-terminal evaporitic sump.
+paleoenvironmental importance — an "overfilled" lake with a thoroughgoing river
+system would have a much more neutral water chemistry than a
+terminal evaporitic sump [@Carroll1999].
 
 </div>
 
-## The Jezero upstream fluvial system
+## The Jezero upstream river system
 
 <div data-location="jezero_delta_2">
-One of the most compelling features of Jezero is the extensive
-drainage system that feeds into the crater. This system
-captures sediment from a large area of the Martian highlands.
+One of the most compelling features of the northeast Syrtis region is the extensive
+drainage system that feeds into the Jezero Crater. At one point, this fluvial system
+captured runoff from a large area of the Martian highlands.
 </div>
 
 <div data-location="river_nili_fossae">
@@ -75,20 +77,22 @@ continues eastward into the uplands surrounding Isidis Basin.
 
 <div data-location="river_nili_fossae_detail">
 
-It cuts across the Nili Fossae ring graben system, concentric valleys formed shortly
+It cuts across the Nili Fossae ring graben system, a set of
+concentric valleys formed shortly
 after the Isidis Basin–forming impact.
 
 </div>
 
 <div data-location="river_nilosyrtis">
 
-The upstream extension of the paleoriver that deposited sediment in Jezero Crater
+The upstream extension of this paleoriver
 continues for over 200 km past the northern rim of Hargraves crater,
 and into the Nilosyrtis highlands.
-
-With careful geochemical analysis and deconvolution [e.g. @Siebach2017],
-sediments within Jezero might provide a window into bedrock formation and
-alteration across a wide area.
+The catchment upstream of Jezero crater contains a wide variety of terrain
+[@Goudge2015]; with careful geochemical analysis and
+deconvolution [e.g. @Siebach2017],
+sediments within Jezero might provide a window into bedrock formation,
+alteration, and erosional processes that operated across a wide area.
 
 </div>
 
@@ -97,15 +101,16 @@ alteration across a wide area.
 <div data-location="ne-syrtis-overview">
 
 Jezero crater sits in a well-studied and globally significant regional context.
-The stratigraphy of Northeast Syrtis contains rock units representing
+The stratigraphy of northeast Syrtis Major contains rock units representing
 the first billion years of Mars history in close proximity. Jezero's delta and
 lacustrine features seem to be related to the latter part of this history.
 
 The stratigraphy, emplaced after the Isidis Basin-forming impact around 3.9 Gyr
 ago [e.g. @Mustard2009a], broadly consists of megabreccia and ultramafic igneous
 rocks altered by a vigorous and long-lived groundwater system [@Pascuzzo2019;
-@Scheller2020; @Bramble2017], topped by thick, partially eroded "layered sulfate" sediments.
-The stratigraphy was capped at ~3.4-3.6 Gyr ago by Syrtis Major lavas. The
+@Scheller2020; @Bramble2017], topped by thick, partially
+eroded "layered sulfate" sediments.
+~3.4-3.6 Gyr ago, the stratigraphy was capped by Syrtis Major lavas. The
 partial erosion of these capping lavas by other fluvial systems in the region
 strongly suggest that the latest phase of Jezero's river system occurred in late
 Hesperian or Amazonian time [@Quinn2019].
@@ -123,17 +128,32 @@ Reconnaissance Orbiter_) imaging spectrometers. This northeast Syrtis
 -->
 
 The centerpiece of northeast Syrtis is its beveled peneplain, a flattened
-erosional surface exposing highly altered bedrock. This region hosts the an
-olivine-bearing ultramafic rock that has been highly altered to carbonates (the
-first detection of carbonate rocks found on Mars) [@Ehlmann2008a]. A range of
-hydrated Fe/Mg smectite clay alteration products were also detected
-[@Mustard2007; @Ehlmann2009]. Many of these alteration products are detectable
+erosional surface exposing highly altered bedrock. The region hosts
+a range of hydrated Fe/Mg smectite clays
+[@Mustard2007; @Ehlmann2009] and olivine-bearing ultramafic rock that
+has been partially converted to carbonate (the first detection of
+carbonate rocks found on Mars) [@Ehlmann2008a]. Many of these alteration
+products are detectable
 in the Jezero delta deposit, suggesting that altered upland bedrock was
 transported and redeposited within Jezero [@Ehlmann2008b]. The range of
 alteration mineralogy displayed at northeast Syrtis (first clays, then
 carbonates, then sulfates, and finally a relative lack of alteration) are
 indicative of major transitions in the surface and subsurface hydrosphere of
 early Mars [@Ehlmann2012].
+
+Chemical alteration of bedrock, and especially the
+strong redox gradients implied by carbonation of olivine, could be a major
+energy source for microbial life [e.g. @Newman2020]; these units will form
+a critical part of the astrobiology investigations of Mars 2020.
+
+<div class="side-note">
+
+The Samail and Oman Ophiolites [@Dewandel2005] may provide a good analogue for
+the alteration of the northeast Syrtis olivine-carbonate
+rocks and [what they _might_ look like on the ground](https://www.nytimes.com/interactive/2018/04/26/climate/oman-rocks.html). The reactivity of ultramafic rocks to carbonate has potentially
+important implications for the Earth's climate [@Kelemen2011].
+
+</div>
 
 <div class="side-note">
 CRISM summary products showing hyperspectral detections will be integrated into
@@ -191,12 +211,17 @@ which may be remnants of an eroded inner ring of Isidis Basin.
 
 <div data-location="layered-sulfates">
 
-~40 km southwest of Jezero Crater, a sequence of sulfate-bearing sedimentary
-rocks up to 450 m thick sits unconformably above the eroded basement units. The
-sediments drape the underlying basement units and are not flat-lying, suggesting
-deposition by settling rather than traction currents [@Quinn2019]. Although
-these rocks have been called the "layered sulfates" in the literature, they are
-likely sulfate-cemented, clastic sedimentary rocks.
+The "layered sulfates", ~40 km southwest of Jezero Crater, are a sequence sedimentary
+rocks up to 450 m thick that sit unconformably above the eroded basement units. The
+sediments drape the underlying basement and are not flat-lying, suggesting
+deposition by settling rather than traction currents [@Quinn2019].
+
+<div class="side-note">
+Although these rocks are called the "layered sulfates" due to their spectral
+signatures discerned from orbit,
+they are unlikely to be sulfates in the traditional, evaporite
+sense. Instead, they are probably sulfate-cemented, clastic sedimentary rocks.
+</div>
 
 <div class="side-note">
 Much of my PhD was devoted to studying the layered sulfates and their position

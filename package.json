@@ -1,0 +1,22 @@
+{
+  "name": "ne-syrtis-jezero-viewer",
+  "version": "1.0.0",
+  "description": "A 3d viewer for NE Syrtis Major and Jezero crater. See the demo at https://birdnest.geology.wisc.edu/syrtis-jezero.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:backend": "cd backend && npm run start",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev": "npm-run-all -p dev:*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davenquinn/ne-syrtis-jezero-viewer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/davenquinn/ne-syrtis-jezero-viewer/issues"
+  },
+  "homepage": "https://github.com/davenquinn/ne-syrtis-jezero-viewer#readme"
+}

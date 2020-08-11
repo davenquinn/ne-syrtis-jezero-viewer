@@ -20,6 +20,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { flyToParams } from "cesium-viewer/position";
 import mainText from "../text/output/main.html";
 import viewerText from "../text/output/viewer.html";
+import changelogText from "../text/output/changelog.html";
 
 const h = hyperStyled(styles);
 
@@ -74,6 +75,9 @@ const UI = () => {
       h("div.content", [
         h(TitleBlock),
         h(Switch, [
+          h(Route, { path: "/changelog" }, [
+            h(TextPanel, { html: changelogText, scrollParentRef: ref }),
+          ]),
           h(Route, { path: "/about" }, [
             h(TextPanel, { html: viewerText, scrollParentRef: ref }),
           ]),
