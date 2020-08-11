@@ -2,7 +2,7 @@ BIBTEX_LIBRARY:=~/Resources/Papers/library.bib
 
 REF_LIST:=text/ref-list.txt
 
-all: text/output/main.html text/output/viewer.html
+all: text/output/main.html text/output/viewer.html text/output/changelog.html
 
 text/references.bib: text/main.md $(BIBTEX_LIBRARY)
 	cat $< | text/scripts/find-refs > $(REF_LIST)

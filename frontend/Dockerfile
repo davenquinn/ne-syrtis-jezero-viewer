@@ -1,5 +1,5 @@
 # Note: this doesn't build text with pandoc
-from node:12-alpine
+FROM node:12-alpine
 RUN npm install -g linklocal
 
 # Install cesium-martini

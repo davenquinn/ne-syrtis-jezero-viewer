@@ -18,6 +18,6 @@ services:
     build:
       context: frontend
       args:
-        - PUBLIC_URL=/syrtis-jezero
+        - PUBLIC_URL=${PUBLIC_URL:-"/"}
         - NODE_ENV=production
     image: syrtis-jezero-frontend

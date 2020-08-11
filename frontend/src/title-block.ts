@@ -78,7 +78,12 @@ const MiniControls = () => {
 
 const SoftwareInfo = () => {
   return h("div.software-info", [
-    h("p.version", "v0.1 – July 2020"),
+    h("p.version", [
+      "v0.1.1 – August 2020",
+      " (",
+      h(NavLink, { to: "/changelog" }, "changelog"),
+      ")",
+    ]),
     h(
       "p.directions",
       "Navigate by scrolling. \
