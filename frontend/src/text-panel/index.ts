@@ -13,19 +13,20 @@ const buildPositionCache = (container: HTMLElement) => {
   let cache = [];
   const elements = container.querySelectorAll("[data-location]");
   const { scrollTop } = container.offsetParent;
+  const { top: containerTop } = container.offsetParent.getBoundingClientRect();
 
   for (const e of elements) {
     const name = e.getAttribute("data-location");
     e.id = name;
     const { top, height } = e.getBoundingClientRect();
-    const data = { name, top: top + scrollTop, height };
+    const data = { name, top: top + scrollTop - containerTop, height };
     cache.push(data);
   }
   return cache;
 };
 
 const scrollRefOffset = window.matchMedia("(max-width: 600px)").matches
-  ? 50
+  ? 100
   : 250;
 
 const TextPanel = (props) => {

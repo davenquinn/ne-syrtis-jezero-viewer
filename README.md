@@ -7,6 +7,9 @@ See the demo at https://birdnest.geology.wisc.edu/syrtis-jezero.
 
 Requires `mbtiles` files for imagery layers to be in `data` directory.
 
+- `make` installs for production using Docker.
+- `npm run dev` installs for local development.
+
 ## Projected area:
 
 Upper left: 74.4 19.5

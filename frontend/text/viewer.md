@@ -58,35 +58,38 @@ and [Mars Trek](https://trek.nasa.gov/mars/) 3D data viewers.
 Advances made for any of these platforms can be
 readily integrated into this software.
 
-This viewer incorporates a few small technical contributions that support the
-display of dynamic, high-resolution terrain in 3D. Most important,
-elevation maps are encoded as
-[Mapbox Terrain RGB](https://blog.mapbox.com/global-elevation-data-6689f1d0ba65),
-an efficient format for storage and streaming to the browser.
-I wrote [a new Cesium "terrain provider"](https://github.com/davenquinn/cesium-martini)
-to parse these tiles and convert them to 3D meshes, the critical step for supporting
-3D visualization of raster data. Additionally, I built an on-the-fly hillshade generation
-step in WebGL.
+Elevation maps are encoded as
+[Terrain RGB images](https://blog.mapbox.com/global-elevation-data-6689f1d0ba65),
+a format devised by [Mapbox](https://mapbox.com) for efficient storage and streaming to the browser.
+This viewer incorporates a few small technical contributions that support 3D
+displays of dynamic, high-resolution terrain:
+
+- [A new Cesium "terrain provider"](https://github.com/davenquinn/cesium-martini)
+  to parse these tiles and convert them to 3D meshes, a key step for supporting
+  3D visualization of raster data
+- A very rough on-the-fly hillshade, generated in WebGL.
+
 These features are both unoptimized, but they provide key visualization primitives
 that will be improved going forward.
 
 ## Multiscale, combined data products
 
-The CesiumJS engine is designed to handle global, streaming data, and the main
+The CesiumJS engine is designed to handle global, streaming data; the main
 barrier to applying this capability across Mars is limited data. Like Earth,
 much of the planet is covered by moderate- to high-resolution stereo image surveys.
-Building global data products designed to be accessed through a
-unified interface is a critical precursor to building
-interactive visualizations of Mars locale.
+Global data products, designed to be accessed through a
+unified interface, are critical precursors to building
+interactive visualizations of Mars locales.
 
 For Earth, both imagery and topography data are readily available in
 globally-consistent interfaces. For instance, Mapbox's Terrain RGB tileset
-provides elevation at ~30 m horizontal resolution globally that can be accessed
-in the web browser. Efforts to standardize Mars data products at a global scale
-have not gained comparable traction. Inevitably, these products sacrifice some
+provides elevation at up to ~30 m horizontal resolution globally that can be accessed
+in the web browser. Inevitably, these products sacrifice some
 level of local precision for global consistency. However, the loss of accuracy
 is often inconsequential for contextual studies.
 
+Efforts to standardize Mars data products at a global scale
+have not gained comparable traction as on Earth.
 This viewer relies on several efforts to build consistent regional and global
 context datasets. Most apparent is the [CTX mosaic of
 Mars](http://murray-lab.caltech.edu/CTX/), created by Jay Dickson at the
@@ -128,7 +131,7 @@ to design immersive field trips could be tailored to Mars as well.
 
 ### Scalable data products for northeast Syrtis and Mars
 
-A common data backbone is a necessary precursor to new visualization approaches.
+A common data backbone is a necessary component of new visualization approaches.
 The greatest effort in assembling this viewer, by far, went towards building integrated
 elevation data products covering the entire northeast Syrtis region. This type of task
 should be seen as a critical component of regional-scale science in the northeast

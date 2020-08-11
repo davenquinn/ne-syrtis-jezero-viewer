@@ -2,10 +2,17 @@
 
 ## [0.1.1] 2020-08-10
 
-- Fixed elevation artifacts caused by smoothing and off-by-one errors
-- Fixed small typographical and grammatical errors
-- Added a few references to main body text
+### Changes
+
+- A few new references in main body text
 - Added this Changelog as a separate page
+
+### Bugs fixed
+
+- Removed elevation artifacts caused by smoothing and off-by-one errors
+- Small typographical and grammatical errors
+- Rendering of hillshade layer in production
+- Scroll container bounds on narrow mobile devices
 
 ## [0.1.0] 2020-08-03
 
