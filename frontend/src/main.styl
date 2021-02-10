@@ -8,11 +8,12 @@ $main=rgb(250, 128, 114)
   --accent-darker: darken($main, 35%)
   --accent-background: lighten($main, 20)
   --accent-background-light: lighten($main, 25)
+  --main-font: "Source Serif Pro", "Times New Roman", serif 
 
 
 :global
   *
-    font-family: "Source Serif Pro", "Times New Roman", serif
+    font-family: var(--main-font)
     box-sizing: border-box;
 
   body
@@ -62,13 +63,28 @@ $main=rgb(250, 128, 114)
   .copy-position-button
     color: white
     left 80px
-    bottom 2px
+    bottom 2.5px
     font-size 10px
 
 
   .show-ui-button
     top 2px
     left 10px
+    font-weight bold
+
+  .distance-legend
+    background: transparent !important
+    border: none !important
+
+    .distance-legend-scale-bar
+      border-left-color: white
+      border-right-color: white
+      border-bottom-color: white
+      border-width: 2px
+
+    .distance-legend-label
+      font-family: var(--main-font)
+      font-weight 500
 
   #changelog
     h1, h2, h3
