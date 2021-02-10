@@ -6,8 +6,14 @@ const historyApiFallback = require("connect-history-api-fallback");
 const CopyPlugin = require("copy-webpack-plugin");
 const DotenvPlugin = require("dotenv-webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const GitRevisionPlugin = require('git-revision-webpack-plugin')
 
 let mode = process.env.NODE_ENV || "development";
+
+const gitRevisionPlugin = new GitRevisionPlugin({
+  lightweightTags: true, commithashCommand: "rev-parse --short HEAD"
+})
+const GITHUB_LINK = "https://github.com/davenquinn/ne-syrtis-jezero-viewer"
 
 let browserSync = new BrowserSyncPlugin({
   server: { baseDir: "./dist" },
@@ -118,7 +124,12 @@ module.exports = {
     ]),
     new HtmlWebpackPlugin({ title: "Syrtis – Jezero explorer" }),
     new DefinePlugin({
+      GITHUB_LINK: JSON.stringify(GITHUB_LINK),
       CESIUM_BASE_URL: JSON.stringify(cesiumBase),
+      GIT_VERSION: JSON.stringify(gitRevisionPlugin.version()),
+      GIT_COMMIT_HASH: JSON.stringify(gitRevisionPlugin.commithash()),
+      COMPILE_DATE: JSON.stringify(new Date().toLocaleString('en-US', { month: 'long', year: 'numeric' })),
+      GITHUB_REV_LINK: JSON.stringify(GITHUB_LINK+"/tree/"+gitRevisionPlugin.commithash())
     }),
     new EnvironmentPlugin({
       API_BASE_URL: "http://localhost:8080",
