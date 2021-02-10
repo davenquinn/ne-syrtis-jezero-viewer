@@ -79,9 +79,11 @@ const MiniControls = () => {
 const SoftwareInfo = () => {
   return h("div.software-info", [
     h("p.version", [
-      "v0.1.1 – August 2020",
+      `${GIT_VERSION} – ${ COMPILE_DATE }`,
       " (",
       h(NavLink, { to: "/changelog" }, "changelog"),
+      ", ",
+      h("a", {href: GITHUB_REV_LINK}, "source code"),
       ")",
     ]),
     h(
