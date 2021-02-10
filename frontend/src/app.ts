@@ -1,5 +1,5 @@
 import { hyperStyled } from "@macrostrat/hyper";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Provider, useSelector } from "react-redux";
 import { createStore } from "redux";
 import { CTXLayer, HillshadeLayer, SyrtisTerrainProvider } from "./layers";
@@ -91,10 +91,26 @@ const UI = () => {
   ]);
 };
 
+function ShowUIButton(props) {
+  const { onClick, enabled } = props;
+  const text = enabled ? "Hide UI" : "Show UI";
+  return h("a.show-ui-button", { onClick }, text);
+}
+
 const AppMain = () => {
+  const [showUI, setShowUI] = useState(true);
   return h("div.app-ui", [
-    h("div.left", null, h(UI)),
-    h("div.right", null, [h(Viewer), h(CopyPositionButton)]),
+    h.if(showUI)("div.left", null, h(UI)),
+    h("div.right", null, [
+      h(Viewer),
+      h(CopyPositionButton),
+      h(ShowUIButton, {
+        enabled: showUI,
+        onClick() {
+          setShowUI(!showUI);
+        },
+      }),
+    ]),
   ]);
 };
 

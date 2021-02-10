@@ -51,15 +51,24 @@ $main=rgb(250, 128, 114)
       color: var(--accent-color)
       cursor: pointer
 
-  .copy-position-button
+  .copy-position-button, .show-ui-button
     z-index: 50
-    color: white
     position: absolute;
+    text-decoration: underline;
+    cursor pointer
+    // emulate Cesium's default text shadow
+    text-shadow: rgb(0, 0, 0) 0px 0px 2px
+
+  .copy-position-button
+    color: white
     left 80px
     bottom 2px
     font-size 10px
-    text-decoration: underline;
-    cursor pointer
+
+
+  .show-ui-button
+    top 2px
+    left 10px
 
   #changelog
     h1, h2, h3
