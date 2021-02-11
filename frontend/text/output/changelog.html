@@ -1,7 +1,37 @@
 <section id="changelog" class="level1">
 <h1>Changelog</h1>
 <section id="section" class="level2">
-<h2>[0.1.1] 2020-08-10</h2>
+<h2><code>[0.2.0]</code> 2021-02-10</h2>
+<section id="return-to-a-position" class="level4">
+<h4>Return to a position</h4>
+<p>Positions can now be retreived from URL hash parameters, enabling “deep linking” to specific locations. Parameters represent the camera position, using the following schema:</p>
+<ul>
+<li><code>x</code>: Latitude (degrees)</li>
+<li><code>y</code>: Latitude (degrees)</li>
+<li><code>z</code>: Elevation (meters relative to Mars 2000 datum)</li>
+<li><code>a</code>: Azimuth (degrees from N)</li>
+<li><code>e</code>: Off-nadir angle (degrees from vertical)</li>
+</ul>
+<p>At least <code>x</code> and <code>y</code> must be defined for a position to be returned.</p>
+</section>
+<section id="deployment-fixes" class="level4">
+<h4>Deployment fixes</h4>
+<ul>
+<li>Decouple data backend from frontend viewer</li>
+<li>Add deployment scripts for Macrostrat server</li>
+</ul>
+</section>
+</section>
+<section id="section-1" class="level2">
+<h2><code>[0.1.2]</code> 2021-02-09</h2>
+<ul>
+<li>Add button to show and hide the sidebar</li>
+<li>Add links to GitHub revision and automate version string</li>
+<li>Small styling fixes</li>
+</ul>
+</section>
+<section id="section-2" class="level2">
+<h2><code>[0.1.1]</code> 2020-08-10</h2>
 <section id="changes" class="level3">
 <h3>Changes</h3>
 <ul>
@@ -19,8 +49,8 @@
 </ul>
 </section>
 </section>
-<section id="section-1" class="level2">
-<h2>[0.1.0] 2020-08-03</h2>
+<section id="section-3" class="level2">
+<h2><code>[0.1.0]</code> 2020-08-03</h2>
 <ul>
 <li>Initial release</li>
 </ul>

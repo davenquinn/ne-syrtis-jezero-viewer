@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;500&family=Source+Serif+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap');
 
 $main=rgb(250, 128, 114)
 
@@ -8,7 +8,8 @@ $main=rgb(250, 128, 114)
   --accent-darker: darken($main, 35%)
   --accent-background: lighten($main, 20)
   --accent-background-light: lighten($main, 25)
-  --main-font: "Source Serif Pro", "Times New Roman", serif 
+  --main-font: "Source Serif Pro", "Times New Roman", serif
+  --mono-font: "Source Code Pro", mono
 
 
 :global
@@ -33,6 +34,10 @@ $main=rgb(250, 128, 114)
 
   ul
     padding-left 1em
+
+  code
+    font-family: "Source Code Pro", mono
+    font-weight 400
 
   .leaflet-container
     height: 100vh
@@ -87,8 +92,11 @@ $main=rgb(250, 128, 114)
       font-weight 500
 
   #changelog
-    h1, h2, h3
-      font-weight 500
+    font-size 0.8em
+    color #444
+    line-height 1em
+    h1, h2, h3, h4
+      font-weight 600
     h1
       font-size 1.4em
     h2

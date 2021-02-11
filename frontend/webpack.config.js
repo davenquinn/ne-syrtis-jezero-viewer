@@ -130,7 +130,7 @@ module.exports = {
     new DefinePlugin({
       GITHUB_LINK: JSON.stringify(GITHUB_LINK),
       CESIUM_BASE_URL: JSON.stringify(cesiumBase),
-      NPM_VERSION: pkg.version,
+      NPM_VERSION: JSON.stringify(pkg.version),
       GIT_VERSION: JSON.stringify(gitRevisionPlugin.version()),
       GIT_COMMIT_HASH: JSON.stringify(gitRevisionPlugin.commithash()),
       COMPILE_DATE: JSON.stringify(
