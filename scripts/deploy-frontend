@@ -1,0 +1,11 @@
+#!/bin/bash -e
+
+export BUNDLE_DIR="$(pwd)/.dist"
+export API_BASE_URL=https://birdnest.geology.wisc.edu/syrtis-jezero/tiles
+export PUBLIC_URL=/mars/syrtis-jezero
+
+npm --prefix frontend run build
+rsync -azv --delete \
+  "$BUNDLE_DIR/" \
+  steno:/data/projects/macrostrat/mars/syrtis-jezero/
+rm -rf "$BUNDLE_DIR"

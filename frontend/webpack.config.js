@@ -6,14 +6,18 @@ const historyApiFallback = require("connect-history-api-fallback");
 const CopyPlugin = require("copy-webpack-plugin");
 const DotenvPlugin = require("dotenv-webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const GitRevisionPlugin = require('git-revision-webpack-plugin')
+const GitRevisionPlugin = require("git-revision-webpack-plugin");
+const pkg = require("./package.json");
 
 let mode = process.env.NODE_ENV || "development";
 
+const outputDir = process.env.BUNDLE_DIR || path.join(__dirname, "dist");
+
 const gitRevisionPlugin = new GitRevisionPlugin({
-  lightweightTags: true, commithashCommand: "rev-parse --short HEAD"
-})
-const GITHUB_LINK = "https://github.com/davenquinn/ne-syrtis-jezero-viewer"
+  lightweightTags: true,
+  commithashCommand: "rev-parse --short HEAD",
+});
+const GITHUB_LINK = "https://github.com/davenquinn/ne-syrtis-jezero-viewer";
 
 let browserSync = new BrowserSyncPlugin({
   server: { baseDir: "./dist" },
@@ -22,7 +26,7 @@ let browserSync = new BrowserSyncPlugin({
 
 const cesiumSource = "node_modules/cesium/Source";
 const cesiumWorkers = "../Build/Cesium/Workers";
-const cesiumBase = (process.env.PUBLIC_URL || "")+"/"
+const cesiumBase = (process.env.PUBLIC_URL || "") + "/";
 
 //uglify = new UglifyJsPlugin()
 
@@ -107,7 +111,7 @@ module.exports = {
     fs: "empty",
   },
   output: {
-    path: path.join(__dirname, "/dist/"),
+    path: outputDir,
     filename: "[name].js",
     sourcePrefix: "",
   },
@@ -126,10 +130,15 @@ module.exports = {
     new DefinePlugin({
       GITHUB_LINK: JSON.stringify(GITHUB_LINK),
       CESIUM_BASE_URL: JSON.stringify(cesiumBase),
+      NPM_VERSION: pkg.version,
       GIT_VERSION: JSON.stringify(gitRevisionPlugin.version()),
       GIT_COMMIT_HASH: JSON.stringify(gitRevisionPlugin.commithash()),
-      COMPILE_DATE: JSON.stringify(new Date().toLocaleString('en-US', { month: 'long', year: 'numeric' })),
-      GITHUB_REV_LINK: JSON.stringify(GITHUB_LINK+"/tree/"+gitRevisionPlugin.commithash())
+      COMPILE_DATE: JSON.stringify(
+        new Date().toLocaleString("en-US", { month: "long", year: "numeric" })
+      ),
+      GITHUB_REV_LINK: JSON.stringify(
+        GITHUB_LINK + "/tree/" + gitRevisionPlugin.commithash()
+      ),
     }),
     new EnvironmentPlugin({
       API_BASE_URL: "http://localhost:8080",
