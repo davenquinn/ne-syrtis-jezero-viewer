@@ -154,9 +154,11 @@ const Viewer = () => {
   );
 };
 
+const baseURL = process.env.PUBLIC_URL ?? "/";
+
 const UI = () => {
   const ref = useRef();
-  return h(Router, [
+  return h(Router, { basename: baseURL }, [
     h("div.left-panel", { ref }, [
       h("div.content", [
         h(TitleBlock),

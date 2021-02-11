@@ -1,5 +1,9 @@
 # Changelog
 
+## `[0.2.1]` 2021-02-10
+
+- Fix bug with base URL
+
 ## `[0.2.0]` 2021-02-10
 
 #### Return to a position
@@ -15,7 +19,7 @@ represent the camera position, using the following schema:
 
 At least `x` and `y` must be defined for a position to be returned.
 
-#### Deployment fixes
+#### Deployment
 
 - Decouple data backend from frontend viewer
 - Add deployment scripts for Macrostrat server

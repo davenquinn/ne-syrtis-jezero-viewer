@@ -142,6 +142,7 @@ module.exports = {
     }),
     new EnvironmentPlugin({
       API_BASE_URL: "http://localhost:8080",
+      PUBLIC_URL: "/",
     }),
   ],
 };
