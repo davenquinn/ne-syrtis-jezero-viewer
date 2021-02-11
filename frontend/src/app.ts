@@ -3,7 +3,10 @@ import { useRef, useState } from "react";
 import { Provider, useSelector } from "react-redux";
 import { createStore } from "redux";
 import { CTXLayer, HillshadeLayer, SyrtisTerrainProvider } from "./layers";
-import { setHashString } from "@macrostrat/ui-components/lib/esm/util/query-string";
+import {
+  setHashString,
+  getHashString,
+} from "@macrostrat/ui-components/lib/esm/util/query-string";
 
 import CesiumViewer, { DisplayQuality } from "cesium-viewer";
 import styles from "./main.styl";
@@ -36,7 +39,7 @@ interface PositionHashParams {
 }
 
 function buildPositionHash(pos: CameraParams): PositionHashParams {
-  let res = {
+  let res: PositionHashParams = {
     x: pos.longitude.toFixed(3),
     y: pos.latitude.toFixed(3),
     z: pos.height.toFixed(0),
@@ -55,25 +58,65 @@ function buildPositionHash(pos: CameraParams): PositionHashParams {
   return res;
 }
 
+function setPositionHash(pos: CameraParams) {
+  setHashString(buildPositionHash(pos));
+}
+
+type NumberOrNull = number | null;
+
+function getNumbers(
+  obj: { [k: string]: string },
+  keys: string[]
+): NumberOrNull[] {
+  return keys.map((d) => {
+    const num = parseFloat(obj[d]);
+    return isNaN(num) ? null : num;
+  });
+}
+
+function getInitialPosition(): CameraParams | null {
+  const hashVals = getHashString();
+  if (hashVals == null) return null;
+  const [x, y, z, e, a] = getNumbers(hashVals, ["x", "y", "z", "e", "a"]);
+  if (x == null && y == null) return null;
+  let pos = {
+    longitude: x,
+    latitude: y,
+    height: z ?? 5000,
+    heading: a ?? 0,
+    pitch: -90 + (e ?? 0),
+    roll: 0,
+  };
+  console.log("Setting initial position from hash: ", pos);
+  return pos;
+}
+
 const newReducer = (state: GlobeState, action: GlobeAction) => {
   switch (action.type) {
     case "set-camera-position":
       // Hook into the camera position setter to change viewer hash
-      let posHash = buildPositionHash(action.value.camera);
-      setHashString(posHash);
+      setPositionHash(action.value.camera);
       return reducer(state, action);
     default:
       return reducer(state, action);
   }
 };
 
+let initialPos = getInitialPosition();
+let namedLocation = null;
+if (initialPos == null) {
+  namedLocation = "initial";
+  initialPos = positions[namedLocation];
+}
+console.log(initialPos);
+
 const initialState = createInitialState({
   positions,
-  flyToProps: flyToParams(positions["initial"], {
+  flyToProps: flyToParams(initialPos, {
     duration: 0,
     once: true,
   }),
-  namedLocation: "initial",
+  namedLocation,
   verticalExaggeration: 1.5,
   // Set a lower display quality for mobile
   displayQuality: window.matchMedia("(max-width: 600px)").matches
