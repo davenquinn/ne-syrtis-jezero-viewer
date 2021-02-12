@@ -2,7 +2,12 @@ import { hyperStyled } from "@macrostrat/hyper";
 import { useRef, useState } from "react";
 import { Provider, useSelector } from "react-redux";
 import { createStore } from "redux";
-import { CTXLayer, HillshadeLayer, SyrtisTerrainProvider } from "./layers";
+import {
+  CTXLayer,
+  HillshadeLayer,
+  SyrtisTerrainProvider,
+  CRISMLayer,
+} from "./layers";
 import {
   setHashString,
   getHashString,
@@ -134,6 +139,7 @@ const ImageryLayers = () => {
   return h([
     h.if(mapLayer != ActiveMapLayer.Hillshade)(CTXLayer),
     h.if(mapLayer == ActiveMapLayer.Hillshade)(HillshadeLayer),
+    h(CRISMLayer),
   ]);
 };
 

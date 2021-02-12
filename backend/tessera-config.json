@@ -1,4 +1,5 @@
 {
   "/terrain": "mbtiles://../data/dem.terrain-rgb.mbtiles",
-  "/ctx-global": "mbtiles://../data/ctx-global.mbtiles"
+  "/ctx-global": "mbtiles://../data/ctx-global.mbtiles",
+  "/crism": "mbtiles://../data/crism-preview.mbtiles"
 }
