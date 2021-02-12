@@ -89,11 +89,10 @@ const CRISMLayer = (props: GeoLayerProps) => {
         "/crism/{TileMatrix}/{TileCol}/{TileRow}.png",
       style: "default",
       format: "image/png",
-      alpha: 0.5,
       maximumLevel: 11,
       layer: "",
       tileMatrixSetID: "",
-      credit: new Credit("JHUAPL/CRISM"),
+      credit: new Credit("JHU-APL/CRISM"),
     })
   );
   return h(ImageryLayer, { imageryProvider: ctx.current, ...props });
