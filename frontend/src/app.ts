@@ -65,10 +65,6 @@ function buildPositionHash(pos: CameraParams): PositionHashParams {
   return res;
 }
 
-function setPositionHash(pos: CameraParams) {
-  setHashString(buildPositionHash(pos));
-}
-
 type NumberOrNull = number | null;
 
 function getNumbers(
@@ -81,9 +77,9 @@ function getNumbers(
   });
 }
 
-function getInitialPosition(): CameraParams | null {
-  const hashVals = getHashString();
-  if (hashVals == null) return null;
+function getInitialPosition(hashVals: {
+  [key: string]: string;
+}): CameraParams | null {
   const [x, y, z, e, a] = getNumbers(hashVals, ["x", "y", "z", "e", "a"]);
   if (x == null && y == null) return null;
   let pos = {
@@ -108,11 +104,19 @@ type AppState = GlobeState & {
 
 type AppAction = GlobeAction & { type: "toggle-overlay"; value: OverlayLayer };
 
+function setHash(pos: CameraParams, overlays: Set<OverlayLayer>) {
+  let hash = buildPositionHash(pos);
+  if (overlays.size > 0) {
+    hash.overlays = Array.from(overlays).join(",");
+  }
+  setHashString(hash);
+}
+
 const newReducer = (state: AppState, action: AppAction) => {
   switch (action.type) {
     case "set-camera-position":
       // Hook into the camera position setter to change viewer hash
-      setPositionHash(action.value.camera);
+      setHash(action.value.camera, state.overlayLayers);
       return reducer(state, action);
     case "toggle-overlay":
       let spec = {};
@@ -121,13 +125,16 @@ const newReducer = (state: AppState, action: AppAction) => {
       } else {
         spec = { $add: [action.value] };
       }
-      return update(state, { overlayLayers: spec });
+      let newState = update(state, { overlayLayers: spec });
+      setHash(state.position.camera ?? state.position, newState.overlayLayers);
+      return newState;
     default:
       return reducer(state, action);
   }
 };
 
-let initialPos = getInitialPosition();
+const { overlays, ...hashVals } = getHashString() ?? {};
+let initialPos = getInitialPosition(hashVals);
 let namedLocation = null;
 if (initialPos == null) {
   namedLocation = "initial";
@@ -149,7 +156,15 @@ const globeState = createInitialState({
     : DisplayQuality.High,
 });
 
-const initialState: AppState = { ...globeState, overlayLayers: new Set([]) };
+let overlayLayers = [];
+if (overlays != null) {
+  overlayLayers = overlays.split(",");
+}
+
+const initialState: AppState = {
+  ...globeState,
+  overlayLayers: new Set(overlayLayers),
+};
 
 let store = createStore(
   newReducer,

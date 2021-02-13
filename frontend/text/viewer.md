@@ -1,3 +1,11 @@
+It brings together the two key components of a sustainable visualization
+strategy:
+**high-resolution, regionally extensive
+data products**, displayed in a **configurable user interface**.
+Earth and planetary scientists must work to improve
+both of these tools for representing the physical world.
+If you are interested in collaborating in this direction, [I'd love to hear from you](mailto:dev@davenquinn.com).
+
 <div data-location="syrtis-overview-2">
 
 Much of my PhD was dedicated to interpreting the geologic history of Syrtis Major,
@@ -8,14 +16,10 @@ of key geological features and relationships.
 
 </div>
 
-This viewer brings together the two key components of a sustainable visualization
-strategy:
-**high-resolution, regionally extensive
-data products**, displayed in a **configurable user interface**.
-Earth and planetary scientists must work to improve
-both of these tools for representing the physical world.
-If you are interested in collaborating in this direction,
-or have resources I should be aware of, [I'd love to hear from you](mailto:dev@davenquinn.com).
+This software driving this viewer
+is based on [Macrostrat](https://macrostrat.org)'s [in-development tools](https://dev.macrostrat.org/next/web/map#/3d/z=8.2410/x=-113.7824/y=34.9962/bedrock/lines/) for displaying geological data
+in rich context. At Macrostrat, we are interested in paring global-scale datasets with
+rich interfaces that support science and outreach.
 
 ## 3D terrain visualization
 
