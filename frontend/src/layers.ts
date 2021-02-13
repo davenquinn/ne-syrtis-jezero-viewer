@@ -81,7 +81,6 @@ class SyrtisTerrainProvider extends MapboxTerrainProvider {
 }
 
 const CRISMLayer = (props: GeoLayerProps) => {
-  //const hasGeology = useSelector(state => state.update.mapHasBedrock)
   let ctx = useRef(
     new WebMapTileServiceImageryProvider({
       url:
