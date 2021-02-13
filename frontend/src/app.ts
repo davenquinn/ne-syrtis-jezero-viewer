@@ -2,7 +2,12 @@ import { hyperStyled } from "@macrostrat/hyper";
 import { useRef, useState } from "react";
 import { Provider, useSelector } from "react-redux";
 import { createStore } from "redux";
-import { CTXLayer, HillshadeLayer, SyrtisTerrainProvider } from "./layers";
+import {
+  CTXLayer,
+  HillshadeLayer,
+  SyrtisTerrainProvider,
+  CRISMLayer,
+} from "./layers";
 import {
   setHashString,
   getHashString,
@@ -11,6 +16,7 @@ import {
 import CesiumViewer, { DisplayQuality } from "cesium-viewer";
 import styles from "./main.styl";
 
+import { LayerSelectorPanel } from "./layer-selector";
 import { TitleBlock } from "./title-block";
 import { TextPanel } from "./text-panel";
 import {
@@ -27,6 +33,7 @@ import { flyToParams, CameraParams } from "cesium-viewer/position";
 import mainText from "../text/output/main.html";
 import viewerText from "../text/output/viewer.html";
 import changelogText from "../text/output/changelog.html";
+import update from "immutability-helper";
 
 const h = hyperStyled(styles);
 
@@ -58,10 +65,6 @@ function buildPositionHash(pos: CameraParams): PositionHashParams {
   return res;
 }
 
-function setPositionHash(pos: CameraParams) {
-  setHashString(buildPositionHash(pos));
-}
-
 type NumberOrNull = number | null;
 
 function getNumbers(
@@ -74,9 +77,9 @@ function getNumbers(
   });
 }
 
-function getInitialPosition(): CameraParams | null {
-  const hashVals = getHashString();
-  if (hashVals == null) return null;
+function getInitialPosition(hashVals: {
+  [key: string]: string;
+}): CameraParams | null {
   const [x, y, z, e, a] = getNumbers(hashVals, ["x", "y", "z", "e", "a"]);
   if (x == null && y == null) return null;
   let pos = {
@@ -91,26 +94,55 @@ function getInitialPosition(): CameraParams | null {
   return pos;
 }
 
-const newReducer = (state: GlobeState, action: GlobeAction) => {
+enum OverlayLayer {
+  CRISM = "crism",
+}
+
+type AppState = GlobeState & {
+  overlayLayers: Set<OverlayLayer>;
+};
+
+type AppAction = GlobeAction & { type: "toggle-overlay"; value: OverlayLayer };
+
+function setHash(pos: CameraParams, overlays: Set<OverlayLayer>) {
+  let hash = buildPositionHash(pos);
+  if (overlays.size > 0) {
+    hash.overlays = Array.from(overlays).join(",");
+  }
+  setHashString(hash);
+}
+
+const newReducer = (state: AppState, action: AppAction) => {
   switch (action.type) {
     case "set-camera-position":
       // Hook into the camera position setter to change viewer hash
-      setPositionHash(action.value.camera);
+      setHash(action.value.camera, state.overlayLayers);
       return reducer(state, action);
+    case "toggle-overlay":
+      let spec = {};
+      if (state.overlayLayers.has(action.value)) {
+        spec = { $remove: [action.value] };
+      } else {
+        spec = { $add: [action.value] };
+      }
+      let newState = update(state, { overlayLayers: spec });
+      setHash(state.position.camera ?? state.position, newState.overlayLayers);
+      return newState;
     default:
       return reducer(state, action);
   }
 };
 
-let initialPos = getInitialPosition();
+const { overlays, ...hashVals } = getHashString() ?? {};
+let initialPos = getInitialPosition(hashVals);
 let namedLocation = null;
 if (initialPos == null) {
   namedLocation = "initial";
   initialPos = positions[namedLocation];
 }
-console.log(initialPos);
 
-const initialState = createInitialState({
+// Initial state
+const globeState = createInitialState({
   positions,
   flyToProps: flyToParams(initialPos, {
     duration: 0,
@@ -123,6 +155,17 @@ const initialState = createInitialState({
     ? DisplayQuality.Low
     : DisplayQuality.High,
 });
+
+let overlayLayers = [];
+if (overlays != null) {
+  overlayLayers = overlays.split(",");
+}
+
+const initialState: AppState = {
+  ...globeState,
+  overlayLayers: new Set(overlayLayers),
+};
+
 let store = createStore(
   newReducer,
   initialState,
@@ -131,9 +174,12 @@ let store = createStore(
 
 const ImageryLayers = () => {
   const mapLayer = useSelector((s) => s.mapLayer);
+  const overlays = useSelector((s) => s.overlayLayers);
+  console.log(mapLayer);
   return h([
-    h.if(mapLayer != ActiveMapLayer.Hillshade)(CTXLayer),
+    h.if(mapLayer == ActiveMapLayer.CTX)(CTXLayer),
     h.if(mapLayer == ActiveMapLayer.Hillshade)(HillshadeLayer),
+    h.if(overlays.has("CRISM"))(CRISMLayer),
   ]);
 };
 
@@ -169,6 +215,7 @@ const UI = () => {
           h(Route, { path: "/about" }, [
             h(TextPanel, { html: viewerText, scrollParentRef: ref }),
           ]),
+          h(Route, { path: "/layers" }, h(LayerSelectorPanel)),
           h(Route, { path: "/list" }, [h(PositionListEditor, { positions })]),
           h(Route, { path: "/" }, [
             h(TextPanel, { html: mainText, scrollParentRef: ref }),

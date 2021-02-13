@@ -11,6 +11,21 @@ $main=rgb(250, 128, 114)
   --main-font: "Source Serif Pro", "Times New Roman", serif
   --mono-font: "Source Code Pro", mono
 
+link_button()
+  text-decoration none
+  font-weight 300
+  display block
+  color var(--accent-dark)
+  padding 0.2em 0.5em
+  margin-right 0.5em
+  border-radius 3px
+  cursor pointer
+  &:hover
+    background-color var(--accent-background-light)
+  &:visited
+    color var(--accent-dark)
+  &.is-active
+    background-color var(--accent-background)
 
 :global
   *
@@ -76,6 +91,7 @@ $main=rgb(250, 128, 114)
     top 2px
     left 10px
     font-weight bold
+    color: var(--accent-color)
 
   .distance-legend
     background: transparent !important
@@ -90,6 +106,10 @@ $main=rgb(250, 128, 114)
     .distance-legend-label
       font-family: var(--main-font)
       font-weight 500
+
+  .layer-button
+    display block
+    link_button()
 
   #changelog
     font-size 0.8em
@@ -151,20 +171,8 @@ nav
   li
     vertical-align: baseline
     a
-      text-decoration none
-      font-weight 300
+      link_button()
       font-size 1.2em
-      display block
-      color var(--accent-dark)
-      padding 0.2em 0.5em
-      margin-right 0.5em
-      border-radius 3px
-      &:hover
-        background-color var(--accent-background-light)
-      &:visited
-        color var(--accent-dark)
-      &.is-active
-        background-color var(--accent-background)
 
 .positions
   color: #ccc !important

@@ -80,4 +80,27 @@ class SyrtisTerrainProvider extends MapboxTerrainProvider {
   }
 }
 
-export { CTXLayer, MOLALayer, HillshadeLayer, SyrtisTerrainProvider };
+const CRISMLayer = (props: GeoLayerProps) => {
+  let ctx = useRef(
+    new WebMapTileServiceImageryProvider({
+      url:
+        process.env.API_BASE_URL +
+        "/crism/{TileMatrix}/{TileCol}/{TileRow}.png",
+      style: "default",
+      format: "image/png",
+      maximumLevel: 11,
+      layer: "",
+      tileMatrixSetID: "",
+      credit: new Credit("JHU-APL/CRISM"),
+    })
+  );
+  return h(ImageryLayer, { imageryProvider: ctx.current, ...props });
+};
+
+export {
+  CRISMLayer,
+  CTXLayer,
+  MOLALayer,
+  HillshadeLayer,
+  SyrtisTerrainProvider,
+};

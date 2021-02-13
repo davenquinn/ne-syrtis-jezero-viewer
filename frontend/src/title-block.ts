@@ -119,6 +119,7 @@ const TitleBlock = () => {
       h("ul", [
         h(Link, { to: "/", exact: true }, "Story"),
         h(Link, { to: "/about" }, "The viewer"),
+        h(Link, { to: "/layers" }, "Layers"),
         h(Link, { to: "/list", className: styles["positions"] }, "#"),
       ])
     ),

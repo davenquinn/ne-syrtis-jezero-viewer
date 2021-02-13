@@ -1,5 +1,11 @@
 # Changelog
 
+## `[0.3.0]` 2021-02-12
+
+- Added CRISM layer, with ability to toggle and enable from hash string
+- Reorganize text a little bit
+- Small style fixes
+
 ## `[0.2.1]` 2021-02-10
 
 - Fix bug with base URL
