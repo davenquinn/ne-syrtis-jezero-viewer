@@ -7,6 +7,7 @@ import {
   HillshadeLayer,
   SyrtisTerrainProvider,
   CRISMLayer,
+  MOLALayer,
 } from "./layers";
 import {
   setHashString,
@@ -177,6 +178,7 @@ const ImageryLayers = () => {
   const overlays = useSelector((s) => s.overlayLayers);
   console.log(mapLayer);
   return h([
+    h(MOLALayer),
     h.if(mapLayer == ActiveMapLayer.CTX)(CTXLayer),
     h.if(mapLayer == ActiveMapLayer.Hillshade)(HillshadeLayer),
     h.if(overlays.has("CRISM"))(CRISMLayer),
