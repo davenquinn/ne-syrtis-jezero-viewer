@@ -11,6 +11,7 @@ import MapboxTerrainProvider, {
   TileCoordinates,
 } from "@macrostrat/cesium-martini";
 import SphericalMercator from "@mapbox/sphericalmercator";
+const Cesium: any = require("cesiumSource/Cesium");
 
 const MARS_RADIUS_SCALAR = 3390 / 6371;
 
@@ -28,6 +29,7 @@ const CTXLayer = (props: GeoLayerProps) => {
       credit: new Credit("Murray Lab / CTX "),
     })
   );
+
   return h(ImageryLayer, { imageryProvider: ctx.current, ...props });
 };
 
@@ -37,10 +39,25 @@ const MOLALayer = (props: GeoLayerProps) => {
       url:
         "http://s3-eu-west-1.amazonaws.com/whereonmars.cartodb.net/mola-gray",
       fileExtension: "png",
-      maximumLevel: 12,
+      maximumLevel: 6,
       layer: "",
       tileMatrixSetID: "",
+      // Convince the viewer to load a lower level of detail for global tiles
+      // to avoid stressing the server
+      // tileWidth: 512,
+      // tileHeight: 512,
+      // Global coverage
+      rectangle: new Cesium.Rectangle(
+        -Math.PI,
+        -Math.PI / 2,
+        Math.PI,
+        Math.PI / 2
+      ),
       credit: new Credit("OpenPlanetaryMap/CARTO"),
+      ellipsoid: Cesium.Ellipsoid.MARSIAU2000,
+      tilingScheme: new Cesium.WebMercatorTilingScheme({
+        ellipsoid: Cesium.Ellipsoid.MARSIAU2000,
+      }),
     })
   );
   return h(ImageryLayer, { imageryProvider: ctx.current, ...props });
