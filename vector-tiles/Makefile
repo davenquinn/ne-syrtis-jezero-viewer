@@ -18,3 +18,7 @@ watershed_goudge:
 	psql $(PG_ARGS) -c "CREATE SCHEMA IF NOT EXISTS $@"
 	./load-layer $@.units \
 		datasets/Goudge_et_al_2015_Jezero_Watershed_Map/Goudge_Final_Published_Jezero_Watershed_Map.shp
+
+.PHONY: views
+views: views.sql
+	psql $(PG_ARGS) -f $^
