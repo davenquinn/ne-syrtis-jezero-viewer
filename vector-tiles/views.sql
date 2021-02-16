@@ -2,27 +2,31 @@ DROP MATERIALIZED VIEW map_units;
 CREATE MATERIALIZED VIEW map_units AS
 WITH units AS (
 SELECT
-	unit_name AS "name",
+	unit_name AS unit_id,
 	ST_Transform(wkb_geometry, 900916) geometry,
-	'watershed_goudge' source
+	'watershed_goudge' map_id
 FROM watershed_goudge.units
 UNION ALL
 SELECT
-	name,
+	name unit_id,
 	ST_Transform(shape, 900916) geometry,
-	'jezero_usgs' source
+	'jezero_usgs' map_id
 FROM jezero_usgs.units
 UNION ALL
 SELECT
 	unit_id,
 	ST_Transform(wkb_geometry, 900916) geometry,
-	'sulfates_quinn' source
+	'sulfates_quinn' map_id
 FROM sulfates_quinn.units
 WHERE unit_id NOT IN ('noachian')
 )
 SELECT
-	row_number() OVER (),
-	*
+	row_number() OVER () fid,
+  unit_id,
+  -- CAST THIS appropriately so it gets registered!
+  -- https://postgis.net/docs/postgis_usage.html#Manual_Register_Spatial_Column
+  geometry::geometry(MultiPolygon, 900916),
+  map_id
 FROM units;
 
 CREATE INDEX map_units_geometry_index
@@ -33,5 +37,5 @@ CREATE INDEX map_units_geometry_index
 -- NOTE: Symbology for Jezero USGS map can be found at
 -- https://planetarymapping.wr.usgs.gov/interactive/sim3464
 INSERT INTO unit_symbology (unit_id, map_id)
-SELECT DISTINCT ON (name, source) name, source FROM map_units
+SELECT DISTINCT ON (unit_id, map_id) unit_id, map_id FROM map_units
 ON CONFLICT DO NOTHING;
