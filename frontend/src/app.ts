@@ -176,7 +176,6 @@ let store = createStore(
 const ImageryLayers = () => {
   const mapLayer = useSelector((s) => s.mapLayer);
   const overlays = useSelector((s) => s.overlayLayers);
-  console.log(mapLayer);
   return h([
     h(MOLALayer),
     h.if(mapLayer == ActiveMapLayer.CTX)(CTXLayer),

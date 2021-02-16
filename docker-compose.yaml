@@ -2,8 +2,6 @@ version: "3"
 services:
   gateway:
     build: gateway
-    depends_on:
-      - frontend
     expose:
       - 80
     ports:
@@ -14,10 +12,26 @@ services:
       - 8080
     volumes:
       - ./data:/data
-  frontend:
-    build:
-      context: frontend
-      args:
-        - PUBLIC_URL=${PUBLIC_URL:-"/"}
-        - NODE_ENV=production
-    image: syrtis-jezero-frontend
+  tileserver:
+    image: pramsey/pg_tileserv
+    environment:
+      - DATABASE_URL=postgres://postgres@database/mars_syrtis
+    depends_on:
+      - database
+    ports:
+      - 7800:7800
+  database:
+    image: postgis/postgis:13-3.0
+    volumes:
+      - db_cluster:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=mars_syrtis
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    ports:
+      - 54321:5432
+    expose:
+      - 54321
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"] 
+volumes:
+  db_cluster:
