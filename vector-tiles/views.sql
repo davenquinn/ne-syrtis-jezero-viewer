@@ -16,7 +16,7 @@ UNION ALL
 SELECT
 	unit_id,
 	ST_Transform(wkb_geometry, 900916) geometry,
-	'quinn_sulfates' source
+	'sulfates_quinn' source
 FROM sulfates_quinn.units
 WHERE unit_id NOT IN ('noachian')
 )
@@ -28,3 +28,10 @@ FROM units;
 CREATE INDEX map_units_geometry_index
   ON map_units
   USING GIST (geometry);
+
+
+-- NOTE: Symbology for Jezero USGS map can be found at
+-- https://planetarymapping.wr.usgs.gov/interactive/sim3464
+INSERT INTO unit_symbology (unit_id, map_id)
+SELECT DISTINCT ON (name, source) name, source FROM map_units
+ON CONFLICT DO NOTHING;

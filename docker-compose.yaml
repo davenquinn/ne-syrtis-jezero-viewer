@@ -20,6 +20,8 @@ services:
       - database
     ports:
       - 7800:7800
+    expose:
+      - 7800
   database:
     image: postgis/postgis:13-3.0
     volumes:
