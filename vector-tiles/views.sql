@@ -22,12 +22,16 @@ WHERE unit_id NOT IN ('noachian')
 )
 SELECT
 	row_number() OVER () fid,
-  unit_id,
+  u.unit_id,
   -- CAST THIS appropriately so it gets registered!
   -- https://postgis.net/docs/postgis_usage.html#Manual_Register_Spatial_Column
-  geometry::geometry(MultiPolygon, 900916),
-  map_id
-FROM units;
+  ST_Simplify(geometry,1)::geometry(MultiPolygon, 900916) geometry,
+  u.map_id,
+  coalesce(s.color, '#888888') color
+FROM units u
+JOIN unit_symbology s
+  ON s.unit_id = u.unit_id
+ AND s.map_id = u.map_id;
 
 CREATE INDEX map_units_geometry_index
   ON map_units
