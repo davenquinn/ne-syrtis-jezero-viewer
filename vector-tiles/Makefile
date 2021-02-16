@@ -1,22 +1,20 @@
+PG_ARGS := -p 54321 -h localhost -U postgres mars_syrtis
+
+all: jezero_usgs sulfates_quinn watershed_goudge
+
 JEZ_DB := datasets/sim3464_JezeroNili_FINAL/Geodatabase/Nili.gdb
-PG_CONN := PG:"host=localhost port=54321 dbname=mars_syrtis user=postgres" 
+jezero_usgs:
+	psql $(PG_ARGS) -c "CREATE SCHEMA IF NOT EXISTS $@"
+	./load-layer $@.units $(JEZ_DB) GeoUnits_v1 
+	./load-layer $@.lines $(JEZ_DB) LinearFeatures
+	./load-layer $@.names $(JEZ_DB) Nomenclature
 
-all: jezero_map
+sulfates_quinn:
+	psql $(PG_ARGS) -c "CREATE SCHEMA IF NOT EXISTS $@"
+	./load-layer $@.units datasets/geologic-map-shapefile/polygons.shp 
+	./load-layer $@.lines datasets/geologic-map-shapefile/lines.shp
 
-jezero_map:
-	psql -p 54321 -h localhost -U postgres mars_syrtis -c "CREATE SCHEMA jezero_usgs"
-	ogr2ogr -f "PostgreSQL" \
-		$(PG_CONN) \
-    $(JEZ_DB) \
-		-nln jezero_usgs.units GeoUnits_v1 \
-    -overwrite -progress --config PG_USE_COPY YES
-	ogr2ogr -f "PostgreSQL" \
-		$(PG_CONN) \
-    $(JEZ_DB) \
-		-nln jezero_usgs.lines LinearFeatures \
-    -overwrite -progress --config PG_USE_COPY YES
-	ogr2ogr -f "PostgreSQL" \
-		$(PG_CONN) \
-    $(JEZ_DB) \
-		-nln jezero_usgs.names Nomenclature \
-    -overwrite -progress --config PG_USE_COPY YES
+watershed_goudge:
+	psql $(PG_ARGS) -c "CREATE SCHEMA IF NOT EXISTS $@"
+	./load-layer $@.units \
+		datasets/Goudge_et_al_2015_Jezero_Watershed_Map/Goudge_Final_Published_Jezero_Watershed_Map.shp
