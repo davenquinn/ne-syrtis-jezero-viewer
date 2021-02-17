@@ -1,3 +1,6 @@
+# NOTE: This docker-compose file only covers backend processes
+# right now. The frontend is built locally and generally will live
+# on a different machine than the data services.
 version: "3"
 services:
   gateway:

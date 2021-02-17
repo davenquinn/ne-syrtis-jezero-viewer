@@ -66,10 +66,10 @@ const MOLALayer = (props: GeoLayerProps) => {
 let merc = new SphericalMercator({ size: 256 });
 
 let bounds = {
-  w: 74.4,
-  s: 15.8,
-  e: 78.7,
-  n: 19.5,
+  w: 72,
+  s: 13,
+  e: 80,
+  n: 23,
 };
 
 class SyrtisTerrainProvider extends MapboxTerrainProvider {
@@ -86,7 +86,7 @@ class SyrtisTerrainProvider extends MapboxTerrainProvider {
   }
 
   preprocessHeight(x, y, height) {
-    return height < 2000 ? height : -2000;
+    return height; // < 4000 ? height : -4000;
   }
 
   getTileDataAvailable(x, y, z) {

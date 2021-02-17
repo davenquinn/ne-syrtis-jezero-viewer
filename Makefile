@@ -1,6 +1,6 @@
 all:
 	docker-compose up --build -d
-	docker-compose logs -f
+	docker-compose logs -f & API_BASE_URL=http://localhost:4053/tiles npm run dev:frontend
 
 process-dem:
 	docker run --rm -ti -v $(shell pwd)/data:/data \

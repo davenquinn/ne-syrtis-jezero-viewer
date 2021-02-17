@@ -18,6 +18,7 @@ function BaseLayerSelector() {
       name: "CTX global mosaic",
       active: baseLayer == ActiveMapLayer.CTX,
       onClick() {
+        console.log("Changing map layer");
         dispatch({ type: "set-map-layer", value: ActiveMapLayer.CTX });
       },
     }),
@@ -25,6 +26,7 @@ function BaseLayerSelector() {
       name: "Hillshade",
       active: baseLayer == ActiveMapLayer.Hillshade,
       onClick() {
+        console.log("Changing map layer");
         dispatch({ type: "set-map-layer", value: ActiveMapLayer.Hillshade });
       },
     }),
