@@ -4,7 +4,7 @@ import { Provider, useSelector } from "react-redux";
 import { createStore } from "redux";
 import {
   CTXLayer,
-  HillshadeLayer,
+  MarsHillshadeLayer,
   SyrtisTerrainProvider,
   CRISMLayer,
   MOLALayer,
@@ -179,7 +179,7 @@ const ImageryLayers = () => {
   return h([
     h(MOLALayer),
     h.if(mapLayer == ActiveMapLayer.CTX)(CTXLayer),
-    h.if(mapLayer == ActiveMapLayer.Hillshade)(HillshadeLayer),
+    h.if(mapLayer == ActiveMapLayer.Hillshade)(MarsHillshadeLayer),
     h.if(overlays.has("CRISM"))(CRISMLayer),
   ]);
 };

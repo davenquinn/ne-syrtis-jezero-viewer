@@ -6,7 +6,7 @@ import {
 } from "cesium";
 import h from "@macrostrat/hyper";
 import { ImageryLayer } from "resium";
-import { GeoLayerProps, HillshadeLayer } from "cesium-viewer/layers";
+import { GeoLayerProps, MarsHillshadeLayer } from "cesium-viewer/layers";
 import MapboxTerrainProvider, {
   TileCoordinates,
 } from "@macrostrat/cesium-martini";
@@ -85,9 +85,9 @@ class SyrtisTerrainProvider extends MapboxTerrainProvider {
     return `${process.env.API_BASE_URL}/terrain/${z}/${x}/${y}${hires}.png`;
   }
 
-  preprocessHeight(x, y, height) {
-    return height; // < 4000 ? height : -4000;
-  }
+  // preprocessHeight(x, y, height) {
+  //   return height; // < 4000 ? height : -4000;
+  // }
 
   getTileDataAvailable(x, y, z) {
     const [w, s, e, n] = merc.bbox(x, y, z);
@@ -118,6 +118,6 @@ export {
   CRISMLayer,
   CTXLayer,
   MOLALayer,
-  HillshadeLayer,
+  MarsHillshadeLayer,
   SyrtisTerrainProvider,
 };
