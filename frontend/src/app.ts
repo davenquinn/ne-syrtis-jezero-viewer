@@ -1,5 +1,5 @@
 import { hyperStyled } from "@macrostrat/hyper";
-import { useRef, useState } from "react";
+import { useRef, useState, memo } from "react";
 import { Provider, useSelector } from "react-redux";
 import { createStore } from "redux";
 import {
@@ -205,6 +205,8 @@ const Viewer = () => {
   );
 };
 
+const MemViewer = memo(Viewer);
+
 const baseURL = process.env.PUBLIC_URL ?? "/";
 
 const UI = () => {
@@ -239,10 +241,11 @@ function ShowUIButton(props) {
 
 const AppMain = () => {
   const [showUI, setShowUI] = useState(true);
+
   return h("div.app-ui", [
     h.if(showUI)("div.left", null, h(UI)),
     h("div.right", null, [
-      h(Viewer),
+      h(MemViewer),
       h(CopyPositionButton),
       h(ShowUIButton, {
         enabled: showUI,
