@@ -2,6 +2,7 @@ import { useRef } from "react";
 import {
   Credit,
   WebMapTileServiceImageryProvider,
+  UrlTemplateImageryProvider,
   TileMapServiceImageryProvider,
 } from "cesium";
 import h from "@macrostrat/hyper";
@@ -79,20 +80,25 @@ class SyrtisTerrainProvider extends MapboxTerrainProvider {
   credit = new Credit(
     "University of Arizona - HiRISE, CTX, PDS Imaging Node, HRSC Mission Team"
   );
+
+  constructor(opts) {
+    super({ ...opts, highResolution: true });
+  }
+
   buildTileURL(tileCoords: TileCoordinates) {
     const { z, x, y } = tileCoords;
     const hires = this.highResolution ? "@2x" : "";
     return `${process.env.API_BASE_URL}/terrain/${z}/${x}/${y}${hires}.png`;
   }
 
-  // preprocessHeight(x, y, height) {
-  //   return height; // < 4000 ? height : -4000;
-  // }
+  preprocessHeight(x, y, height) {
+    return height < 4000 ? height : -4000;
+  }
 
   getTileDataAvailable(x, y, z) {
-    const [w, s, e, n] = merc.bbox(x, y, z);
-    if (e < bounds.w || w > bounds.e || n < bounds.s || s > bounds.n)
-      return false;
+    // const [w, s, e, n] = merc.bbox(x, y, z);
+    // if (e < bounds.w || w > bounds.e || n < bounds.s || s > bounds.n)
+    //   return false;
     return z <= 13;
   }
 }

@@ -101,6 +101,7 @@ enum OverlayLayer {
 
 type AppState = GlobeState & {
   overlayLayers: Set<OverlayLayer>;
+  debug: boolean;
 };
 
 type AppAction = GlobeAction & { type: "toggle-overlay"; value: OverlayLayer };
@@ -134,7 +135,7 @@ const newReducer = (state: AppState, action: AppAction) => {
   }
 };
 
-const { overlays, ...hashVals } = getHashString() ?? {};
+const { overlays, debug, ...hashVals } = getHashString() ?? {};
 let initialPos = getInitialPosition(hashVals);
 let namedLocation = null;
 if (initialPos == null) {
@@ -165,6 +166,7 @@ if (overlays != null) {
 const initialState: AppState = {
   ...globeState,
   overlayLayers: new Set(overlayLayers),
+  debug: debug != null,
 };
 
 let store = createStore(
@@ -189,6 +191,7 @@ const terrainProvider = new SyrtisTerrainProvider();
 const Viewer = () => {
   const displayQuality = useSelector((s) => s.displayQuality);
   const exaggeration = useSelector((s) => s.verticalExaggeration);
+  const debug = useSelector((s) => s.debug);
 
   return h(
     CesiumViewer,
@@ -196,6 +199,7 @@ const Viewer = () => {
       terrainProvider,
       terrainExaggeration: exaggeration / terrainProvider.RADIUS_SCALAR,
       displayQuality,
+      showInspector: debug,
     },
     h(ImageryLayers)
   );
