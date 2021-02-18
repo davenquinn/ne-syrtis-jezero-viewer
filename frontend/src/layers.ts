@@ -42,11 +42,12 @@ const GeologyLayer = (props) => {
   let ctx = useRef(
     new MapboxVectorTileImageryProvider({
       url: "http://localhost:7800/public.map_units/{z}/{x}/{y}.pbf",
-      layerName: "geology",
-      styleFunc(id) {
+      layerName: "public.map_units",
+      uniqueIdProp: "fid",
+      styleFunc(id, props) {
         return {
-          fillStyle: "blue",
-          strokeStyle: "black",
+          fillStyle: props.color + "66",
+          strokeStyle: props.color,
         };
       },
     })
