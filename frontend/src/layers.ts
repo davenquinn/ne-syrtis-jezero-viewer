@@ -7,7 +7,11 @@ import {
 } from "cesium";
 import h from "@macrostrat/hyper";
 import { ImageryLayer } from "resium";
-import { GeoLayerProps, MarsHillshadeLayer } from "cesium-viewer/layers";
+import {
+  GeoLayerProps,
+  MarsHillshadeLayer,
+  MapboxVectorTileImageryProvider,
+} from "cesium-viewer/layers";
 import MapboxTerrainProvider, {
   TileCoordinates,
 } from "@macrostrat/cesium-martini";
@@ -31,6 +35,22 @@ const CTXLayer = (props: GeoLayerProps) => {
     })
   );
 
+  return h(ImageryLayer, { imageryProvider: ctx.current, ...props });
+};
+
+const GeologyLayer = (props) => {
+  let ctx = useRef(
+    new MapboxVectorTileImageryProvider({
+      url: "http://localhost:7800/public.map_units/{z}/{x}/{y}.pbf",
+      layerName: "geology",
+      styleFunc(id) {
+        return {
+          fillStyle: "blue",
+          strokeStyle: "black",
+        };
+      },
+    })
+  );
   return h(ImageryLayer, { imageryProvider: ctx.current, ...props });
 };
 
@@ -126,4 +146,5 @@ export {
   MOLALayer,
   MarsHillshadeLayer,
   SyrtisTerrainProvider,
+  GeologyLayer,
 };

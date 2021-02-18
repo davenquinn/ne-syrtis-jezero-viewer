@@ -69,7 +69,8 @@
     "regl": "^1.6.1",
     "resium": "^1.12.0",
     "typeset": "^0.3.0",
-    "underscore": "^1.10.2"
+    "underscore": "^1.10.2",
+    "urijs": "^1.19.6"
   },
   "prettier": {}
 }

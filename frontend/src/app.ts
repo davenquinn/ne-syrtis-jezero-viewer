@@ -8,6 +8,7 @@ import {
   SyrtisTerrainProvider,
   CRISMLayer,
   MOLALayer,
+  GeologyLayer,
 } from "./layers";
 import {
   getHashString,
@@ -208,6 +209,7 @@ const ImageryLayers = () => {
     h.if(mapLayer == ActiveMapLayer.CTX)(CTXLayer),
     h.if(mapLayer == ActiveMapLayer.Hillshade)(MarsHillshadeLayer),
     h.if(overlays.has("CRISM"))(CRISMLayer),
+    h(GeologyLayer),
   ]);
 };
 
