@@ -108,7 +108,7 @@ const MOLALayer = (props: GeoLayerProps) => {
   let ctx = useRef(
     new TileMapServiceImageryProvider({
       url:
-        "http://s3-eu-west-1.amazonaws.com/whereonmars.cartodb.net/mola-gray",
+        "https://s3-eu-west-1.amazonaws.com/whereonmars.cartodb.net/mola-gray",
       fileExtension: "png",
       maximumLevel: 6,
       layer: "",
