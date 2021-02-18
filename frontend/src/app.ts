@@ -10,8 +10,8 @@ import {
   MOLALayer,
 } from "./layers";
 import {
-  setHashString,
   getHashString,
+  setHashString,
 } from "@macrostrat/ui-components/lib/esm/util/query-string";
 
 import CesiumViewer, { DisplayQuality } from "cesium-viewer";
@@ -104,6 +104,7 @@ enum OverlayLayer {
 type AppState = GlobeState & {
   overlayLayers: Set<OverlayLayer>;
   debug: boolean;
+  mapBackend: MapBackend;
 };
 
 type AppAction = GlobeAction & {
@@ -111,10 +112,17 @@ type AppAction = GlobeAction & {
   value: OverlayLayer;
 } & { type: "toggle-map-backend" };
 
-function setHash(pos: CameraParams, overlays: Set<OverlayLayer>) {
+function setHash(
+  pos: CameraPosition,
+  overlays: Set<OverlayLayer>,
+  mapBackend: MapBackend
+) {
   let hash = buildPositionHash(pos);
   if (overlays.size > 0) {
     hash.overlays = Array.from(overlays).join(",");
+  }
+  if (mapBackend == MapBackend.Flat) {
+    hash.mapBackend = "2d";
   }
   setHashString(hash);
 }
@@ -123,7 +131,7 @@ const newReducer = (state: AppState, action: AppAction) => {
   switch (action.type) {
     case "set-camera-position":
       // Hook into the camera position setter to change viewer hash
-      setHash(action.value.camera, state.overlayLayers);
+      setHash(action.value.camera, state.overlayLayers, state.mapBackend);
       return reducer(state, action);
     case "toggle-overlay":
       let spec = {};
@@ -133,20 +141,30 @@ const newReducer = (state: AppState, action: AppAction) => {
         spec = { $add: [action.value] };
       }
       let newState = update(state, { overlayLayers: spec });
-      setHash(state.position.camera ?? state.position, newState.overlayLayers);
+      setHash(
+        state.position.camera ?? state.position,
+        newState.overlayLayers,
+        newState.mapBackend
+      );
       return newState;
     case "toggle-map-backend":
       const mapBackend =
         state.mapBackend == MapBackend.Flat
           ? MapBackend.Globe
           : MapBackend.Flat;
+
+      setHash(
+        state.position.camera ?? state.position,
+        state.overlayLayers,
+        mapBackend
+      );
       return { ...state, mapBackend };
     default:
       return reducer(state, action);
   }
 };
 
-const { overlays, debug, ...hashVals } = getHashString() ?? {};
+const { overlays, debug, mapBackend, ...hashVals } = getHashString() ?? {};
 let initialPos = getInitialPosition(hashVals);
 let namedLocation = null;
 if (initialPos == null) {
@@ -169,15 +187,10 @@ const globeState = createInitialState({
     : DisplayQuality.High,
 });
 
-let overlayLayers = [];
-if (overlays != null) {
-  overlayLayers = overlays.split(",");
-}
-
 const initialState: AppState = {
   ...globeState,
-  overlayLayers: new Set(overlayLayers),
-  mapBackend: MapBackend.Globe,
+  overlayLayers: new Set(overlays?.split(",") ?? []),
+  mapBackend: mapBackend == "2d" ? MapBackend.Flat : MapBackend.Globe,
   debug: debug != null,
 };
 
