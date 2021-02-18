@@ -1,4 +1,4 @@
-It brings together the two key components of a sustainable visualization
+This viewer brings together the two key components of a sustainable visualization
 strategy:
 **high-resolution, regionally extensive
 data products**, displayed in a **configurable user interface**.
