@@ -1,5 +1,5 @@
 all:
-	docker-compose up --build -d
+	docker-compose up --build --force-recreate -d
 	docker-compose logs -f & API_BASE_URL=http://localhost:4053 npm run dev:frontend
 
 process-dem:
