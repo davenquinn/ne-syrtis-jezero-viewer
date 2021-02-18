@@ -41,6 +41,9 @@
   },
   "author": "",
   "license": "ISC",
+  "workspaces": [
+    "packages/*"
+  ],
   "dependencies": {
     "@macrostrat/cesium-martini": "file:./bundledDeps/cesium-martini",
     "@macrostrat/hyper": "^1.2.6",
@@ -55,6 +58,7 @@
     "jquery": "^3.5.1",
     "leaflet": "^1.6.0",
     "mapbox-gl": "^1.11.1",
+    "mvt-imagery-provider": "file:./packages/mvt-imagery-provider",
     "react": "^16.13.1",
     "react-copy-to-clipboard": "^5.0.2",
     "react-dom": "^16.13.1",

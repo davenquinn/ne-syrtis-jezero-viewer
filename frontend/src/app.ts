@@ -16,8 +16,10 @@ import {
 } from "@macrostrat/ui-components/lib/esm/util/query-string";
 
 import CesiumViewer, { DisplayQuality } from "cesium-viewer";
+import { OverlayLayer } from "./state";
 import styles from "./main.styl";
 
+import { ImageryLayerCollection } from "resium";
 import { LayerSelectorPanel } from "./layer-selector";
 import { TitleBlock } from "./title-block";
 import { TextPanel } from "./text-panel";
@@ -96,10 +98,6 @@ function getInitialPosition(hashVals: {
   };
   console.log("Setting initial position from hash: ", pos);
   return pos;
-}
-
-enum OverlayLayer {
-  CRISM = "crism",
 }
 
 type AppState = GlobeState & {
@@ -204,12 +202,12 @@ let store = createStore(
 const ImageryLayers = () => {
   const mapLayer = useSelector((s) => s.mapLayer);
   const overlays = useSelector((s) => s.overlayLayers);
-  return h([
+  return h(ImageryLayerCollection, [
     h(MOLALayer),
     h.if(mapLayer == ActiveMapLayer.CTX)(CTXLayer),
     h.if(mapLayer == ActiveMapLayer.Hillshade)(MarsHillshadeLayer),
-    h.if(overlays.has("CRISM"))(CRISMLayer),
-    h(GeologyLayer),
+    h.if(overlays.has(OverlayLayer.CRISM))(CRISMLayer),
+    h.if(overlays.has(OverlayLayer.Geology))(GeologyLayer),
   ]);
 };
 

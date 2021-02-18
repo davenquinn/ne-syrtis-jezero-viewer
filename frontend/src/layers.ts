@@ -10,12 +10,13 @@ import { ImageryLayer } from "resium";
 import {
   GeoLayerProps,
   MarsHillshadeLayer,
-  MapboxVectorTileImageryProvider,
+  //MapboxVectorTileImageryProvider,
 } from "cesium-viewer/layers";
 import MapboxTerrainProvider, {
   TileCoordinates,
 } from "@macrostrat/cesium-martini";
 import SphericalMercator from "@mapbox/sphericalmercator";
+import MVTImageryProvider from "mvt-imagery-provider";
 const Cesium: any = require("cesiumSource/Cesium");
 
 const MARS_RADIUS_SCALAR = 3390 / 6371;
@@ -38,12 +39,14 @@ const CTXLayer = (props: GeoLayerProps) => {
   return h(ImageryLayer, { imageryProvider: ctx.current, ...props });
 };
 
-const GeologyLayer = (props) => {
+/*
+const GeologyLayerA = (props) => {
   let ctx = useRef(
     new MapboxVectorTileImageryProvider({
       url: "http://localhost:7800/public.map_units/{z}/{x}/{y}.pbf",
       layerName: "public.map_units",
       uniqueIdProp: "fid",
+      maximumZoom: 10,
       styleFunc(id, props) {
         return {
           fillStyle: props.color + "66",
@@ -52,6 +55,49 @@ const GeologyLayer = (props) => {
       },
     })
   );
+  return h(ImageryLayer, { imageryProvider: ctx.current, ...props });
+};
+*/
+
+var style = {
+  version: 8,
+  sources: {
+    geology: {
+      type: "vector",
+      tiles: ["http://localhost:7800/public.map_units/{z}/{x}/{y}.pbf"],
+      maxzoom: 15,
+      minzoom: 5,
+    },
+  },
+  layers: [
+    {
+      id: "public.map_units",
+      source: "geology",
+      "source-layer": "public.map_units",
+      type: "fill",
+      paint: {
+        "fill-color": ["get", "color"],
+        "fill-opacity": 0.3,
+      },
+    },
+    {
+      id: "unit-edge",
+      source: "geology",
+      "source-layer": "public.map_units",
+      type: "line",
+      layout: {
+        "line-cap": "round",
+      },
+      paint: {
+        "line-color": ["get", "color"],
+        "line-width": 1,
+      },
+    },
+  ],
+};
+
+const GeologyLayer = (props) => {
+  let ctx = useRef(new MVTImageryProvider({ style, maximumZoom: 13 }));
   return h(ImageryLayer, { imageryProvider: ctx.current, ...props });
 };
 

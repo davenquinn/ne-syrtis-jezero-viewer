@@ -3,4 +3,9 @@ enum MapBackend {
   Globe,
 }
 
-export { MapBackend };
+enum OverlayLayer {
+  CRISM = "crism",
+  Geology = "geology",
+}
+
+export { MapBackend, OverlayLayer };
