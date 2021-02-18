@@ -1,0 +1,33 @@
+#!/bin/bash
+# Description: Import database from binary `pg_dump` archive
+
+dbname=mars_syrtis
+
+[ ! -f "$1" ] \
+&& >&2 echo "File $1 not found" \
+&& exit 1
+
+internal_name="/tmp/$(basename $1)"
+
+docker-compose exec -T database bash -s <<EOF
+mkdir -p /tmp
+rm -f "$internal_name"
+EOF
+
+container_id=$(docker-compose ps -q database)
+
+cd "$(dirname $1)"
+tar -cf - "$(basename $1)" \
+| docker cp - "$container_id":"$(dirname $internal_name)"
+
+if ! docker-compose exec -T database ls "$internal_name" > /dev/null ; then
+  >&2 echo "File $1 not properly copied into docker container"
+  exit 1
+fi
+
+>&2 echo "Replacing database"
+
+docker-compose exec database dropdb --if-exists -Upostgres $dbname
+docker-compose exec database createdb -Upostgres $dbname
+docker-compose exec database pg_restore -v -Upostgres -d $dbname "$internal_name"
+docker-compose exec database rm -f "$internal_name"
