@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 export BUNDLE_DIR="$(pwd)/.dist"
-export API_BASE_URL=https://birdnest.geology.wisc.edu/syrtis-jezero/tiles
+export API_BASE_URL=https://birdnest.geology.wisc.edu/mars-data
 export PUBLIC_URL=/mars/syrtis-jezero
 
 npm --prefix frontend run build
