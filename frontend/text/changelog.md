@@ -1,5 +1,13 @@
 # Changelog
 
+## `[0.5.0]` 2021-02-18
+
+- Added vector tile layers for geologic maps!
+
+### Known bugs
+
+We're not currently able to control order of map layers effectively.
+
 ## `[0.4.0]` 2021-02-17
 
 - Major update to the Cesium viewer underlying this interface to bring the

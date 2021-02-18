@@ -202,12 +202,16 @@ let store = createStore(
 const ImageryLayers = () => {
   const mapLayer = useSelector((s) => s.mapLayer);
   const overlays = useSelector((s) => s.overlayLayers);
-  return h(ImageryLayerCollection, [
-    h(MOLALayer),
-    h.if(mapLayer == ActiveMapLayer.CTX)(CTXLayer),
-    h.if(mapLayer == ActiveMapLayer.Hillshade)(MarsHillshadeLayer),
-    h.if(overlays.has(OverlayLayer.CRISM))(CRISMLayer),
-    h.if(overlays.has(OverlayLayer.Geology))(GeologyLayer),
+  return h([
+    h(ImageryLayerCollection, [
+      h(MOLALayer),
+      h.if(mapLayer == ActiveMapLayer.CTX)(CTXLayer),
+      h.if(mapLayer == ActiveMapLayer.Hillshade)(MarsHillshadeLayer),
+    ]),
+    h(ImageryLayerCollection, [
+      h.if(overlays.has(OverlayLayer.CRISM))(CRISMLayer),
+      h.if(overlays.has(OverlayLayer.Geology))(GeologyLayer),
+    ]),
   ]);
 };
 

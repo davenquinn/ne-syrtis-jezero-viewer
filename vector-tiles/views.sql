@@ -8,6 +8,12 @@ SELECT
 FROM watershed_goudge.units
 UNION ALL
 SELECT
+	unit_name AS unit_id,
+	ST_Transform(wkb_geometry, 900916) geometry,
+	'syrtis_bramble' map_id
+FROM syrtis_bramble.units
+UNION ALL
+SELECT
 	name unit_id,
 	ST_Transform(shape, 900916) geometry,
 	'jezero_usgs' map_id
@@ -29,7 +35,7 @@ SELECT
   u.map_id,
   coalesce(s.color, '#888888') color
 FROM units u
-JOIN unit_symbology s
+LEFT JOIN unit_symbology s
   ON s.unit_id = u.unit_id
  AND s.map_id = u.map_id;
 
