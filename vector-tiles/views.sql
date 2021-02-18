@@ -37,7 +37,10 @@ SELECT
 FROM units u
 LEFT JOIN unit_symbology s
   ON s.unit_id = u.unit_id
- AND s.map_id = u.map_id;
+ AND s.map_id = u.map_id
+JOIN map_dataset d
+  ON d.id = s.map_id
+ORDER BY d.order DESC;
 
 CREATE INDEX map_units_geometry_index
   ON map_units

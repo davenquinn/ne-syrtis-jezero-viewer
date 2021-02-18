@@ -11,18 +11,14 @@ services:
       - ${HTTP_PORT:-80}:80
   backend:
     build: backend
-    expose:
-      - 8080
     volumes:
       - ./data:/data
-  tileserver:
+  vector_tiles:
     image: pramsey/pg_tileserv
     environment:
       - DATABASE_URL=postgres://postgres@database/mars_syrtis
     depends_on:
       - database
-    ports:
-      - 7800:7800
     expose:
       - 7800
   database:
@@ -33,9 +29,9 @@ services:
       - POSTGRES_DB=mars_syrtis
       - POSTGRES_HOST_AUTH_METHOD=trust
     ports:
-      - 54321:5432
+      - ${DB_PORT}:5432
     expose:
-      - 54321
+      - 5432
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "postgres"] 
 volumes:

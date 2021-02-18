@@ -26,7 +26,7 @@ const CTXLayer = (props: GeoLayerProps) => {
     new WebMapTileServiceImageryProvider({
       url:
         process.env.API_BASE_URL +
-        "/ctx-global/{TileMatrix}/{TileCol}/{TileRow}.png",
+        "/tiles/ctx-global/{TileMatrix}/{TileCol}/{TileRow}.png",
       style: "default",
       format: "image/png",
       maximumLevel: 14,
@@ -64,7 +64,10 @@ var style = {
   sources: {
     geology: {
       type: "vector",
-      tiles: ["http://localhost:7800/public.map_units/{z}/{x}/{y}.pbf"],
+      tiles: [
+        process.env.API_BASE_URL +
+          "/vector-tiles/public.map_units/{z}/{x}/{y}.pbf",
+      ],
       maxzoom: 15,
       minzoom: 5,
     },
@@ -155,7 +158,7 @@ class SyrtisTerrainProvider extends MapboxTerrainProvider {
   buildTileURL(tileCoords: TileCoordinates) {
     const { z, x, y } = tileCoords;
     const hires = this.highResolution ? "@2x" : "";
-    return `${process.env.API_BASE_URL}/terrain/${z}/${x}/${y}${hires}.png`;
+    return `${process.env.API_BASE_URL}/tiles/terrain/${z}/${x}/${y}${hires}.png`;
   }
 
   preprocessHeight(x, y, height) {
@@ -175,7 +178,7 @@ const CRISMLayer = (props: GeoLayerProps) => {
     new WebMapTileServiceImageryProvider({
       url:
         process.env.API_BASE_URL +
-        "/crism/{TileMatrix}/{TileCol}/{TileRow}.png",
+        "/tiles/crism/{TileMatrix}/{TileCol}/{TileRow}.png",
       style: "default",
       format: "image/png",
       maximumLevel: 11,
