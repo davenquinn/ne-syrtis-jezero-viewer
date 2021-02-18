@@ -1,6 +1,6 @@
 {
   "name": "syrtis-jezero-frontend",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "",
   "devDependencies": {
     "@babel/core": "^7.9.0",
@@ -41,6 +41,9 @@
   },
   "author": "",
   "license": "ISC",
+  "workspaces": [
+    "packages/*"
+  ],
   "dependencies": {
     "@macrostrat/cesium-martini": "file:./bundledDeps/cesium-martini",
     "@macrostrat/hyper": "^1.2.6",
@@ -55,10 +58,12 @@
     "jquery": "^3.5.1",
     "leaflet": "^1.6.0",
     "mapbox-gl": "^1.11.1",
+    "mvt-imagery-provider": "file:./packages/mvt-imagery-provider",
     "react": "^16.13.1",
     "react-copy-to-clipboard": "^5.0.2",
     "react-dom": "^16.13.1",
     "react-leaflet": "^2.7.0",
+    "react-leaflet-vectorgrid": "^2.2.1",
     "react-redux": "^7.2.1",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
@@ -68,7 +73,8 @@
     "regl": "^1.6.1",
     "resium": "^1.12.0",
     "typeset": "^0.3.0",
-    "underscore": "^1.10.2"
+    "underscore": "^1.10.2",
+    "urijs": "^1.19.6"
   },
   "prettier": {}
 }

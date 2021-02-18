@@ -4,3 +4,6 @@
 [submodule "frontend/bundledDeps/cesium-martini"]
 	path = frontend/bundledDeps/cesium-martini
 	url = git://github.com/davenquinn/cesium-martini.git
+[submodule "frontend/MVTImageryProvider"]
+	path = frontend/packages/mvt-imagery-provider
+	url = git://github.com/davenquinn/MVTImageryProvider.git

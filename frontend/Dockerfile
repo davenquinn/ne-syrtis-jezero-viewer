@@ -2,6 +2,10 @@
 FROM node:12-alpine
 RUN npm install -g linklocal
 
+RUN apk update && \
+  apk upgrade && \
+  apk add git
+
 # Install cesium-martini
 WORKDIR /frontend/bundledDeps/cesium-martini
 COPY bundledDeps/cesium-martini .

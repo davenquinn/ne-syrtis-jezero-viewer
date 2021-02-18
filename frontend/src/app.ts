@@ -1,21 +1,25 @@
 import { hyperStyled } from "@macrostrat/hyper";
-import { useRef, useState } from "react";
+import { useRef, useState, memo } from "react";
 import { Provider, useSelector } from "react-redux";
 import { createStore } from "redux";
 import {
   CTXLayer,
-  HillshadeLayer,
+  MarsHillshadeLayer,
   SyrtisTerrainProvider,
   CRISMLayer,
+  MOLALayer,
+  GeologyLayer,
 } from "./layers";
 import {
-  setHashString,
   getHashString,
+  setHashString,
 } from "@macrostrat/ui-components/lib/esm/util/query-string";
 
 import CesiumViewer, { DisplayQuality } from "cesium-viewer";
+import { OverlayLayer } from "./state";
 import styles from "./main.styl";
 
+import { ImageryLayerCollection } from "resium";
 import { LayerSelectorPanel } from "./layer-selector";
 import { TitleBlock } from "./title-block";
 import { TextPanel } from "./text-panel";
@@ -34,6 +38,8 @@ import mainText from "../text/output/main.html";
 import viewerText from "../text/output/viewer.html";
 import changelogText from "../text/output/changelog.html";
 import update from "immutability-helper";
+import { FlatMap } from "./map";
+import { MapBackend } from "./state";
 
 const h = hyperStyled(styles);
 
@@ -94,20 +100,28 @@ function getInitialPosition(hashVals: {
   return pos;
 }
 
-enum OverlayLayer {
-  CRISM = "crism",
-}
-
 type AppState = GlobeState & {
   overlayLayers: Set<OverlayLayer>;
+  debug: boolean;
+  mapBackend: MapBackend;
 };
 
-type AppAction = GlobeAction & { type: "toggle-overlay"; value: OverlayLayer };
+type AppAction = GlobeAction & {
+  type: "toggle-overlay";
+  value: OverlayLayer;
+} & { type: "toggle-map-backend" };
 
-function setHash(pos: CameraParams, overlays: Set<OverlayLayer>) {
+function setHash(
+  pos: CameraPosition,
+  overlays: Set<OverlayLayer>,
+  mapBackend: MapBackend
+) {
   let hash = buildPositionHash(pos);
   if (overlays.size > 0) {
     hash.overlays = Array.from(overlays).join(",");
+  }
+  if (mapBackend == MapBackend.Flat) {
+    hash.mapBackend = "2d";
   }
   setHashString(hash);
 }
@@ -116,7 +130,7 @@ const newReducer = (state: AppState, action: AppAction) => {
   switch (action.type) {
     case "set-camera-position":
       // Hook into the camera position setter to change viewer hash
-      setHash(action.value.camera, state.overlayLayers);
+      setHash(action.value.camera, state.overlayLayers, state.mapBackend);
       return reducer(state, action);
     case "toggle-overlay":
       let spec = {};
@@ -126,14 +140,30 @@ const newReducer = (state: AppState, action: AppAction) => {
         spec = { $add: [action.value] };
       }
       let newState = update(state, { overlayLayers: spec });
-      setHash(state.position.camera ?? state.position, newState.overlayLayers);
+      setHash(
+        state.position.camera ?? state.position,
+        newState.overlayLayers,
+        newState.mapBackend
+      );
       return newState;
+    case "toggle-map-backend":
+      const mapBackend =
+        state.mapBackend == MapBackend.Flat
+          ? MapBackend.Globe
+          : MapBackend.Flat;
+
+      setHash(
+        state.position.camera ?? state.position,
+        state.overlayLayers,
+        mapBackend
+      );
+      return { ...state, mapBackend };
     default:
       return reducer(state, action);
   }
 };
 
-const { overlays, ...hashVals } = getHashString() ?? {};
+const { overlays, debug, mapBackend, ...hashVals } = getHashString() ?? {};
 let initialPos = getInitialPosition(hashVals);
 let namedLocation = null;
 if (initialPos == null) {
@@ -156,14 +186,11 @@ const globeState = createInitialState({
     : DisplayQuality.High,
 });
 
-let overlayLayers = [];
-if (overlays != null) {
-  overlayLayers = overlays.split(",");
-}
-
 const initialState: AppState = {
   ...globeState,
-  overlayLayers: new Set(overlayLayers),
+  overlayLayers: new Set(overlays?.split(",") ?? []),
+  mapBackend: mapBackend == "2d" ? MapBackend.Flat : MapBackend.Globe,
+  debug: debug != null,
 };
 
 let store = createStore(
@@ -175,11 +202,16 @@ let store = createStore(
 const ImageryLayers = () => {
   const mapLayer = useSelector((s) => s.mapLayer);
   const overlays = useSelector((s) => s.overlayLayers);
-  console.log(mapLayer);
   return h([
-    h.if(mapLayer == ActiveMapLayer.CTX)(CTXLayer),
-    h.if(mapLayer == ActiveMapLayer.Hillshade)(HillshadeLayer),
-    h.if(overlays.has("CRISM"))(CRISMLayer),
+    h(ImageryLayerCollection, [
+      h(MOLALayer),
+      h.if(mapLayer == ActiveMapLayer.CTX)(CTXLayer),
+      h.if(mapLayer == ActiveMapLayer.Hillshade)(MarsHillshadeLayer),
+    ]),
+    h(ImageryLayerCollection, [
+      h.if(overlays.has(OverlayLayer.CRISM))(CRISMLayer),
+      h.if(overlays.has(OverlayLayer.Geology))(GeologyLayer),
+    ]),
   ]);
 };
 
@@ -188,6 +220,7 @@ const terrainProvider = new SyrtisTerrainProvider();
 const Viewer = () => {
   const displayQuality = useSelector((s) => s.displayQuality);
   const exaggeration = useSelector((s) => s.verticalExaggeration);
+  const debug = useSelector((s) => s.debug);
 
   return h(
     CesiumViewer,
@@ -195,10 +228,13 @@ const Viewer = () => {
       terrainProvider,
       terrainExaggeration: exaggeration / terrainProvider.RADIUS_SCALAR,
       displayQuality,
+      showInspector: debug,
     },
     h(ImageryLayers)
   );
 };
+
+const MemViewer = memo(Viewer);
 
 const baseURL = process.env.PUBLIC_URL ?? "/";
 
@@ -234,10 +270,12 @@ function ShowUIButton(props) {
 
 const AppMain = () => {
   const [showUI, setShowUI] = useState(true);
+  const mapBackend = useSelector((s) => s.mapBackend);
+
   return h("div.app-ui", [
     h.if(showUI)("div.left", null, h(UI)),
     h("div.right", null, [
-      h(Viewer),
+      mapBackend == MapBackend.Globe ? h(MemViewer) : h(FlatMap),
       h(CopyPositionButton),
       h(ShowUIButton, {
         enabled: showUI,

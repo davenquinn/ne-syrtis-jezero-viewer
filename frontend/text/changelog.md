@@ -1,5 +1,21 @@
 # Changelog
 
+## `[0.5.0]` 2021-02-18
+
+- Added vector tile layers for geologic maps!
+
+### Known bugs
+
+We're not currently able to control order of map layers effectively.
+
+## `[0.4.0]` 2021-02-17
+
+- Major update to the Cesium viewer underlying this interface to bring the
+  code into alignment with Macrostrat's [in-development Earth viewer](https://dev.macrostrat.org/next/web)
+- Updated terrain data processor to use web workers
+- Fixed some unnecessary re-renders
+- Brought in CTX and HiRISE elevation models of landing site and immediate context
+
 ## `[0.3.0]` 2021-02-12
 
 - Added CRISM layer, with ability to toggle and enable from hash string

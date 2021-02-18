@@ -2,7 +2,7 @@ import h from "@macrostrat/hyper";
 import { useSelector, useDispatch } from "react-redux";
 import classNames from "classnames";
 import { ActiveMapLayer } from "cesium-viewer/actions";
-import { setHashString } from "@macrostrat/ui-components/lib/types";
+import { OverlayLayer } from "./state";
 
 const LayerButton = (props) => {
   const { name, active, ...rest } = props;
@@ -18,6 +18,7 @@ function BaseLayerSelector() {
       name: "CTX global mosaic",
       active: baseLayer == ActiveMapLayer.CTX,
       onClick() {
+        console.log("Changing map layer");
         dispatch({ type: "set-map-layer", value: ActiveMapLayer.CTX });
       },
     }),
@@ -25,6 +26,7 @@ function BaseLayerSelector() {
       name: "Hillshade",
       active: baseLayer == ActiveMapLayer.Hillshade,
       onClick() {
+        console.log("Changing map layer");
         dispatch({ type: "set-map-layer", value: ActiveMapLayer.Hillshade });
       },
     }),
@@ -38,9 +40,16 @@ export function LayerSelectorPanel() {
     h("h3", "Overlays"),
     h(LayerButton, {
       name: "CRISM",
-      active: overlays.has("CRISM"),
+      active: overlays.has(OverlayLayer.CRISM),
       onClick() {
-        dispatch({ type: "toggle-overlay", value: "CRISM" });
+        dispatch({ type: "toggle-overlay", value: OverlayLayer.CRISM });
+      },
+    }),
+    h(LayerButton, {
+      name: "Geologic map",
+      active: overlays.has(OverlayLayer.Geology),
+      onClick() {
+        dispatch({ type: "toggle-overlay", value: OverlayLayer.Geology });
       },
     }),
     h("h3", "Base layers"),
