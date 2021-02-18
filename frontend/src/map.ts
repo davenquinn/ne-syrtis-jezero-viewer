@@ -6,7 +6,7 @@ const FlatMap = (props) => {
   const position = [18.5, 77];
   return h(Map, { center: position, zoom: 10, maxZoom: 14 }, [
     h(TileLayer, {
-      url: API_BASE_URL + "/ctx-global/{z}/{x}/{y}.png",
+      url: process.env.API_BASE_URL + "/ctx-global/{z}/{x}/{y}.png",
       attribution:
         "&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors",
     }),

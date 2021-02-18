@@ -3,6 +3,7 @@ import styles from "./main.styl";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { DisplayQuality } from "cesium-viewer";
+import { MapBackend } from "./state";
 
 const h = hyperStyled(styles);
 
@@ -17,7 +18,7 @@ const Link = ({ to, children, ...rest }) => {
 const Control = (props) => {
   const { options, title, onChange, selected } = props;
   return h("span.control", [
-    h("span.control-title", title + ":"),
+    h.if(title != null)("span.control-title", title + ":"),
     h(
       Object.entries(options).map((d) => {
         const onClick = (e) => {
@@ -67,11 +68,29 @@ const ExaggerationControl = () => {
   });
 };
 
+function MapTypeControl() {
+  const mapBackend = useSelector((s) => s.mapBackend);
+  const dispatch = useDispatch();
+  const options = {
+    "3d": MapBackend.Globe,
+    "2d": MapBackend.Flat,
+  };
+  return h(Control, {
+    options,
+    selected: mapBackend,
+    onChange() {
+      dispatch({ type: "toggle-map-backend" });
+    },
+  });
+}
+
 const MiniControls = () => {
   return h("div.mini-controls", [
     h(QualityControl),
     ", ",
     h(ExaggerationControl),
+    ", ",
+    h(MapTypeControl),
     ".",
   ]);
 };
