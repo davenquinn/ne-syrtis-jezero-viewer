@@ -1,5 +1,16 @@
 # Changelog
 
+## `[0.5.1]` 2021-02-19
+
+- The _Perseverance_ rover has landed successfully (🎉), and now you can see its
+  position on the map!
+
+### Known bugs
+
+The alignment of the topography and the CTX global mosaic
+are off in the Jezero delta region by ~30 m at least. We need to
+re-align the datasets or bring in HiRISE orthophotos.
+
 ## `[0.5.0]` 2021-02-18
 
 - Added vector tile layers for geologic maps!
