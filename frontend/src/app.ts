@@ -33,6 +33,7 @@ import {
 import { PositionListEditor, CopyPositionButton } from "./editor";
 import positions from "./positions.js";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { RoverPosition } from "./rover-position";
 import { flyToParams, CameraParams } from "cesium-viewer/position";
 import mainText from "../text/output/main.html";
 import viewerText from "../text/output/viewer.html";
@@ -203,14 +204,15 @@ const ImageryLayers = () => {
   const mapLayer = useSelector((s) => s.mapLayer);
   const overlays = useSelector((s) => s.overlayLayers);
   return h([
-    h(ImageryLayerCollection, [
+    h(ImageryLayerCollection, null, [
       h(MOLALayer),
       h.if(mapLayer == ActiveMapLayer.CTX)(CTXLayer),
       h.if(mapLayer == ActiveMapLayer.Hillshade)(MarsHillshadeLayer),
     ]),
-    h(ImageryLayerCollection, [
+    h(ImageryLayerCollection, null, [
       h.if(overlays.has(OverlayLayer.CRISM))(CRISMLayer),
       h.if(overlays.has(OverlayLayer.Geology))(GeologyLayer),
+      h.if(overlays.has(OverlayLayer.Rover))(RoverPosition),
     ]),
   ]);
 };
