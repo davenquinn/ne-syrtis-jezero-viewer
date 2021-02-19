@@ -93,27 +93,35 @@ level of local precision for global consistency. However, the loss of accuracy
 is often inconsequential for contextual studies.
 
 Efforts to standardize Mars data products at a global scale
-have not gained comparable traction as on Earth.
+have not gained comparable traction.
 This viewer relies on several efforts to build consistent regional and global
 context datasets. Most apparent is the [CTX mosaic of
 Mars](http://murray-lab.caltech.edu/CTX/), created by Jay Dickson at the
 Caltech [Murray Lab](http://murray-lab.caltech.edu/), which provides the imagery
 basemap here.
 
-<div class="side-note">
-Low-resolution, global basemaps maintained by the
-[OpenPlanetary](https://www.openplanetary.org/opm) project will be integrated in the future,
-as will HiRISE images.
+Global basemaps maintained by the [OpenPlanetary](https://www.openplanetary.org/opm)
+have also been integrated, and HiRISE imagery (especially Jezero landing site orthomosaics
+from the USGS) are coming soon.
+
 </div>
 
 <div data-location="viewer-guts">
-The elevation products underlying this map are anchored by a 21-image mosaicked
-CTX elevation model that I prepared in SOCET Set in 2015-16, covering the
-northeast Syrtis region. This is augmented by seven HiRISE DEMs for targeted
-areas, and HRSC and MOLA topography for outlying areas. All of this data is
-aligned and merged into Terrain RGB tileset. This is a fraction of the
+The elevation products underlying this map are anchored by several key products:
+
+- A 21-image mosaicked CTX elevation model that I prepared in SOCET Set in 2015-16, covering the
+  northeast Syrtis region.
+- Seven HiRISE DEMs for targeted areas within the northeast Syrtis region
+- The Jezero Crater HiRISE and CTX elevation models prepared by the USGS to support
+  _Perseverance_ mission planning
+- Mosaicked HRSC and MOLA topography for outlying areas.
+
+All of this data is
+aligned and merged into a single tileset in
+[Terrain RGB](https://docs.mapbox.com/help/troubleshooting/access-elevation-data/) format. This is a fraction of the
 high-resolution topography available, particularly in the vicinity of Jezero
 crater, and more data will be integrated into future iterations of this viewer.
+
 </div>
 
 ## The path forward
@@ -125,10 +133,9 @@ work in the areas outlined below, and to hear from colleagues also working in th
 
 ### 3D viewers for geologic "field trips"
 
-3D visualization software can be pushed forward in any number
-of new directions, but I think the most exciting work here involves using 3D topography
+One exciting application for adaptable viewers involves using 3D topography
 as a guided exploration and science communication tool. This viewer is designed along these lines,
-but a more scalable approach will be to integrate it with a curation system for
+but a more scalable approach will integrate it with a curation system for
 "field trips" such as [_Rockd_ trips](https://rockd.org/trip/122). Much of this work
 will be most impactful for Earth data, but the infrastructure
 to design immersive field trips could be tailored to Mars as well.

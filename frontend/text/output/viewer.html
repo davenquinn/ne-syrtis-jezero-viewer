@@ -20,12 +20,18 @@
 <h2>Multiscale, combined data products</h2>
 <p>The CesiumJS engine is designed to handle global, streaming data; the main barrier to applying this capability across Mars is limited data. Like Earth, much of the planet is covered by moderate- to high-resolution stereo image surveys. Global data products, designed to be accessed through a unified interface, are critical precursors to building interactive visualizations of Mars locales.</p>
 <p>For Earth, both imagery and topography data are readily available in globally-consistent interfaces. For instance, Mapbox’s Terrain RGB tileset provides elevation at up to ~30 m horizontal resolution globally that can be accessed in the web browser. Inevitably, these products sacrifice some level of local precision for global consistency. However, the loss of accuracy is often inconsequential for contextual studies.</p>
-<p>Efforts to standardize Mars data products at a global scale have not gained comparable traction as on Earth. This viewer relies on several efforts to build consistent regional and global context datasets. Most apparent is the <a href="http://murray-lab.caltech.edu/CTX/">CTX mosaic of Mars</a>, created by Jay Dickson at the Caltech <a href="http://murray-lab.caltech.edu/">Murray Lab</a>, which provides the imagery basemap here.</p>
-<div class="side-note">
-<p>Low-resolution, global basemaps maintained by the <a href="https://www.openplanetary.org/opm">OpenPlanetary</a> project will be integrated in the future, as will HiRISE images.</p>
+<p>Efforts to standardize Mars data products at a global scale have not gained comparable traction. This viewer relies on several efforts to build consistent regional and global context datasets. Most apparent is the <a href="http://murray-lab.caltech.edu/CTX/">CTX mosaic of Mars</a>, created by Jay Dickson at the Caltech <a href="http://murray-lab.caltech.edu/">Murray Lab</a>, which provides the imagery basemap here.</p>
+<p>Global basemaps maintained by the <a href="https://www.openplanetary.org/opm">OpenPlanetary</a> have also been integrated, and HiRISE imagery (especially Jezero landing site orthomosaics from the USGS) are coming soon.</p>
 </div>
 <div data-location="viewer-guts">
-<p>The elevation products underlying this map are anchored by a 21-image mosaicked CTX elevation model that I prepared in SOCET Set in 2015-16, covering the northeast Syrtis region. This is augmented by seven HiRISE DEMs for targeted areas, and HRSC and MOLA topography for outlying areas. All of this data is aligned and merged into Terrain RGB tileset. This is a fraction of the high-resolution topography available, particularly in the vicinity of Jezero crater, and more data will be integrated into future iterations of this viewer.</p>
+<p>The elevation products underlying this map are anchored by several key products:</p>
+<ul>
+<li>A 21-image mosaicked CTX elevation model that I prepared in SOCET Set in 2015-16, covering the northeast Syrtis region.</li>
+<li>Seven HiRISE DEMs for targeted areas within the northeast Syrtis region</li>
+<li>The Jezero Crater HiRISE and CTX elevation models prepared by the USGS to support <em>Perseverance</em> mission planning</li>
+<li>Mosaicked HRSC and MOLA topography for outlying areas.</li>
+</ul>
+<p>All of this data is aligned and merged into a single tileset in <a href="https://docs.mapbox.com/help/troubleshooting/access-elevation-data/">Terrain RGB</a> format. This is a fraction of the high-resolution topography available, particularly in the vicinity of Jezero crater, and more data will be integrated into future iterations of this viewer.</p>
 </div>
 </section>
 <section id="the-path-forward" class="level2">
@@ -33,7 +39,7 @@
 <p>This viewer highlights emerging capabilities for visualizing and communicating regional geology using the web platform, and outlines the software and data requirements to drive such work forward. I am excited to assemble collaborative efforts to work in the areas outlined below, and to hear from colleagues also working in this domain.</p>
 <section id="d-viewers-for-geologic-field-trips" class="level3">
 <h3>3D viewers for geologic “field trips”</h3>
-<p>3D visualization software can be pushed forward in any number of new directions, but I think the most exciting work here involves using 3D topography as a guided exploration and science communication tool. This viewer is designed along these lines, but a more scalable approach will be to integrate it with a curation system for “field trips” such as <a href="https://rockd.org/trip/122"><em>Rockd</em> trips</a>. Much of this work will be most impactful for Earth data, but the infrastructure to design immersive field trips could be tailored to Mars as well.</p>
+<p>One exciting application for adaptable viewers involves using 3D topography as a guided exploration and science communication tool. This viewer is designed along these lines, but a more scalable approach will integrate it with a curation system for “field trips” such as <a href="https://rockd.org/trip/122"><em>Rockd</em> trips</a>. Much of this work will be most impactful for Earth data, but the infrastructure to design immersive field trips could be tailored to Mars as well.</p>
 </section>
 <section id="scalable-data-products-for-northeast-syrtis-and-mars" class="level3">
 <h3>Scalable data products for northeast Syrtis and Mars</h3>
