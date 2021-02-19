@@ -1,6 +1,6 @@
 import { hyperStyled } from "@macrostrat/hyper";
 import { useRef, useState, memo } from "react";
-import { Provider, useSelector } from "react-redux";
+import { Provider, useSelector, useDispatch } from "react-redux";
 import { createStore } from "redux";
 import {
   CTXLayer,
@@ -16,6 +16,7 @@ import {
 } from "@macrostrat/ui-components/lib/esm/util/query-string";
 
 import CesiumViewer, { DisplayQuality } from "cesium-viewer";
+import { GeographicLocation, SelectedPoint } from "cesium-viewer/position";
 import { OverlayLayer } from "./state";
 import styles from "./main.styl";
 
@@ -104,12 +105,28 @@ type AppState = GlobeState & {
   overlayLayers: Set<OverlayLayer>;
   debug: boolean;
   mapBackend: MapBackend;
+  selectedLocation: GeographicLocation;
 };
 
-type AppAction = GlobeAction & {
+type ToggleOverlay = {
   type: "toggle-overlay";
   value: OverlayLayer;
-} & { type: "toggle-map-backend" };
+};
+
+type ToggleMapBackend = {
+  type: "toggle-map-backend";
+};
+
+type SelectLocation = {
+  type: "select-location";
+  value: GeographicLocation | null;
+};
+
+type AppAction =
+  | GlobeAction
+  | ToggleOverlay
+  | ToggleMapBackend
+  | SelectLocation;
 
 function setHash(
   pos: CameraPosition,
@@ -146,6 +163,8 @@ const newReducer = (state: AppState, action: AppAction) => {
         newState.mapBackend
       );
       return newState;
+    case "select-location":
+      return update(state, { selectedLocation: { $set: action.value } });
     case "toggle-map-backend":
       const mapBackend =
         state.mapBackend == MapBackend.Flat
@@ -188,6 +207,7 @@ const globeState = createInitialState({
 
 const initialState: AppState = {
   ...globeState,
+  selectedLocation: null,
   overlayLayers: new Set(overlays?.split(",") ?? []),
   mapBackend: mapBackend == "2d" ? MapBackend.Flat : MapBackend.Globe,
   debug: debug != null,
@@ -217,10 +237,18 @@ const ImageryLayers = () => {
 
 const terrainProvider = new SyrtisTerrainProvider();
 
+function Selection() {
+  const point = useSelector((s) => s.selectedLocation);
+
+  return h(SelectedPoint, { point });
+}
+
 const Viewer = () => {
   const displayQuality = useSelector((s) => s.displayQuality);
   const exaggeration = useSelector((s) => s.verticalExaggeration);
   const debug = useSelector((s) => s.debug);
+
+  const dispatch = useDispatch();
 
   return h(
     CesiumViewer,
@@ -229,8 +257,12 @@ const Viewer = () => {
       terrainExaggeration: exaggeration / terrainProvider.RADIUS_SCALAR,
       displayQuality,
       showInspector: debug,
+      selectionIndicator: false,
+      onClick(value) {
+        dispatch({ type: "select-location", value });
+      },
     },
-    h(ImageryLayers)
+    [h(ImageryLayers), h(Selection)]
   );
 };
 
