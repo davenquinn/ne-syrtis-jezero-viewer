@@ -33,6 +33,19 @@ function BaseLayerSelector() {
   ]);
 }
 
+function MapSource(props) {
+  const { children, doi } = props;
+  return h("li.map-source", [
+    h("span.paper-title", children),
+    " ",
+    h(
+      "a.doi-link",
+      { href: props.href ?? "https://doi.org/" + doi, target: "_blank" },
+      doi
+    ),
+  ]);
+}
+
 export function LayerSelectorPanel() {
   const dispatch = useDispatch();
   const overlays = useSelector((s) => s.overlayLayers);
@@ -52,6 +65,23 @@ export function LayerSelectorPanel() {
         dispatch({ type: "toggle-overlay", value: OverlayLayer.Geology });
       },
     }),
+    h("div.map-sources", [
+      h("h4", "Geologic map sources"),
+      h("ul", [
+        h(
+          MapSource,
+          { doi: "10.1016/j.icarus.2017.03.030" },
+          "Bramble et al., 2017"
+        ),
+        h(MapSource, { doi: "10.1002/2014JE004782" }, "Goudge et al., 2015"),
+        h(
+          MapSource,
+          { doi: "10.1029/2018JE005706" },
+          "Quinn and Ehlmann, 2019"
+        ),
+        h(MapSource, { doi: "10.3133/sim3464 " }, "Sun and Stack, 2020"),
+      ]),
+    ]),
     h("h3", "Base layers"),
     h(BaseLayerSelector),
   ]);

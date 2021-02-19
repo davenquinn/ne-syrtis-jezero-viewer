@@ -118,7 +118,7 @@ const TitleBlock = () => {
   return h("div.title-block", [
     h("h1.title", [
       "Jezero Crater's context within northeast Syrtis Major",
-      h("span.subtitle", " — a multiscale interactive exploration"),
+      h("span.subtitle", " — a multiscale interactive explorer"),
     ]),
     h("div.auth-affil", [
       h(
