@@ -1,5 +1,10 @@
 # Changelog
 
+## `[0.5.2]` 2021-02-20
+
+- Add HiRISE mosaic of the landing site
+- Greatly increase level of detail of topography for each tile
+
 ## `[0.5.1]` 2021-02-19
 
 - The _Perseverance_ rover has landed successfully (🎉), and now you can see its
