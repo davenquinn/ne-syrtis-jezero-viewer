@@ -39,6 +39,27 @@ const CTXLayer = (props: GeoLayerProps) => {
   return h(ImageryLayer, { imageryProvider: ctx.current, ...props });
 };
 
+const HiRISELayer = (props: GeoLayerProps) => {
+  let ctx = useRef(
+    new WebMapTileServiceImageryProvider({
+      url:
+        process.env.API_BASE_URL +
+        "/tiles/hirise-jezero-trn/{TileMatrix}/{TileCol}/{TileRow}.png",
+      style: "default",
+      format: "image/png",
+      maximumLevel: 18,
+      layer: "",
+      tileMatrixSetID: "",
+      credit: new Credit("USGS"),
+    })
+  );
+  return h(ImageryLayer, {
+    imageryProvider: ctx.current,
+    colorToAlpha: Cesium.Color.BLACK,
+    ...props,
+  });
+};
+
 /*
 const GeologyLayerA = (props) => {
   let ctx = useRef(
@@ -146,6 +167,7 @@ let bounds = {
 class SyrtisTerrainProvider extends MapboxTerrainProvider {
   RADIUS_SCALAR = MARS_RADIUS_SCALAR;
   meshErrorScalar = 1;
+  levelOfDetailScalar = 8;
   fillValue = -4000;
   credit = new Credit(
     "University of Arizona - HiRISE, CTX, PDS Imaging Node, HRSC Mission Team"
@@ -194,6 +216,7 @@ export {
   CRISMLayer,
   CTXLayer,
   MOLALayer,
+  HiRISELayer,
   MarsHillshadeLayer,
   SyrtisTerrainProvider,
   GeologyLayer,

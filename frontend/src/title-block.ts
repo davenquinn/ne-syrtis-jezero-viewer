@@ -49,6 +49,22 @@ const QualityControl = () => {
   return h(Control, { title: "Quality", options, selected, onChange });
 };
 
+const DebuggerControl = () => {
+  const debug = useSelector((s) => s.debug);
+  const dispatch = useDispatch();
+  return h(
+    "a.control",
+    {
+      href: "#",
+      onClick(e) {
+        dispatch({ type: "toggle-debugger" });
+        e.preventDefault();
+      },
+    },
+    (debug ? "hide" : "show") + " debugger"
+  );
+};
+
 const ExaggerationControl = () => {
   const selected = useSelector((s) => s.verticalExaggeration);
   const dispatch = useDispatch();
@@ -91,6 +107,8 @@ const MiniControls = () => {
     h(ExaggerationControl),
     ", ",
     h(MapTypeControl),
+    // ", ",
+    // h(DebuggerControl),
     ".",
   ]);
 };

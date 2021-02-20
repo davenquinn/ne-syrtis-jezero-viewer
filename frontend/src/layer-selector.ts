@@ -62,6 +62,12 @@ export function LayerSelectorPanel() {
   return h("div.layer-selector", [
     h("h3", "Overlays"),
     h(LayerToggle, {
+      name: "HiRISE imagery",
+      description:
+        "High-resolution imagery (up to 25 cm/pixel). Currently limited to the Perseverance landing site.",
+      layer: OverlayLayer.HiRISE,
+    }),
+    h(LayerToggle, {
       name: "CRISM",
       layer: OverlayLayer.CRISM,
     }),

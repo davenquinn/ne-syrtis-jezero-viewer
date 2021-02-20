@@ -9,6 +9,7 @@ import {
   CRISMLayer,
   MOLALayer,
   GeologyLayer,
+  HiRISELayer,
 } from "./layers";
 import {
   getHashString,
@@ -110,7 +111,7 @@ type AppState = GlobeState & {
 type AppAction = GlobeAction & {
   type: "toggle-overlay";
   value: OverlayLayer;
-} & { type: "toggle-map-backend" };
+} & { type: "toggle-map-backend" } & [type: "toggle-debugger"];
 
 function setHash(
   pos: CameraPosition,
@@ -147,6 +148,9 @@ const newReducer = (state: AppState, action: AppAction) => {
         newState.mapBackend
       );
       return newState;
+    case "toggle-debugger":
+      console.log("Toggling debugger");
+      return update(state, { debug: { $set: !state.debug } });
     case "toggle-map-backend":
       const mapBackend =
         state.mapBackend == MapBackend.Flat
@@ -189,7 +193,9 @@ const globeState = createInitialState({
 
 const initialState: AppState = {
   ...globeState,
-  overlayLayers: new Set(overlays?.split(",") ?? []),
+  overlayLayers: new Set(
+    (Array.isArray(overlays) ? overlays : [overlays]) ?? []
+  ),
   mapBackend: mapBackend == "2d" ? MapBackend.Flat : MapBackend.Globe,
   debug: debug != null,
 };
@@ -210,6 +216,7 @@ const ImageryLayers = () => {
       h.if(mapLayer == ActiveMapLayer.Hillshade)(MarsHillshadeLayer),
     ]),
     h(ImageryLayerCollection, null, [
+      h.if(overlays.has(OverlayLayer.HiRISE))(HiRISELayer),
       h.if(overlays.has(OverlayLayer.CRISM))(CRISMLayer),
       h.if(overlays.has(OverlayLayer.Geology))(GeologyLayer),
       h.if(overlays.has(OverlayLayer.Rover))(RoverPosition),

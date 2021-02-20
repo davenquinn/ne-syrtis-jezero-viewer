@@ -4,6 +4,7 @@ enum MapBackend {
 }
 
 enum OverlayLayer {
+  HiRISE = "hirise",
   CRISM = "crism",
   Geology = "geology",
   Rover = "rover",
