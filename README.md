@@ -1,7 +1,7 @@
 # NE Syrtis–Jezero 3D viewer
 
 A 3d viewer for NE Syrtis Major and Jezero crater.
-See the demo at https://birdnest.geology.wisc.edu/syrtis-jezero.
+See the demo at https://dev.macrostrat.org/mars/syrtis-jezero.
 
 ## Setting up:
 
