@@ -106,17 +106,32 @@ type AppState = GlobeState & {
   overlayLayers: Set<OverlayLayer>;
   debug: boolean;
   mapBackend: MapBackend;
+  moveOnScroll: boolean;
 };
 
-type AppAction = GlobeAction & {
+type ToggleOverlay = {
   type: "toggle-overlay";
   value: OverlayLayer;
-} & { type: "toggle-map-backend" } & [type: "toggle-debugger"];
+};
+
+type ToggleMapBackend = { type: "toggle-map-backend" };
+type ToggleDebugger = { type: "toggle-debugger" };
+type ToggleMoveOnScroll = {
+  type: "toggle-move-on-scroll";
+};
+
+type AppAction =
+  | GlobeAction
+  | ToggleOverlay
+  | ToggleMapBackend
+  | ToggleDebugger
+  | ToggleMoveOnScroll;
 
 function setHash(
   pos: CameraPosition,
   overlays: Set<OverlayLayer>,
-  mapBackend: MapBackend
+  mapBackend: MapBackend,
+  verticalExaggeration: number | null
 ) {
   let hash = buildPositionHash(pos);
   if (overlays.size > 0) {
@@ -125,6 +140,9 @@ function setHash(
   if (mapBackend == MapBackend.Flat) {
     hash.mapBackend = "2d";
   }
+  if (verticalExaggeration != null) {
+    hash.ve = verticalExaggeration;
+  }
   setHashString(hash);
 }
 
@@ -132,7 +150,12 @@ const newReducer = (state: AppState, action: AppAction) => {
   switch (action.type) {
     case "set-camera-position":
       // Hook into the camera position setter to change viewer hash
-      setHash(action.value.camera, state.overlayLayers, state.mapBackend);
+      setHash(
+        action.value.camera,
+        state.overlayLayers,
+        state.mapBackend,
+        state.verticalExaggeration
+      );
       return reducer(state, action);
     case "toggle-overlay":
       let spec = {};
@@ -145,12 +168,14 @@ const newReducer = (state: AppState, action: AppAction) => {
       setHash(
         state.position.camera ?? state.position,
         newState.overlayLayers,
-        newState.mapBackend
+        newState.mapBackend,
+        state.verticalExaggeration
       );
       return newState;
     case "toggle-debugger":
-      console.log("Toggling debugger");
       return update(state, { debug: { $set: !state.debug } });
+    case "toggle-move-on-scroll":
+      return update(state, { moveOnScroll: { $set: !state.moveOnScroll } });
     case "toggle-map-backend":
       const mapBackend =
         state.mapBackend == MapBackend.Flat
@@ -160,7 +185,8 @@ const newReducer = (state: AppState, action: AppAction) => {
       setHash(
         state.position.camera ?? state.position,
         state.overlayLayers,
-        mapBackend
+        mapBackend,
+        state.verticalExaggeration
       );
       return { ...state, mapBackend };
     default:
@@ -185,7 +211,7 @@ const globeState = createInitialState({
     once: true,
   }),
   namedLocation,
-  verticalExaggeration: 1.5,
+  verticalExaggeration: ve ?? 1.5,
   // Set a lower display quality for mobile
   displayQuality: window.matchMedia("(max-width: 600px)").matches
     ? DisplayQuality.Low
@@ -194,6 +220,7 @@ const globeState = createInitialState({
 
 const initialState: AppState = {
   ...globeState,
+  moveOnScroll: true,
   overlayLayers: new Set(
     (Array.isArray(overlays) ? overlays : [overlays]) ?? []
   ),
