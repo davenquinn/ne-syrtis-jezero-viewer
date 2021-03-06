@@ -27,6 +27,23 @@ const scrollRefOffset = window.matchMedia("(max-width: 600px)").matches
   ? 100
   : 250;
 
+const TextPanelControls = () => {
+  const moveOnScroll = useSelector((s) => s.moveOnScroll);
+  const dispatch = useDispatch();
+  return h("div.page-controls", [
+    h(Control, {
+      title: "Move on scroll",
+      selected: moveOnScroll,
+      onChange() {
+        dispatch({
+          type: "toggle-move-on-scroll",
+        });
+      },
+      options: { on: true, off: false },
+    }),
+  ]);
+};
+
 const TextPanel = (props) => {
   const ref = useRef<HTMLElement>();
   const { scrollParentRef, html } = props;
@@ -120,6 +137,7 @@ const TextPanel = (props) => {
 
   const __html = typeset(html);
 
+  /*
   const keyDownHandler = (event) => {
     switch (event.which) {
       case 38: // up
@@ -139,20 +157,10 @@ const TextPanel = (props) => {
       document.removeEventListener("keydown", keyDownHandler);
     };
   }, [ref, offsetCache, currentLocation]);
+  */
 
   return h("div.text-panel", { ref }, [
-    h("div.page-controls", [
-      h(Control, {
-        title: "Move on scroll",
-        selected: moveOnScroll,
-        onChange() {
-          dispatch({
-            type: "toggle-move-on-scroll",
-          });
-        },
-        options: { on: true, off: false },
-      }),
-    ]),
+    h(TextPanelControls),
     //h("div.scroll-indicator"),
     h("div.text", { dangerouslySetInnerHTML: { __html } }),
   ]);
