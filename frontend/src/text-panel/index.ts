@@ -100,18 +100,13 @@ const TextPanel = (props) => {
 
   // CLICK HANDLERS - COULD NOT GET THIS TO WORK QUITE RIGHT
   // Navigate by click or arrow keys
-  let navigateTo = useCallback(
-    function () {
-      const elName = this.getAttribute("data-location");
-      // Dispatch the location
-      dispatch({
-        type: "fly-to-named-location",
-        value: elName,
-      });
-      //scrollParentRef.current.scrollTop = loc.offset - 240;
-    },
-    [offsetCache]
-  );
+  let navigateTo = useCallback(function () {
+    const elName = this.getAttribute("data-location");
+    dispatch({
+      type: "fly-to-named-location",
+      value: elName,
+    });
+  }, []);
 
   // Set up initial handlers, etc.
   useEffect(() => {
