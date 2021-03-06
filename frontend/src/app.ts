@@ -28,8 +28,6 @@ import {
   reducer,
   ActiveMapLayer,
   createInitialState,
-  GlobeAction,
-  GlobeState,
 } from "cesium-viewer/actions";
 import { PositionListEditor, CopyPositionButton } from "./editor";
 import positions from "./positions.js";
@@ -41,7 +39,7 @@ import viewerText from "../text/output/viewer.html";
 import changelogText from "../text/output/changelog.html";
 import update from "immutability-helper";
 import { FlatMap } from "./map";
-import { MapBackend } from "./state";
+import { MapBackend, AppState, AppAction } from "./state";
 
 const h = hyperStyled(styles);
 
@@ -101,31 +99,6 @@ function getInitialPosition(hashVals: {
   console.log("Setting initial position from hash: ", pos);
   return pos;
 }
-
-type AppState = GlobeState & {
-  overlayLayers: Set<OverlayLayer>;
-  debug: boolean;
-  mapBackend: MapBackend;
-  moveOnScroll: boolean;
-};
-
-type ToggleOverlay = {
-  type: "toggle-overlay";
-  value: OverlayLayer;
-};
-
-type ToggleMapBackend = { type: "toggle-map-backend" };
-type ToggleDebugger = { type: "toggle-debugger" };
-type ToggleMoveOnScroll = {
-  type: "toggle-move-on-scroll";
-};
-
-type AppAction =
-  | GlobeAction
-  | ToggleOverlay
-  | ToggleMapBackend
-  | ToggleDebugger
-  | ToggleMoveOnScroll;
 
 function setHash(
   pos: CameraPosition,
