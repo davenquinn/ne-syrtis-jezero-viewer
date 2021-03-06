@@ -163,4 +163,4 @@ const TitleBlock = () => {
   ]);
 };
 
-export { TitleBlock, Link };
+export { TitleBlock, Link, Control };

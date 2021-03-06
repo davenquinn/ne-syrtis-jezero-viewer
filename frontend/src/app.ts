@@ -106,12 +106,26 @@ type AppState = GlobeState & {
   overlayLayers: Set<OverlayLayer>;
   debug: boolean;
   mapBackend: MapBackend;
+  moveOnScroll: boolean;
 };
 
-type AppAction = GlobeAction & {
+type ToggleOverlay = {
   type: "toggle-overlay";
   value: OverlayLayer;
-} & { type: "toggle-map-backend" } & [type: "toggle-debugger"];
+};
+
+type ToggleMapBackend = { type: "toggle-map-backend" };
+type ToggleDebugger = { type: "toggle-debugger" };
+type ToggleMoveOnScroll = {
+  type: "toggle-move-on-scroll";
+};
+
+type AppAction =
+  | GlobeAction
+  | ToggleOverlay
+  | ToggleMapBackend
+  | ToggleDebugger
+  | ToggleMoveOnScroll;
 
 function setHash(
   pos: CameraPosition,
@@ -159,8 +173,9 @@ const newReducer = (state: AppState, action: AppAction) => {
       );
       return newState;
     case "toggle-debugger":
-      console.log("Toggling debugger");
       return update(state, { debug: { $set: !state.debug } });
+    case "toggle-move-on-scroll":
+      return update(state, { moveOnScroll: { $set: !state.moveOnScroll } });
     case "toggle-map-backend":
       const mapBackend =
         state.mapBackend == MapBackend.Flat
@@ -170,7 +185,8 @@ const newReducer = (state: AppState, action: AppAction) => {
       setHash(
         state.position.camera ?? state.position,
         state.overlayLayers,
-        mapBackend
+        mapBackend,
+        state.verticalExaggeration
       );
       return { ...state, mapBackend };
     default:
@@ -204,6 +220,7 @@ const globeState = createInitialState({
 
 const initialState: AppState = {
   ...globeState,
+  moveOnScroll: true,
   overlayLayers: new Set(
     (Array.isArray(overlays) ? overlays : [overlays]) ?? []
   ),

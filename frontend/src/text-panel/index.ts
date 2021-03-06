@@ -1,13 +1,11 @@
-import { hyperStyled } from "@macrostrat/hyper";
-import styles from "./main.styl";
+import h, { styles } from "~/hyper";
 import { useEffect, useRef, useState, useCallback } from "react";
 import { PositionListEditor } from "../editor";
 import positions from "../positions.js";
 import { useDispatch, useSelector } from "react-redux";
+import { Control } from "../title-block";
 import classNames from "classnames";
 import typeset from "typeset";
-
-const h = hyperStyled(styles);
 
 const buildPositionCache = (container: HTMLElement) => {
   let cache = [];
@@ -37,6 +35,7 @@ const TextPanel = (props) => {
   const [offsetCache, setCache] = useState([]);
 
   const currentLocation = useSelector((s) => s.namedLocation);
+  const moveOnScroll = useSelector((s) => s.moveOnScroll);
 
   // Restyle selection on change
   const setSelectionStyles = () => {
@@ -64,6 +63,7 @@ const TextPanel = (props) => {
       selected = offs;
     }
     if (selected == null) return;
+    if (!moveOnScroll) return;
 
     // Don't do anything if we're already viewing this location
     if (selected.name == currentLocation) return;
@@ -79,7 +79,7 @@ const TextPanel = (props) => {
 
   useEffect(() => {
     scrollParentRef.current.onscroll = onScroll;
-  }, [offsetCache]);
+  }, [offsetCache, moveOnScroll]);
 
   // CLICK HANDLERS - COULD NOT GET THIS TO WORK QUITE RIGHT
   // Navigate by click or arrow keys
@@ -141,6 +141,18 @@ const TextPanel = (props) => {
   }, [ref, offsetCache, currentLocation]);
 
   return h("div.text-panel", { ref }, [
+    h("div.page-controls", [
+      h(Control, {
+        title: "Move on scroll",
+        selected: moveOnScroll,
+        onChange() {
+          dispatch({
+            type: "toggle-move-on-scroll",
+          });
+        },
+        options: { on: true, off: false },
+      }),
+    ]),
     //h("div.scroll-indicator"),
     h("div.text", { dangerouslySetInnerHTML: { __html } }),
   ]);
