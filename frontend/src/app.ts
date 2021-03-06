@@ -116,7 +116,8 @@ type AppAction = GlobeAction & {
 function setHash(
   pos: CameraPosition,
   overlays: Set<OverlayLayer>,
-  mapBackend: MapBackend
+  mapBackend: MapBackend,
+  verticalExaggeration: number | null
 ) {
   let hash = buildPositionHash(pos);
   if (overlays.size > 0) {
@@ -125,6 +126,9 @@ function setHash(
   if (mapBackend == MapBackend.Flat) {
     hash.mapBackend = "2d";
   }
+  if (verticalExaggeration != null) {
+    hash.ve = verticalExaggeration;
+  }
   setHashString(hash);
 }
 
@@ -132,7 +136,12 @@ const newReducer = (state: AppState, action: AppAction) => {
   switch (action.type) {
     case "set-camera-position":
       // Hook into the camera position setter to change viewer hash
-      setHash(action.value.camera, state.overlayLayers, state.mapBackend);
+      setHash(
+        action.value.camera,
+        state.overlayLayers,
+        state.mapBackend,
+        state.verticalExaggeration
+      );
       return reducer(state, action);
     case "toggle-overlay":
       let spec = {};
@@ -145,7 +154,8 @@ const newReducer = (state: AppState, action: AppAction) => {
       setHash(
         state.position.camera ?? state.position,
         newState.overlayLayers,
-        newState.mapBackend
+        newState.mapBackend,
+        state.verticalExaggeration
       );
       return newState;
     case "toggle-debugger":
@@ -185,7 +195,7 @@ const globeState = createInitialState({
     once: true,
   }),
   namedLocation,
-  verticalExaggeration: 1.5,
+  verticalExaggeration: ve ?? 1.5,
   // Set a lower display quality for mobile
   displayQuality: window.matchMedia("(max-width: 600px)").matches
     ? DisplayQuality.Low
