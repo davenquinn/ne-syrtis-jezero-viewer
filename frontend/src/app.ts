@@ -175,6 +175,7 @@ if (initialPos == null) {
   namedLocation = "initial";
   initialPos = positions[namedLocation];
 }
+let [ve] = getNumbers(hashVals, ["ve"]);
 
 // Initial state
 const globeState = createInitialState({
