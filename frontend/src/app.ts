@@ -1,4 +1,5 @@
 import { hyperStyled } from "@macrostrat/hyper";
+import { APIProvider } from "@macrostrat/ui-components";
 import { useRef, useState, memo } from "react";
 import { Provider, useSelector, useDispatch } from "react-redux";
 import { SyrtisTerrainProvider, ImageryLayers } from "./layers";
@@ -18,7 +19,7 @@ import viewerText from "../text/output/viewer.html";
 import changelogText from "../text/output/changelog.html";
 import { FlatMap } from "./map";
 import { MapBackend, store } from "./state";
-import ReactJSON from "react-json-view";
+import { SelectedLocation } from "./selected-location";
 
 const h = hyperStyled(styles);
 
@@ -55,22 +56,9 @@ const MemViewer = memo(Viewer);
 const baseURL = process.env.PUBLIC_URL ?? "/";
 
 const MainUI = ({ scrollParentRef }) => {
-  const dispatch = useDispatch();
-  const selectedFeatures = useSelector((s) => s.selectedFeatures) ?? [];
-  if (selectedFeatures.length != 0) {
-    return h("div.modal-content", [
-      h(
-        "a.button",
-        {
-          href: "#",
-          onClick() {
-            dispatch({ type: "dismiss-selection-panel" });
-          },
-        },
-        "Dismiss"
-      ),
-      h(ReactJSON, { src: selectedFeatures }),
-    ]);
+  const selectedLocation = useSelector((s) => s.selectedLocation);
+  if (selectedLocation != null) {
+    return h(SelectedLocation, { point: selectedLocation });
   }
 
   return h("div.content", [
@@ -127,6 +115,14 @@ const AppMain = () => {
 };
 
 const App = () =>
-  h("div.app-container", null, h(Provider, { store }, h(AppMain)));
+  h(
+    "div.app-container",
+    null,
+    h(
+      APIProvider,
+      { baseURL: process.env.API_BASE_URL + "/api/v1" },
+      h(Provider, { store }, h(AppMain))
+    )
+  );
 
 export default App;

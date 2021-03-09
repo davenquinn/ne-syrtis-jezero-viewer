@@ -65,26 +65,6 @@ const HiRISELayer = (props: GeoLayerProps) => {
   });
 };
 
-/*
-const GeologyLayerA = (props) => {
-  let ctx = useRef(
-    new MapboxVectorTileImageryProvider({
-      url: "http://localhost:7800/public.map_units/{z}/{x}/{y}.pbf",
-      layerName: "public.map_units",
-      uniqueIdProp: "fid",
-      maximumZoom: 10,
-      styleFunc(id, props) {
-        return {
-          fillStyle: props.color + "66",
-          strokeStyle: props.color,
-        };
-      },
-    })
-  );
-  return h(ImageryLayer, { imageryProvider: ctx.current, ...props });
-};
-*/
-
 var style = {
   version: 8,
   sources: {

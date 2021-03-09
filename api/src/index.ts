@@ -26,13 +26,13 @@ function get(url: string, handler: (req: any) => any) {
 get(
   "/unit-details",
   async (req: any): Promise<any> => {
-    const { lon, lat } = req.query;
-    //db.query(queryCache["unit-details"], { longitude: lon, latitude: lat });
-    console.log(lon, lat);
-    return [];
+    const { x, y } = req.query;
+    return await db.query(queryCache["unit-details"], { x, y });
   }
 );
 
-app.listen(process.env.APP_PORT || 5000, () => {
-  console.log("API is ready for GET requests");
+const port = process.env.API_PORT || 5000;
+
+app.listen(port, () => {
+  console.log(`API is ready for GET requests on port ${port}`);
 });
