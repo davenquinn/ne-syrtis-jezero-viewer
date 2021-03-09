@@ -1,6 +1,6 @@
 all:
 	docker-compose up --build --force-recreate -d
-	docker-compose logs -f & API_BASE_URL=http://localhost:4053 npm run dev:frontend
+	docker-compose logs -f & API_BASE_URL=http://daven-quinn.local:4053 npm run dev:frontend
 
 clear_cache:
 	docker-compose run gateway rm -rf /cache/

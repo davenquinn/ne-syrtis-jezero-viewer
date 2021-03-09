@@ -1,6 +1,6 @@
 {
   "name": "syrtis-jezero-frontend",
-  "version": "0.5.0",
+  "version": "0.5.2",
   "description": "",
   "devDependencies": {
     "@babel/core": "^7.9.0",
@@ -62,6 +62,7 @@
     "react": "^16.13.1",
     "react-copy-to-clipboard": "^5.0.2",
     "react-dom": "^16.13.1",
+    "react-json-view": "^1.21.1",
     "react-leaflet": "^2.7.0",
     "react-leaflet-vectorgrid": "^2.2.1",
     "react-redux": "^7.2.1",

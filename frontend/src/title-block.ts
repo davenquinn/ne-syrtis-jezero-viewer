@@ -49,6 +49,22 @@ const QualityControl = () => {
   return h(Control, { title: "Quality", options, selected, onChange });
 };
 
+const DebuggerControl = () => {
+  const debug = useSelector((s) => s.debug);
+  const dispatch = useDispatch();
+  return h(
+    "a.control",
+    {
+      href: "#",
+      onClick(e) {
+        dispatch({ type: "toggle-debugger" });
+        e.preventDefault();
+      },
+    },
+    (debug ? "hide" : "show") + " debugger"
+  );
+};
+
 const ExaggerationControl = () => {
   const selected = useSelector((s) => s.verticalExaggeration);
   const dispatch = useDispatch();
@@ -91,6 +107,8 @@ const MiniControls = () => {
     h(ExaggerationControl),
     ", ",
     h(MapTypeControl),
+    // ", ",
+    // h(DebuggerControl),
     ".",
   ]);
 };
@@ -114,6 +132,19 @@ const SoftwareInfo = () => {
   ]);
 };
 
+const Navbar = () => {
+  return h(
+    "nav",
+    null,
+    h("ul", [
+      h(Link, { to: "/", exact: true }, "Story"),
+      h(Link, { to: "/about" }, "The viewer"),
+      h(Link, { to: "/layers" }, "Layers"),
+      h(Link, { to: "/list", className: styles["positions"] }, "#"),
+    ])
+  );
+};
+
 const TitleBlock = () => {
   return h("div.title-block", [
     h("h1.title", [
@@ -132,17 +163,8 @@ const TitleBlock = () => {
       ]),
     ]),
     h(SoftwareInfo),
-    h(
-      "nav",
-      null,
-      h("ul", [
-        h(Link, { to: "/", exact: true }, "Story"),
-        h(Link, { to: "/about" }, "The viewer"),
-        h(Link, { to: "/layers" }, "Layers"),
-        h(Link, { to: "/list", className: styles["positions"] }, "#"),
-      ])
-    ),
+    h(Navbar),
   ]);
 };
 
-export { TitleBlock, Link };
+export { TitleBlock, Link, Control };

@@ -1,13 +1,11 @@
-import { hyperStyled } from "@macrostrat/hyper";
-import styles from "./main.styl";
-import { useEffect, useRef, useState } from "react";
+import h, { styles } from "~/hyper";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { PositionListEditor } from "../editor";
 import positions from "../positions.js";
 import { useDispatch, useSelector } from "react-redux";
+import { Control } from "../title-block";
 import classNames from "classnames";
 import typeset from "typeset";
-
-const h = hyperStyled(styles);
 
 const buildPositionCache = (container: HTMLElement) => {
   let cache = [];
@@ -29,6 +27,23 @@ const scrollRefOffset = window.matchMedia("(max-width: 600px)").matches
   ? 100
   : 250;
 
+const TextPanelControls = () => {
+  const moveOnScroll = useSelector((s) => s.moveOnScroll);
+  const dispatch = useDispatch();
+  return h("div.page-controls", [
+    h(Control, {
+      title: "Move on scroll",
+      selected: moveOnScroll,
+      onChange() {
+        dispatch({
+          type: "toggle-move-on-scroll",
+        });
+      },
+      options: { on: true, off: false },
+    }),
+  ]);
+};
+
 const TextPanel = (props) => {
   const ref = useRef<HTMLElement>();
   const { scrollParentRef, html } = props;
@@ -37,10 +52,11 @@ const TextPanel = (props) => {
   const [offsetCache, setCache] = useState([]);
 
   const currentLocation = useSelector((s) => s.namedLocation);
+  const moveOnScroll = useSelector((s) => s.moveOnScroll);
 
   // Restyle selection on change
   const setSelectionStyles = () => {
-    if (ref.current == null) return;
+    if (ref?.current == null) return;
     // Set up "active" class name for selection
     const elements = ref.current.querySelectorAll(`[data-location]`);
     for (const e of elements) {
@@ -50,7 +66,7 @@ const TextPanel = (props) => {
       });
     }
   };
-  useEffect(setSelectionStyles, [currentLocation, ref.current, html]);
+  useEffect(setSelectionStyles, [currentLocation, ref, html]);
 
   const onScroll = (evt) => {
     const scrollPos = scrollParentRef.current.scrollTop;
@@ -64,6 +80,7 @@ const TextPanel = (props) => {
       selected = offs;
     }
     if (selected == null) return;
+    if (!moveOnScroll) return;
 
     // Don't do anything if we're already viewing this location
     if (selected.name == currentLocation) return;
@@ -79,11 +96,21 @@ const TextPanel = (props) => {
 
   useEffect(() => {
     scrollParentRef.current.onscroll = onScroll;
-  }, [offsetCache]);
+  }, [offsetCache, moveOnScroll]);
+
+  // CLICK HANDLERS - COULD NOT GET THIS TO WORK QUITE RIGHT
+  // Navigate by click or arrow keys
+  let navigateTo = useCallback(function () {
+    const elName = this.getAttribute("data-location");
+    dispatch({
+      type: "fly-to-named-location",
+      value: elName,
+    });
+  }, []);
 
   // Set up initial handlers, etc.
   useEffect(() => {
-    if (ref.current == null || scrollParentRef.current == null) return;
+    if (ref?.current == null || scrollParentRef.current == null) return;
 
     console.log("Setting up positions cache");
 
@@ -95,52 +122,44 @@ const TextPanel = (props) => {
     }, 1000);
 
     setSelectionStyles();
-  }, [ref.current, html]);
+
+    const elements = ref.current.querySelectorAll(`[data-location]`);
+    for (const e of elements) {
+      const elName = e.getAttribute("data-location");
+      if (elName != null) e.addEventListener("click", navigateTo);
+    }
+  }, [ref, html]);
 
   const __html = typeset(html);
 
+  /*
+  const keyDownHandler = (event) => {
+    switch (event.which) {
+      case 38: // up
+        return navigateTo(offsetCache[currentIndex + 1]);
+      case 40: // down
+        return navigateTo(offsetCache[currentIndex - 1]);
+    }
+    event.preventDefault(); // prevent the default action (scroll / move caret)
+  };
+
+  // Set up initial handlers, etc.
+  useEffect(() => {
+    // Bind up and down arrow keys to navigate items
+    document.addEventListener("keydown", keyDownHandler);
+    // Return a function to destroy event handlers
+    return () => {
+      document.removeEventListener("keydown", keyDownHandler);
+    };
+  }, [ref, offsetCache, currentLocation]);
+  */
+
   return h("div.text-panel", { ref }, [
+    h(TextPanelControls),
     //h("div.scroll-indicator"),
     h("div.text", { dangerouslySetInnerHTML: { __html } }),
   ]);
 };
-
-/*
-// CLICK HANDLERS - COULD NOT GET THIS TO WORK QUITE RIGHT
-// Navigate by click or arrow keys
-const navigateTo = (loc) => {
-  console.log(loc);
-  if (loc == null || loc.name == currentLocation) return;
-  setAllowScroll(false);
-  // Dispatch the location
-  dispatch({
-    type: "fly-to-named-location",
-    value: loc.name,
-  });
-  scrollParentRef.current.scrollTop = loc.offset - 240;
-  setAllowScroll(true);
-};
-
-const keyDownHandler = (event) => {
-  switch (event.which) {
-    case 38: // up
-      return navigateTo(offsetCache[currentIndex + 1]);
-    case 40: // down
-      return navigateTo(offsetCache[currentIndex - 1]);
-  }
-  event.preventDefault(); // prevent the default action (scroll / move caret)
-};
-
-// Set up initial handlers, etc.
-useEffect(() => {
-  // Bind up and down arrow keys to navigate items
-  document.addEventListener("keydown", keyDownHandler);
-  // Return a function to destroy event handlers
-  return () => {
-    document.removeEventListener("keydown", keyDownHandler);
-  };
-}, [ref.current, offsetCache, currentLocation]);
-*/
 
 const Sidebar = () => {
   return h("div.left", [

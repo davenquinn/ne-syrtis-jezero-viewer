@@ -46,25 +46,36 @@ function MapSource(props) {
   ]);
 }
 
-export function LayerSelectorPanel() {
-  const dispatch = useDispatch();
+function LayerToggle({ name, layer }) {
   const overlays = useSelector((s) => s.overlayLayers);
+  const dispatch = useDispatch();
+  return h(LayerButton, {
+    name,
+    active: overlays.has(layer),
+    onClick() {
+      dispatch({ type: "toggle-overlay", value: layer });
+    },
+  });
+}
+
+export function LayerSelectorPanel() {
   return h("div.layer-selector", [
     h("h3", "Overlays"),
-    h(LayerButton, {
+    h(LayerToggle, {
+      name: "HiRISE imagery",
+      description:
+        "High-resolution imagery (up to 25 cm/pixel). Currently limited to the Perseverance landing site.",
+      layer: OverlayLayer.HiRISE,
+    }),
+    h(LayerToggle, {
       name: "CRISM",
-      active: overlays.has(OverlayLayer.CRISM),
-      onClick() {
-        dispatch({ type: "toggle-overlay", value: OverlayLayer.CRISM });
-      },
+      layer: OverlayLayer.CRISM,
     }),
-    h(LayerButton, {
+    h(LayerToggle, {
       name: "Geologic map",
-      active: overlays.has(OverlayLayer.Geology),
-      onClick() {
-        dispatch({ type: "toggle-overlay", value: OverlayLayer.Geology });
-      },
+      layer: OverlayLayer.Geology,
     }),
+    h(LayerToggle, { name: "Rover position", layer: OverlayLayer.Rover }),
     h("div.map-sources", [
       h("h4", "Geologic map sources"),
       h("ul", [
