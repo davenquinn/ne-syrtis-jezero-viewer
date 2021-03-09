@@ -132,6 +132,19 @@ const SoftwareInfo = () => {
   ]);
 };
 
+const Navbar = () => {
+  return h(
+    "nav",
+    null,
+    h("ul", [
+      h(Link, { to: "/", exact: true }, "Story"),
+      h(Link, { to: "/about" }, "The viewer"),
+      h(Link, { to: "/layers" }, "Layers"),
+      h(Link, { to: "/list", className: styles["positions"] }, "#"),
+    ])
+  );
+};
+
 const TitleBlock = () => {
   return h("div.title-block", [
     h("h1.title", [
@@ -150,16 +163,7 @@ const TitleBlock = () => {
       ]),
     ]),
     h(SoftwareInfo),
-    h(
-      "nav",
-      null,
-      h("ul", [
-        h(Link, { to: "/", exact: true }, "Story"),
-        h(Link, { to: "/about" }, "The viewer"),
-        h(Link, { to: "/layers" }, "Layers"),
-        h(Link, { to: "/list", className: styles["positions"] }, "#"),
-      ])
-    ),
+    h(Navbar),
   ]);
 };
 

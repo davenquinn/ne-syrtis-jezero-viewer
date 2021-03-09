@@ -19,5 +19,6 @@
   "bugs": {
     "url": "https://github.com/davenquinn/ne-syrtis-jezero-viewer/issues"
   },
-  "homepage": "https://github.com/davenquinn/ne-syrtis-jezero-viewer#readme"
+  "homepage": "https://github.com/davenquinn/ne-syrtis-jezero-viewer#readme",
+  "prettier": {}
 }
