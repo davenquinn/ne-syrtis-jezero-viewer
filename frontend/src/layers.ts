@@ -18,6 +18,11 @@ import MapboxTerrainProvider, {
 import SphericalMercator from "@mapbox/sphericalmercator";
 import MVTImageryProvider from "mvt-imagery-provider";
 const Cesium: any = require("cesiumSource/Cesium");
+import { ImageryLayerCollection } from "resium";
+import { OverlayLayer } from "./state";
+import { ActiveMapLayer } from "cesium-viewer/actions";
+import { RoverPosition } from "./rover-position";
+import { useSelector } from "react-redux";
 
 const MARS_RADIUS_SCALAR = 3390 / 6371;
 
@@ -173,7 +178,7 @@ class SyrtisTerrainProvider extends MapboxTerrainProvider {
     "University of Arizona - HiRISE, CTX, PDS Imaging Node, HRSC Mission Team"
   );
 
-  constructor(opts) {
+  constructor(opts = {}) {
     super({ ...opts, highResolution: true });
   }
 
@@ -212,6 +217,24 @@ const CRISMLayer = (props: GeoLayerProps) => {
   return h(ImageryLayer, { imageryProvider: ctx.current, ...props });
 };
 
+const ImageryLayers = () => {
+  const mapLayer = useSelector((s) => s.mapLayer);
+  const overlays = useSelector((s) => s.overlayLayers);
+  return h([
+    h(ImageryLayerCollection, null, [
+      h(MOLALayer),
+      h.if(mapLayer == ActiveMapLayer.CTX)(CTXLayer),
+      h.if(mapLayer == ActiveMapLayer.Hillshade)(MarsHillshadeLayer),
+    ]),
+    h(ImageryLayerCollection, null, [
+      h.if(overlays.has(OverlayLayer.HiRISE))(HiRISELayer),
+      h.if(overlays.has(OverlayLayer.CRISM))(CRISMLayer),
+      h.if(overlays.has(OverlayLayer.Geology))(GeologyLayer),
+      h.if(overlays.has(OverlayLayer.Rover))(RoverPosition),
+    ]),
+  ]);
+};
+
 export {
   CRISMLayer,
   CTXLayer,
@@ -220,4 +243,5 @@ export {
   MarsHillshadeLayer,
   SyrtisTerrainProvider,
   GeologyLayer,
+  ImageryLayers,
 };

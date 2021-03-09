@@ -1,61 +1,39 @@
 import { hyperStyled } from "@macrostrat/hyper";
 import { useRef, useState, memo } from "react";
-import { Provider, useSelector } from "react-redux";
-import {
-  CTXLayer,
-  MarsHillshadeLayer,
-  SyrtisTerrainProvider,
-  CRISMLayer,
-  MOLALayer,
-  GeologyLayer,
-  HiRISELayer,
-} from "./layers";
+import { Provider, useSelector, useDispatch } from "react-redux";
+import { SyrtisTerrainProvider, ImageryLayers } from "./layers";
 
 import CesiumViewer from "cesium-viewer";
-import { OverlayLayer } from "./state";
+import { SelectedPoint } from "cesium-viewer/position";
 import styles from "./main.styl";
 
-import { ImageryLayerCollection } from "resium";
 import { LayerSelectorPanel } from "./layer-selector";
 import { TitleBlock } from "./title-block";
 import { TextPanel } from "./text-panel";
-import { ActiveMapLayer } from "cesium-viewer/actions";
 import { PositionListEditor, CopyPositionButton } from "./editor";
 import positions from "./positions.js";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { RoverPosition } from "./rover-position";
 import mainText from "../text/output/main.html";
 import viewerText from "../text/output/viewer.html";
 import changelogText from "../text/output/changelog.html";
 import { FlatMap } from "./map";
 import { MapBackend, store } from "./state";
+import ReactJSON from "react-json-view";
 
 const h = hyperStyled(styles);
 
-const ImageryLayers = () => {
-  const mapLayer = useSelector((s) => s.mapLayer);
-  const overlays = useSelector((s) => s.overlayLayers);
-  return h([
-    h(ImageryLayerCollection, null, [
-      h(MOLALayer),
-      h.if(mapLayer == ActiveMapLayer.CTX)(CTXLayer),
-      h.if(mapLayer == ActiveMapLayer.Hillshade)(MarsHillshadeLayer),
-    ]),
-    h(ImageryLayerCollection, null, [
-      h.if(overlays.has(OverlayLayer.HiRISE))(HiRISELayer),
-      h.if(overlays.has(OverlayLayer.CRISM))(CRISMLayer),
-      h.if(overlays.has(OverlayLayer.Geology))(GeologyLayer),
-      h.if(overlays.has(OverlayLayer.Rover))(RoverPosition),
-    ]),
-  ]);
-};
-
 const terrainProvider = new SyrtisTerrainProvider();
+
+const MapSelectedPoint = () => {
+  const position = useSelector((d) => d.selectedLocation);
+  return h(SelectedPoint, { point: position });
+};
 
 const Viewer = () => {
   const displayQuality = useSelector((s) => s.displayQuality);
   const exaggeration = useSelector((s) => s.verticalExaggeration);
   const debug = useSelector((s) => s.debug);
+  const dispatch = useDispatch();
 
   return h(
     CesiumViewer,
@@ -64,8 +42,11 @@ const Viewer = () => {
       terrainExaggeration: exaggeration / terrainProvider.RADIUS_SCALAR,
       displayQuality,
       showInspector: debug,
+      onClick(position) {
+        dispatch({ type: "map-clicked", position });
+      },
     },
-    h(ImageryLayers)
+    [h(ImageryLayers), h(MapSelectedPoint)]
   );
 };
 
@@ -73,28 +54,51 @@ const MemViewer = memo(Viewer);
 
 const baseURL = process.env.PUBLIC_URL ?? "/";
 
-const UI = () => {
-  const ref = useRef();
-  return h(Router, { basename: baseURL }, [
-    h("div.left-panel", { ref }, [
-      h("div.content", [
-        h(TitleBlock),
-        h(Switch, [
-          h(Route, { path: "/changelog" }, [
-            h(TextPanel, { html: changelogText, scrollParentRef: ref }),
-          ]),
-          h(Route, { path: "/about" }, [
-            h(TextPanel, { html: viewerText, scrollParentRef: ref }),
-          ]),
-          h(Route, { path: "/layers" }, h(LayerSelectorPanel)),
-          h(Route, { path: "/list" }, [h(PositionListEditor, { positions })]),
-          h(Route, { path: "/" }, [
-            h(TextPanel, { html: mainText, scrollParentRef: ref }),
-          ]),
-        ]),
+const MainUI = ({ scrollParentRef }) => {
+  const dispatch = useDispatch();
+  const selectedFeatures = useSelector((s) => s.selectedFeatures) ?? [];
+  if (selectedFeatures.length != 0) {
+    return h("div.modal-content", [
+      h(
+        "a.button",
+        {
+          href: "#",
+          onClick() {
+            dispatch({ type: "dismiss-selection-panel" });
+          },
+        },
+        "Dismiss"
+      ),
+      h(ReactJSON, { src: selectedFeatures }),
+    ]);
+  }
+
+  return h("div.content", [
+    h(TitleBlock),
+    h(Switch, [
+      h(Route, { path: "/changelog" }, [
+        h(TextPanel, { html: changelogText, scrollParentRef }),
+      ]),
+      h(Route, { path: "/about" }, [
+        h(TextPanel, { html: viewerText, scrollParentRef }),
+      ]),
+      h(Route, { path: "/layers" }, h(LayerSelectorPanel)),
+      h(Route, { path: "/list" }, [h(PositionListEditor, { positions })]),
+      h(Route, { path: "/" }, [
+        h(TextPanel, { html: mainText, scrollParentRef }),
       ]),
     ]),
   ]);
+};
+
+const UI = () => {
+  const ref = useRef();
+
+  return h(
+    Router,
+    { basename: baseURL },
+    h("div.left-panel", { ref }, h(MainUI, { scrollParentRef: ref }))
+  );
 };
 
 function ShowUIButton(props) {

@@ -4,7 +4,11 @@ import {
   reducer,
   createInitialState,
 } from "cesium-viewer/actions";
-import { flyToParams, CameraParams } from "cesium-viewer/position";
+import {
+  flyToParams,
+  CameraParams,
+  GeographicLocation,
+} from "cesium-viewer/position";
 import { DisplayQuality } from "cesium-viewer";
 import positions from "./positions.js";
 import { createStore } from "redux";
@@ -26,11 +30,20 @@ enum OverlayLayer {
   Rover = "rover",
 }
 
+interface MapFeature {
+  map_id: string;
+  unit_id: string;
+  fid: number;
+  color: string;
+}
+
 type AppState = GlobeState & {
   overlayLayers: Set<OverlayLayer>;
   debug: boolean;
   mapBackend: MapBackend;
   moveOnScroll: boolean;
+  selectedFeatures: MapFeature[];
+  selectedLocation: GeographicLocation | null;
 };
 
 type ToggleOverlay = {
@@ -44,12 +57,17 @@ type ToggleMoveOnScroll = {
   type: "toggle-move-on-scroll";
 };
 
+type MapClicked = { type: "map-clicked"; position: GeographicLocation };
+type DismissSelectionPanel = { type: "dismiss-selection-panel" };
+
 type AppAction =
   | GlobeAction
   | ToggleOverlay
   | ToggleMapBackend
   | ToggleDebugger
-  | ToggleMoveOnScroll;
+  | ToggleMoveOnScroll
+  | MapClicked
+  | DismissSelectionPanel;
 
 interface PositionHashParams {
   x: string;
@@ -109,7 +127,7 @@ function getInitialPosition(hashVals: {
 }
 
 function setHash(
-  pos: CameraPosition,
+  pos: CameraParams,
   overlays: Set<OverlayLayer>,
   mapBackend: MapBackend,
   verticalExaggeration: number | null
@@ -129,6 +147,16 @@ function setHash(
 
 const newReducer = (state: AppState, action: AppAction) => {
   switch (action.type) {
+    case "pick-features":
+      console.log(action.features);
+      let { data } = action.features[0];
+      const obj = data?.["public.map_units"] ?? [];
+      return update(state, { selectedFeatures: { $set: obj } });
+    case "dismiss-selection-panel":
+      return update(state, {
+        selectedFeatures: { $set: [] },
+        selectedLocation: { $set: null },
+      });
     case "set-camera-position":
       // Hook into the camera position setter to change viewer hash
       setHash(
@@ -170,6 +198,8 @@ const newReducer = (state: AppState, action: AppAction) => {
         state.verticalExaggeration
       );
       return { ...state, mapBackend };
+    case "map-clicked":
+      return { ...state, selectedLocation: action.position };
     default:
       return reducer(state, action);
   }
@@ -202,6 +232,8 @@ const globeState = createInitialState({
 const initialState: AppState = {
   ...globeState,
   moveOnScroll: true,
+  selectedLocation: null,
+  selectedFeatures: [],
   overlayLayers: new Set(
     (Array.isArray(overlays) ? overlays : [overlays]) ?? []
   ),
