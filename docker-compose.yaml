@@ -24,6 +24,13 @@ services:
       - database
     expose:
       - 7800
+  api:
+    build: api
+    environment:
+      - DATABASE_URL=postgres://postgres@database/mars_syrtis
+      - API_PORT=7801
+    expose:
+      - 7801
   database:
     image: postgis/postgis:13-3.0
     volumes:
@@ -36,6 +43,6 @@ services:
     expose:
       - 5432
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "postgres"] 
+      test: ["CMD", "pg_isready", "-U", "postgres"]
 volumes:
   db_cluster:
