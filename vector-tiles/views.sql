@@ -31,7 +31,14 @@ SELECT
   u.unit_id,
   -- CAST THIS appropriately so it gets registered!
   -- https://postgis.net/docs/postgis_usage.html#Manual_Register_Spatial_Column
-  ST_Simplify(geometry,1)::geometry(MultiPolygon, 900916) geometry,
+  ST_Simplify(
+		ST_Translate(
+			geometry,
+			coalesce(d.offset_x, 0),
+			coalesce(d.offset_y, 0)
+		),
+		1
+	)::geometry(MultiPolygon, 900916) geometry,
   u.map_id,
   coalesce(s.color, '#888888') color
 FROM units u

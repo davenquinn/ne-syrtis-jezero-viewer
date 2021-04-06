@@ -1,9 +1,13 @@
 import express from "express";
+import morgan from "morgan";
+import cors from "cors";
 import { pgp, queryCache } from "./database";
 
 // Creating the database instance with extensions:
 const db = pgp(process.env.DATABASE_URL);
 const app = express();
+app.use(morgan());
+app.use(cors());
 
 // Generic GET handler;
 function get(url: string, handler: (req: any) => any) {
@@ -27,6 +31,7 @@ get(
   "/unit-details",
   async (req: any): Promise<any> => {
     const { x, y } = req.query;
+    console.log(x, y);
     return await db.query(queryCache["unit-details"], { x, y });
   }
 );
