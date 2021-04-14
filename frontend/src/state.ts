@@ -44,6 +44,7 @@ type AppState = GlobeState & {
   moveOnScroll: boolean;
   selectedFeatures: MapFeature[];
   selectedLocation: GeographicLocation | null;
+  visibleMaps: Set<string> | null;
 };
 
 type ToggleOverlay = {
@@ -52,6 +53,10 @@ type ToggleOverlay = {
 };
 
 type ToggleMapBackend = { type: "toggle-map-backend" };
+type ToggleMapVisible = {
+  type: "toggle-map-visible";
+  value: Set<string> | null;
+};
 type ToggleDebugger = { type: "toggle-debugger" };
 type ToggleMoveOnScroll = {
   type: "toggle-move-on-scroll";
@@ -64,6 +69,7 @@ type AppAction =
   | GlobeAction
   | ToggleOverlay
   | ToggleMapBackend
+  | ToggleMapVisible
   | ToggleDebugger
   | ToggleMoveOnScroll
   | MapClicked
@@ -166,6 +172,8 @@ const newReducer = (state: AppState, action: AppAction) => {
         state.verticalExaggeration
       );
       return reducer(state, action);
+    case "toggle-map-visible":
+      return update(state, { visibleMaps: { $set: action.value } });
     case "toggle-overlay":
       let spec = {};
       if (state.overlayLayers.has(action.value)) {
@@ -233,6 +241,7 @@ const initialState: AppState = {
   ...globeState,
   moveOnScroll: true,
   selectedLocation: null,
+  visibleMaps: null,
   selectedFeatures: [],
   overlayLayers: new Set(
     (Array.isArray(overlays) ? overlays : [overlays]) ?? []

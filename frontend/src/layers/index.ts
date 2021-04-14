@@ -16,13 +16,13 @@ import MapboxTerrainProvider, {
   TileCoordinates,
 } from "@macrostrat/cesium-martini";
 import SphericalMercator from "@mapbox/sphericalmercator";
-import MVTImageryProvider from "mvt-imagery-provider";
 const Cesium: any = require("cesiumSource/Cesium");
 import { ImageryLayerCollection } from "resium";
-import { OverlayLayer } from "./state";
+import { OverlayLayer } from "../state";
 import { ActiveMapLayer } from "cesium-viewer/actions";
-import { RoverPosition } from "./rover-position";
+import { RoverPosition } from "../rover-position";
 import { useSelector } from "react-redux";
+import { GeologyLayer } from "./geology";
 
 const MARS_RADIUS_SCALAR = 3390 / 6371;
 
@@ -63,51 +63,6 @@ const HiRISELayer = (props: GeoLayerProps) => {
     colorToAlpha: Cesium.Color.BLACK,
     ...props,
   });
-};
-
-var style = {
-  version: 8,
-  sources: {
-    geology: {
-      type: "vector",
-      tiles: [
-        process.env.API_BASE_URL +
-          "/vector-tiles/public.map_units/{z}/{x}/{y}.pbf",
-      ],
-      maxzoom: 15,
-      minzoom: 5,
-    },
-  },
-  layers: [
-    {
-      id: "public.map_units",
-      source: "geology",
-      "source-layer": "public.map_units",
-      type: "fill",
-      paint: {
-        "fill-color": ["get", "color"],
-        "fill-opacity": 0.3,
-      },
-    },
-    {
-      id: "unit-edge",
-      source: "geology",
-      "source-layer": "public.map_units",
-      type: "line",
-      layout: {
-        "line-cap": "round",
-      },
-      paint: {
-        "line-color": ["get", "color"],
-        "line-width": 1,
-      },
-    },
-  ],
-};
-
-const GeologyLayer = (props) => {
-  let ctx = useRef(new MVTImageryProvider({ style, maximumZoom: 13 }));
-  return h(ImageryLayer, { imageryProvider: ctx.current, ...props });
 };
 
 const MOLALayer = (props: GeoLayerProps) => {
@@ -200,6 +155,7 @@ const CRISMLayer = (props: GeoLayerProps) => {
 const ImageryLayers = () => {
   const mapLayer = useSelector((s) => s.mapLayer);
   const overlays = useSelector((s) => s.overlayLayers);
+  const visibleMaps = useSelector((s) => s.visibleMaps);
   return h([
     h(ImageryLayerCollection, null, [
       h(MOLALayer),
@@ -209,7 +165,7 @@ const ImageryLayers = () => {
     h(ImageryLayerCollection, null, [
       h.if(overlays.has(OverlayLayer.HiRISE))(HiRISELayer),
       h.if(overlays.has(OverlayLayer.CRISM))(CRISMLayer),
-      h.if(overlays.has(OverlayLayer.Geology))(GeologyLayer),
+      h.if(overlays.has(OverlayLayer.Geology))(GeologyLayer, { visibleMaps }),
       h.if(overlays.has(OverlayLayer.Rover))(RoverPosition),
     ]),
   ]);
@@ -222,6 +178,5 @@ export {
   HiRISELayer,
   MarsHillshadeLayer,
   SyrtisTerrainProvider,
-  GeologyLayer,
   ImageryLayers,
 };
