@@ -37,7 +37,10 @@ function BaseLayerSelector() {
 
 function MapSource(props) {
   const { id, children, doi } = props;
-  let sources = useSelector((s) => s.visibleMaps);
+  const [sources, overlays] = useSelector((s) => [
+    s.visibleMaps,
+    s.overlayLayers,
+  ]);
   const dispatch = useDispatch();
 
   const selected = sources?.has(id) ?? true;
@@ -58,6 +61,7 @@ function MapSource(props) {
     h("input", {
       type: "checkbox",
       checked: selected,
+      disabled: !overlays.has("geology"),
       onChange,
     }),
     " ",
@@ -71,12 +75,16 @@ function MapSource(props) {
   ]);
 }
 
-function LayerToggle({ name, layer }) {
+function useIsActive(lyr) {
   const overlays = useSelector((s) => s.overlayLayers);
+  return overlays.has(lyr);
+}
+
+function LayerToggle({ name, layer }) {
   const dispatch = useDispatch();
   return h(LayerButton, {
     name,
-    active: overlays.has(layer),
+    active: useIsActive(layer),
     onClick() {
       dispatch({ type: "toggle-overlay", value: layer });
     },
@@ -84,8 +92,10 @@ function LayerToggle({ name, layer }) {
 }
 
 function MapSourceSelector() {
+  const active = useIsActive(OverlayLayer.Geology);
+
   return h("div.map-sources", [
-    h("h4", "Geologic map sources"),
+    h("h4", "Sources"),
     h("ul", [
       h(
         MapSource,
@@ -111,6 +121,16 @@ function MapSourceSelector() {
   ]);
 }
 
+function GeologyLayerSelector() {
+  return h("div.geology-layer", [
+    h(LayerToggle, {
+      name: "Geologic map",
+      layer: OverlayLayer.Geology,
+    }),
+    h(MapSourceSelector),
+  ]);
+}
+
 export function LayerSelectorPanel() {
   return h("div.layer-selector", [
     h("h3", "Overlays"),
@@ -124,12 +144,8 @@ export function LayerSelectorPanel() {
       name: "CRISM",
       layer: OverlayLayer.CRISM,
     }),
-    h(LayerToggle, {
-      name: "Geologic map",
-      layer: OverlayLayer.Geology,
-    }),
+    h(GeologyLayerSelector),
     h(LayerToggle, { name: "Rover position", layer: OverlayLayer.Rover }),
-    h(MapSourceSelector),
     h("h3", "Base layers"),
     h(BaseLayerSelector),
   ]);
