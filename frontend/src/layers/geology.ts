@@ -1,5 +1,5 @@
 import MVTImageryProvider from "mvt-imagery-provider";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useMemo } from "react";
 import h from "@macrostrat/hyper";
 import { ImageryLayer } from "resium";
 import { ImageryLayer as CesiumImageryLayer } from "cesium";
@@ -55,10 +55,10 @@ function createStyle(visibleMaps = null) {
 
 const GeologyLayer = ({ visibleMaps = null, ...rest }) => {
   const style = createStyle(null);
-  let ctx = useRef(new MVTImageryProvider({ style, maximumZoom: 13 }));
-  let lyr = useRef<CesiumImageryLayer | null>(null);
-  useEffect(() => {
-    let filter = ["boolean", true];
+  // This is a kind of crazy thing
+  const provider = useMemo(() => {
+    let prov = new MVTImageryProvider({ style, maximumZoom: 13 });
+    let filter: any = ["boolean", true];
     if (visibleMaps != null) {
       filter = [
         "match",
@@ -69,16 +69,13 @@ const GeologyLayer = ({ visibleMaps = null, ...rest }) => {
       ];
     }
     console.log(filter);
-    ctx.current?.mapboxRenderer.setFilter("map-units", filter, false);
-    const res = ctx.current?.mapboxRenderer.setFilter(
-      "unit-edge",
-      filter,
-      false
-    );
+    prov.mapboxRenderer.setFilter("map-units", filter, false);
+    const res = prov.mapboxRenderer.setFilter("unit-edge", filter, false);
     res();
+    return prov;
   }, [visibleMaps]);
 
-  return h(ImageryLayer, { ref: lyr, imageryProvider: ctx.current, ...rest });
+  return h(ImageryLayer, { imageryProvider: provider, ...rest });
 };
 
 export { GeologyLayer };
