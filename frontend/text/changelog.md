@@ -1,5 +1,13 @@
 # Changelog
 
+## `[0.6.0]` 2021-04-15
+
+- Select a single geologic map layer for display
+- Add [Kremer et al., 2019](https://doi.org/10.1130/G45563.1) mapping of olivine-rich layer
+- Finish applying basic map colors for all maps
+- Create structures to improve alignment of geologic maps
+- Clicking the map now shows geological units at that location for all maps
+
 ## `[0.5.2]` 2021-02-20
 
 - Add HiRISE mosaic of the landing site
