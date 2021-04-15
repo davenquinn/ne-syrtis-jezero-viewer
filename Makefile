@@ -7,6 +7,10 @@ all:
 backend:
 	docker-compose up --build --force-recreate
 
+update:
+	cd vector-tiles && make views
+	make clear_cache
+
 clear_cache:
 	docker-compose run gateway rm -rf /cache/
 
