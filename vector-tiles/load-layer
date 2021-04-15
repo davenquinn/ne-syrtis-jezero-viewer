@@ -2,7 +2,7 @@
   
 pg_conn=PG:"host=localhost port=54321 dbname=mars_syrtis user=postgres"
 
-layer=$1
+layer="$1"
 shift
 
 ogr2ogr -f "PostgreSQL" \

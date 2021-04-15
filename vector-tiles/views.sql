@@ -25,6 +25,12 @@ SELECT
 	'sulfates_quinn' map_id
 FROM sulfates_quinn.units
 WHERE unit_id NOT IN ('noachian')
+UNION ALL
+SELECT
+	'ol_ash' unit_id,
+	ST_Transform(ST_Union(ST_MakeValid(wkb_geometry)), 900916) geometry,
+	'ol_ash_kremer' map_id
+FROM ol_ash_kremer.units
 )
 SELECT
 	row_number() OVER () fid,

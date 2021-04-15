@@ -109,6 +109,11 @@ function MapSourceSelector() {
       ),
       h(
         MapSource,
+        { doi: "10.1130/G45563.1", id: "ol_ash_kremer" },
+        "Kremer et al., 2019"
+      ),
+      h(
+        MapSource,
         { doi: "10.1029/2018JE005706", id: "sulfates_quinn" },
         "Quinn and Ehlmann, 2019"
       ),
