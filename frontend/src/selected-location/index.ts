@@ -14,6 +14,17 @@ function getArgsFromLocation(
   return { x, y };
 }
 
+function UnitResult({ data }) {
+  console.log(data);
+  return h("div.unit-result", [
+    h("div.unit-swatch", { style: { backgroundColor: data.color } }),
+    h("div.description", [
+      h("h4.unit-title", data.unit_id),
+      h("div.map-id", data.map_id),
+    ]),
+  ]);
+}
+
 function SelectedLocationInner(props: LocationProps) {
   const res = useAPIResult("/unit-details", getArgsFromLocation(props.point));
   if (res == null) return h("p", "Loading...");
@@ -22,7 +33,20 @@ function SelectedLocationInner(props: LocationProps) {
     return h("p", "Error fetching features!");
   }
   const selectedFeatures = res.data;
-  return h(ReactJSON, { src: selectedFeatures });
+
+  if (selectedFeatures.length == 0)
+    return h(
+      "div.unit-results",
+      null,
+      h("div.empty-error", "No map units in this area")
+    );
+
+  return h("div.unit-results", [
+    h("h2", "Map units at location"),
+    selectedFeatures.map((d) => {
+      return h(UnitResult, { data: d });
+    }),
+  ]);
 }
 
 export function SelectedLocation(props: LocationProps) {
