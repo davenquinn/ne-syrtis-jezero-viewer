@@ -5,7 +5,6 @@ export API_BASE_URL=https://birdnest.geology.wisc.edu/mars-data
 export PUBLIC_URL=/mars/syrtis-jezero
 
 npm --prefix frontend run build
-rsync -azv --delete \
-  "$BUNDLE_DIR/" \
-  steno:/data/projects/macrostrat/mars/syrtis-jezero/
-rm -rf "$BUNDLE_DIR"
+
+rclone sync --s3-acl=public-read $BUNDLE_DIR macrostrat-s3:macrostrat-sites$PUBLIC_URL
+

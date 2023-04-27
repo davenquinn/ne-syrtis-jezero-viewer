@@ -16,4 +16,4 @@ text/output/%.html: text/%.md text/references.bib
 		--csl=text/resources/nature-doi.csl \
 		--bibliography $(word 2,$^) \
 		--metadata link-citations=true \
-		--filter pandoc-citeproc > $@
+		--citeproc > $@

@@ -4,10 +4,12 @@
 <h2><code>[0.6.0]</code> 2021-04-15</h2>
 <ul>
 <li>Select a single geologic map layer for display</li>
-<li>Add <a href="https://doi.org/10.1130/G45563.1">Kremer et al., 2019</a> mapping of olivine-rich layer</li>
+<li>Add <a href="https://doi.org/10.1130/G45563.1">Kremer et al.,
+2019</a> mapping of olivine-rich layer</li>
 <li>Finish applying basic map colors for all maps</li>
 <li>Create structures to improve alignment of geologic maps</li>
-<li>Clicking the map now shows geological units at that location for all maps</li>
+<li>Clicking the map now shows geological units at that location for all
+maps</li>
 </ul>
 </section>
 <section id="section-1" class="level2">
@@ -20,11 +22,14 @@
 <section id="section-2" class="level2">
 <h2><code>[0.5.1]</code> 2021-02-19</h2>
 <ul>
-<li>The <em>Perseverance</em> rover has landed successfully (🎉), and now you can see its position on the map!</li>
+<li>The <em>Perseverance</em> rover has landed successfully (🎉), and
+now you can see its position on the map!</li>
 </ul>
 <section id="known-bugs" class="level3">
 <h3>Known bugs</h3>
-<p>The alignment of the topography and the CTX global mosaic are off in the Jezero delta region by ~30 m at least. We need to re-align the datasets or bring in HiRISE orthophotos.</p>
+<p>The alignment of the topography and the CTX global mosaic are off in
+the Jezero delta region by ~30 m at least. We need to re-align the
+datasets or bring in HiRISE orthophotos.</p>
 </section>
 </section>
 <section id="section-3" class="level2">
@@ -34,22 +39,28 @@
 </ul>
 <section id="known-bugs-1" class="level3">
 <h3>Known bugs</h3>
-<p>We’re not currently able to control order of map layers effectively.</p>
+<p>We’re not currently able to control order of map layers
+effectively.</p>
 </section>
 </section>
 <section id="section-4" class="level2">
 <h2><code>[0.4.0]</code> 2021-02-17</h2>
 <ul>
-<li>Major update to the Cesium viewer underlying this interface to bring the code into alignment with Macrostrat’s <a href="https://dev.macrostrat.org/next/web">in-development Earth viewer</a></li>
+<li>Major update to the Cesium viewer underlying this interface to bring
+the code into alignment with Macrostrat’s <a
+href="https://dev.macrostrat.org/next/web">in-development Earth
+viewer</a></li>
 <li>Updated terrain data processor to use web workers</li>
 <li>Fixed some unnecessary re-renders</li>
-<li>Brought in CTX and HiRISE elevation models of landing site and immediate context</li>
+<li>Brought in CTX and HiRISE elevation models of landing site and
+immediate context</li>
 </ul>
 </section>
 <section id="section-5" class="level2">
 <h2><code>[0.3.0]</code> 2021-02-12</h2>
 <ul>
-<li>Added CRISM layer, with ability to toggle and enable from hash string</li>
+<li>Added CRISM layer, with ability to toggle and enable from hash
+string</li>
 <li>Reorganize text a little bit</li>
 <li>Small style fixes</li>
 </ul>
@@ -64,7 +75,9 @@
 <h2><code>[0.2.0]</code> 2021-02-10</h2>
 <section id="return-to-a-position" class="level4">
 <h4>Return to a position</h4>
-<p>Positions can now be retreived from URL hash parameters, enabling “deep linking” to specific locations. Parameters represent the camera position, using the following schema:</p>
+<p>Positions can now be retreived from URL hash parameters, enabling
+“deep linking” to specific locations. Parameters represent the camera
+position, using the following schema:</p>
 <ul>
 <li><code>x</code>: Latitude (degrees)</li>
 <li><code>y</code>: Latitude (degrees)</li>
@@ -72,7 +85,8 @@
 <li><code>a</code>: Azimuth (degrees from N)</li>
 <li><code>e</code>: Off-nadir angle (degrees from vertical)</li>
 </ul>
-<p>At least <code>x</code> and <code>y</code> must be defined for a position to be returned.</p>
+<p>At least <code>x</code> and <code>y</code> must be defined for a
+position to be returned.</p>
 </section>
 <section id="deployment" class="level4">
 <h4>Deployment</h4>
@@ -102,7 +116,8 @@
 <section id="bugs-fixed" class="level3">
 <h3>Bugs fixed</h3>
 <ul>
-<li>Removed elevation artifacts caused by smoothing and off-by-one errors</li>
+<li>Removed elevation artifacts caused by smoothing and off-by-one
+errors</li>
 <li>Small typographical and grammatical errors</li>
 <li>Rendering of hillshade layer in production</li>
 <li>Scroll container bounds on narrow mobile devices</li>
