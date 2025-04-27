@@ -1,10 +1,12 @@
 #!/bin/bash -e
 
-export BUNDLE_DIR="$(pwd)/.dist"
+export BUNDLE_DIR="$(pwd)/mars/syrtis-jezero"
 export API_BASE_URL=https://birdnest.geology.wisc.edu/mars-data
 export PUBLIC_URL=/mars/syrtis-jezero
 
-npm --prefix frontend run build
+mkdir -p $BUNDLE_DIR
 
-rclone sync --s3-acl=public-read $BUNDLE_DIR macrostrat-s3:macrostrat-sites$PUBLIC_URL
+npm --prefix frontend run build:web
+
+#rclone sync $BUNDLE_DIR macrostrat-s3:macrostrat-sites$PUBLIC_URL
 
