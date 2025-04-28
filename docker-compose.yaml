@@ -1,7 +1,6 @@
 # NOTE: This docker-compose file only covers backend processes
 # right now. The frontend is built locally and generally will live
 # on a different machine than the data services.
-version: "3"
 services:
   gateway:
     build: gateway
@@ -13,36 +12,21 @@ services:
       - vector_tiles
       - backend
   backend:
-    build: backend
-    volumes:
-      - ./data:/data
-  vector_tiles:
-    image: pramsey/pg_tileserv
+    image: protomaps/go-pmtiles:v1.27.2
+    command: ["serve", "$TILESET_BUCKET_PREFIX", "--bucket", "$TILESET_BUCKET"]
     environment:
-      - DATABASE_URL=postgres://postgres@database/mars_syrtis
-    depends_on:
-      - database
+      - TILESET_BUCKET
+      - TILESET_BUCKET_PREFIX
+  vector_tiles:
+    image: pramsey/pg_tileserv:20250131
+    environment:
+      - DATABASE_URL
     expose:
       - 7800
   api:
     build: api
     environment:
-      - DATABASE_URL=postgres://postgres@database/mars_syrtis
+      - DATABASE_URL
       - API_PORT=7801
     expose:
       - 7801
-  database:
-    image: postgis/postgis:13-3.0
-    volumes:
-      - db_cluster:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=mars_syrtis
-      - POSTGRES_HOST_AUTH_METHOD=trust
-    ports:
-      - ${DB_PORT}:5432
-    expose:
-      - 5432
-    healthcheck:
-      test: ["CMD", "pg_isready", "-U", "postgres"]
-volumes:
-  db_cluster:
