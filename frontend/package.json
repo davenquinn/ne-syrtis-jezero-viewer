@@ -78,6 +78,10 @@
     "underscore": "^1.10.2",
     "urijs": "^1.19.6"
   },
+  "resolutions": {
+    "cesium": "1.71.0",
+    "resium": "1.12.0"
+  },
   "prettier": {},
   "packageManager": "yarn@4.9.1"
 }
