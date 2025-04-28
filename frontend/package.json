@@ -78,5 +78,6 @@
     "underscore": "^1.10.2",
     "urijs": "^1.19.6"
   },
-  "prettier": {}
+  "prettier": {},
+  "packageManager": "yarn@4.9.1"
 }
