@@ -13,3 +13,9 @@ Requires `mbtiles` files for imagery layers to be in `data` directory.
 
 Upper left: 74.4 19.5
 Lower right: 78.7 15.8
+
+
+# Updates for Kubernetes
+
+- Move from Tessera to PMTiles-backed server for raster tiles (so tiles can live in S3)
+- Gateway is unnecessary in Kubernetes
