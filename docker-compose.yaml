@@ -10,13 +10,12 @@ services:
       - ${HTTP_PORT:-80}:80
     depends_on:
       - vector_tiles
-      - backend
-  backend:
+      - raster_tiles
+  raster_tiles:
     image: protomaps/go-pmtiles:v1.27.2
-    command: ["serve", "$TILESET_BUCKET_PREFIX", "--bucket", "$TILESET_BUCKET"]
+    command: ["serve", "/", "--bucket", "$TILESET_BASE_URL", "--port", "8080"]
     environment:
-      - TILESET_BUCKET
-      - TILESET_BUCKET_PREFIX
+      - TILESET_BASE_URL
   vector_tiles:
     image: pramsey/pg_tileserv:20250131
     environment:
