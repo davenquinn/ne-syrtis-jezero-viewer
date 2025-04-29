@@ -119,8 +119,7 @@ class SyrtisTerrainProvider extends MapboxTerrainProvider {
 
   buildTileURL(tileCoords: TileCoordinates) {
     const { z, x, y } = tileCoords;
-    const hires = this.highResolution ? "@2x" : "";
-    return `${process.env.API_BASE_URL}/tiles/terrain/${z}/${x}/${y}${hires}.png`;
+    return `${process.env.API_BASE_URL}/tiles/dem.terrain-rgb/${z}/${x}/${y}.png`;
   }
 
   preprocessHeight(x, y, height) {
