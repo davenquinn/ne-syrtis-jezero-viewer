@@ -3,7 +3,7 @@
 # on a different machine than the data services.
 services:
   gateway:
-    build: gateway
+    image: caddy:2.8-alpine
     expose:
       - 80
     ports:
@@ -11,6 +11,8 @@ services:
     depends_on:
       - vector_tiles
       - raster_tiles
+    volumes:
+      - ./gateway/Caddyfile:/etc/caddy/Caddyfile
   raster_tiles:
     image: protomaps/go-pmtiles:v1.27.2
     command: ["serve", "/", "--bucket", "$TILESET_BASE_URL", "--port", "8080"]

@@ -1,0 +1,22 @@
+# Caddy configuration for the Syrtis-Jezero app
+:80
+
+# Raster tiles
+handle_path /tiles/* {
+  reverse_proxy raster_tiles:8080
+}
+
+# Vector tiles
+handle_path /vector-tiles/* {
+  reverse_proxy vector_tiles:7800
+}
+
+# API
+handle_path /api/v1/* {
+  reverse_proxy api:7801
+}
+
+# Send a description for the root page
+handle_path / {
+    respond "Hello, world!"
+}
