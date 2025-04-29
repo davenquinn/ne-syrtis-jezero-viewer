@@ -20,7 +20,7 @@ const Cesium: any = require("cesiumSource/Cesium");
 import { ImageryLayerCollection } from "resium";
 import { OverlayLayer } from "../state";
 import { ActiveMapLayer } from "cesium-viewer/actions";
-import { RoverPosition } from "../rover-position";
+import { RoverPosition, RoverTrack } from "../rover-position";
 import { useSelector } from "react-redux";
 import { GeologyLayer } from "./geology";
 
@@ -166,6 +166,7 @@ const ImageryLayers = () => {
       h.if(overlays.has(OverlayLayer.CRISM))(CRISMLayer),
       h.if(overlays.has(OverlayLayer.Geology))(GeologyLayer, { visibleMaps }),
       h.if(overlays.has(OverlayLayer.Rover))(RoverPosition),
+      h.if(overlays.has(OverlayLayer.RoverTrack))(RoverTrack),
     ]),
   ]);
 };
