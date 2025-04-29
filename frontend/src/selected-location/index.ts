@@ -31,7 +31,7 @@ function SelectedLocationInner(props: LocationProps) {
   useEffect(() => {
     const args = new URLSearchParams(getArgsFromLocation(props.point));
 
-    fetch(baseURL + "/api/v1/unit-details?" + args)
+    fetch(baseURL + "/api/pg/rpc/get_units?" + args)
       .then((res) => res.json())
       .then((data) => {
         setRes(data);

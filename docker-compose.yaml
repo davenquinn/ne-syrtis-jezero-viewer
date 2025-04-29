@@ -24,10 +24,12 @@ services:
       - DATABASE_URL
     expose:
       - 7800
-  api:
-    build: api
+  postgrest:
+    image: postgrest/postgrest:v12.2.11
     environment:
-      - DATABASE_URL
-      - API_PORT=7801
+      - PGRST_DB_URI=$DATABASE_URL
+      - PGRST_DB_SCHEMAS=map_units_api
+      - PGRST_DB_ANON_ROLE=web_anon
+      - PGRST_LOG_LEVEL=info
     expose:
-      - 7801
+      - 3000

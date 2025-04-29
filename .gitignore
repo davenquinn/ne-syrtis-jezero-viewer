@@ -3,7 +3,7 @@ node_modules
 .env
 .dist
 
-vector-tiles/datasets
+map-data-setup/datasets
 
 .idea
 mars

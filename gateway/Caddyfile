@@ -12,8 +12,8 @@ handle_path /vector-tiles/* {
 }
 
 # API
-handle_path /api/v1/* {
-  reverse_proxy api:7801
+handle_path /api/pg/* {
+  reverse_proxy postgrest:3000
 }
 
 # Send a description for the root page

@@ -1,4 +1,4 @@
-DROP MATERIALIZED VIEW map_units;
+DROP MATERIALIZED VIEW map_units CASCADE;
 CREATE MATERIALIZED VIEW map_units AS
 WITH units AS (
 SELECT
@@ -48,10 +48,10 @@ SELECT
 		    ),
 		    1
 	    ),
-      949901
+      949900
     ),
-  3857
-  )::geometry(MultiPolygon, 3857) geometry,
+  4326
+  )::geometry(MultiPolygon, 4326) geometry,
   u.map_id,
   coalesce(s.color, '#888888') color
 FROM units u
