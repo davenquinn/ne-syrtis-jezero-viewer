@@ -4,16 +4,21 @@
 services:
   gateway:
     build: gateway
-    expose:
-      - 80
-    ports:
-      - ${HTTP_PORT:-80}:80
-    depends_on:
-      - vector_tiles
     volumes:
       - ./gateway/Caddyfile:/etc/caddy/Caddyfile
     environment:
       - TILESET_BASE_URL
+  cache:
+    image: varnish:7.7.0-alpine
+    ports:
+      - ${HTTP_PORT:-80}:80
+    volumes:
+      - ./gateway/cache.vcl:/etc/varnish/default.vcl
+    # special mount to serve cache from memory
+    tmpfs:
+      - /var/lib/varnish/varnishd:exec
+    environment:
+      - VARNISH_SIZE=100M
   vector_tiles:
     image: pramsey/pg_tileserv:20250131
     environment:

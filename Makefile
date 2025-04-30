@@ -19,3 +19,6 @@ process-dem:
 		helmi03/rio-rgbify --max-z 13 --min-z 6 \
 		-b -10000 -i 0.1 --format png \
 		dem-mercator.tif dem.terrain-rgb.mbtiles
+
+publish:
+	docker build --platform linux/amd64 -t hub.opensciencegrid.org/macrostrat/caddy-pmtiles:1.0.0 gateway
