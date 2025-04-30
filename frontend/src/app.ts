@@ -73,6 +73,10 @@ const MainUI = ({ scrollParentRef }) => {
       h(Route, { path: "/layers" }, h(LayerSelectorPanel)),
       h(Route, { path: "/list" }, [h(PositionListEditor, { positions })]),
       h(Route, { path: "/" }, [
+        h("p.text-date-info", [
+          "First published: ",
+          h("span.date", "August 10, 2020"),
+        ]),
         h(TextPanel, { html: mainText, scrollParentRef }),
       ]),
     ]),
