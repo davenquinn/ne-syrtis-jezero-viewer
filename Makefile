@@ -11,8 +11,6 @@ update:
 	cd vector-tiles && make views
 	make clear_cache
 
-clear_cache:
-	docker-compose run gateway rm -rf /cache/
 
 process-dem:
 	docker run --rm -ti -v $(shell pwd)/data:/data \
@@ -20,5 +18,5 @@ process-dem:
 		-b -10000 -i 0.1 --format png \
 		dem-mercator.tif dem.terrain-rgb.mbtiles
 
-publish:
-	docker build --platform linux/amd64 -t hub.opensciencegrid.org/macrostrat/caddy-pmtiles:1.0.0 gateway
+server-image:
+	cd gateway && publish-server.sh
