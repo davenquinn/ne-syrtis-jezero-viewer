@@ -27,9 +27,12 @@ CREATE OR REPLACE FUNCTION map_units_api.get_units(
     ON mu.unit_id = us.unit_id
    AND mu.map_id = us.map_id
   WHERE ST_Intersects(
-    ST_SetSRID(
-      ST_MakePoint(x, y),
-      4326
+    ST_Transform(
+      ST_SetSRID(
+        ST_MakePoint(x, y),
+        4326
+      ),
+      3857
     ),
     geometry
   );

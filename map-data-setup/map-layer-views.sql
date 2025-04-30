@@ -38,20 +38,23 @@ SELECT
   -- CAST THIS appropriately so it gets registered!
   -- https://postgis.net/docs/postgis_usage.html#Manual_Register_Spatial_Column
   -- Original geometry is in syrtis relative coordinates
-  ST_SetSRID(
-    ST_Transform(
-      ST_Simplify(
-		    ST_Translate(
-			    geometry,
-			    coalesce(d.offset_x, 0),
-			    coalesce(d.offset_y, 0)
-		    ),
-		    1
-	    ),
-      949900
+  ST_Transform(
+    ST_SetSRID(
+      ST_Transform(
+        ST_Simplify(
+		      ST_Translate(
+			      geometry,
+			      coalesce(d.offset_x, 0),
+			      coalesce(d.offset_y, 0)
+		      ),
+		      1
+	      ),
+        949900
+      ),
+    4326
     ),
-  4326
-  )::geometry(MultiPolygon, 4326) geometry,
+    3857
+  )::geometry(MultiPolygon, 3857) geometry,
   u.map_id,
   coalesce(s.color, '#888888') color
 FROM units u

@@ -139,7 +139,7 @@ const CRISMLayer = (props: GeoLayerProps) => {
     new WebMapTileServiceImageryProvider({
       url:
         process.env.API_BASE_URL +
-        "/tiles/crism/{TileMatrix}/{TileCol}/{TileRow}.png",
+        "/tiles/crism-preview/{TileMatrix}/{TileCol}/{TileRow}.png",
       style: "default",
       format: "image/png",
       maximumLevel: 11,

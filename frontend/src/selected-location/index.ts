@@ -34,6 +34,7 @@ function SelectedLocationInner(props: LocationProps) {
     fetch(baseURL + "/api/pg/rpc/get_units?" + args)
       .then((res) => res.json())
       .then((data) => {
+        console.log(data)
         setRes(data);
       })
       .catch((err) => {
@@ -43,10 +44,10 @@ function SelectedLocationInner(props: LocationProps) {
 
   if (res == null) return h("p", "Loading...");
 
-  if (!res.success) {
+  if (!res) {
     return h("p", "Error fetching features!");
   }
-  const selectedFeatures = res.data;
+  const selectedFeatures = res;
 
   if (selectedFeatures.length == 0)
     return h(
