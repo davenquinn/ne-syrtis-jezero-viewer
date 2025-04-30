@@ -6,7 +6,7 @@ all: text/output/main.html text/output/viewer.html text/output/changelog.html
 
 text/references.bib: text/main.md $(BIBTEX_LIBRARY)
 	cat $< | text/scripts/find-refs > $(REF_LIST)
-	bib-filter -k $(REF_LIST) $(BIBTEX_LIBRARY) $@
+	-bib-filter -k $(REF_LIST) $(BIBTEX_LIBRARY) $@
 	rm -f $(REF_LIST)
 
 text/output/%.html: text/%.md text/references.bib
