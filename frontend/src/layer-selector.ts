@@ -151,6 +151,7 @@ export function LayerSelectorPanel() {
     }),
     h(GeologyLayerSelector),
     h(LayerToggle, { name: "Rover position", layer: OverlayLayer.Rover }),
+    h(LayerToggle, { name: "Rover track", layer: OverlayLayer.RoverTrack }),
     h("h3", "Base layers"),
     h(BaseLayerSelector),
   ]);

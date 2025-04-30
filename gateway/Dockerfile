@@ -1,5 +1,7 @@
-FROM nginx
+FROM caddy:2.10.0-builder-alpine AS builder
 
-COPY nginx.conf /etc/nginx/nginx.conf
+RUN xcaddy build --with github.com/protomaps/go-pmtiles/caddy
 
-EXPOSE 80
+FROM caddy:2.10.0-alpine
+
+COPY --from=builder /usr/bin/caddy /usr/bin/caddy

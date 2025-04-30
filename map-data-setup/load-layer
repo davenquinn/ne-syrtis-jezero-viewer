@@ -1,5 +1,5 @@
-	#!/bin/bash
-  
+#!/bin/bash
+
 pg_conn=PG:"host=localhost port=54321 dbname=mars_syrtis user=postgres"
 
 layer="$1"

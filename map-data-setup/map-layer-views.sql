@@ -1,4 +1,4 @@
-DROP MATERIALIZED VIEW map_units;
+DROP MATERIALIZED VIEW map_units CASCADE;
 CREATE MATERIALIZED VIEW map_units AS
 WITH units AS (
 SELECT
@@ -37,14 +37,24 @@ SELECT
   u.unit_id,
   -- CAST THIS appropriately so it gets registered!
   -- https://postgis.net/docs/postgis_usage.html#Manual_Register_Spatial_Column
-  ST_Simplify(
-		ST_Translate(
-			geometry,
-			coalesce(d.offset_x, 0),
-			coalesce(d.offset_y, 0)
-		),
-		1
-	)::geometry(MultiPolygon, 900916) geometry,
+  -- Original geometry is in syrtis relative coordinates
+  ST_Transform(
+    ST_SetSRID(
+      ST_Transform(
+        ST_Simplify(
+		      ST_Translate(
+			      geometry,
+			      coalesce(d.offset_x, 0),
+			      coalesce(d.offset_y, 0)
+		      ),
+		      1
+	      ),
+        949900
+      ),
+    4326
+    ),
+    3857
+  )::geometry(MultiPolygon, 3857) geometry,
   u.map_id,
   coalesce(s.color, '#888888') color
 FROM units u

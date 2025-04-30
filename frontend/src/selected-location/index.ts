@@ -1,8 +1,7 @@
 import h from "../hyper";
 import { useDispatch } from "react-redux";
-import ReactJSON from "react-json-view";
-import { useAPIResult } from "@macrostrat/ui-components";
 import { GeographicLocation } from "cesium-viewer/position";
+import {useEffect, useState} from "react";
 
 type LocationProps = { point: GeographicLocation };
 
@@ -25,14 +24,30 @@ function UnitResult({ data }) {
   ]);
 }
 
+const baseURL = process.env.API_BASE_URL;
+
 function SelectedLocationInner(props: LocationProps) {
-  const res = useAPIResult("/unit-details", getArgsFromLocation(props.point));
+  const [res, setRes] = useState(null);
+  useEffect(() => {
+    const args = new URLSearchParams(getArgsFromLocation(props.point));
+
+    fetch(baseURL + "/api/pg/rpc/get_units?" + args)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data)
+        setRes(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [props.point])
+
   if (res == null) return h("p", "Loading...");
 
-  if (!res.success) {
+  if (!res || !Array.isArray(res)) {
     return h("p", "Error fetching features!");
   }
-  const selectedFeatures = res.data;
+  const selectedFeatures = res;
 
   if (selectedFeatures.length == 0)
     return h(

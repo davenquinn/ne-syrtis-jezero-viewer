@@ -1,11 +1,31 @@
 #!/bin/bash -e
 
-export BUNDLE_DIR="$(pwd)/.dist"
-export API_BASE_URL=https://birdnest.geology.wisc.edu/mars-data
+
+# Create a temporary directory for the build
+BUNDLE_DIR=$(mktemp -d)
+export BUNDLE_DIR
+
+# Set the environment variables for the build
+
+
 export PUBLIC_URL=/mars/syrtis-jezero
 
-npm --prefix frontend run build
-rsync -azv --delete \
-  "$BUNDLE_DIR/" \
-  steno:/data/projects/macrostrat/mars/syrtis-jezero/
-rm -rf "$BUNDLE_DIR"
+mkdir -p $BUNDLE_DIR
+
+
+npm --prefix frontend run build:web
+
+export $(grep -v '^#' .env | xargs)
+
+# Use Rclone to sync the built storybook to S3, without RClone config.
+# This should ideally be streamlined.
+echo "Uploading to S3 bucket: $S3_BUCKET"
+
+rclone sync $BUNDLE_DIR \
+  :s3:"$S3_BUCKET/$S3_PATH" \
+  --s3-provider=Ceph \
+  --s3-endpoint="$S3_ENDPOINT" \
+  --s3-access-key-id="$S3_ACCESS_KEY" \
+  --s3-secret-access-key="$S3_SECRET_KEY"
+
+rm -rf $BUNDLE_DIR

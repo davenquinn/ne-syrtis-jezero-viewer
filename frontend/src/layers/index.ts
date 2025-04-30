@@ -20,7 +20,7 @@ const Cesium: any = require("cesiumSource/Cesium");
 import { ImageryLayerCollection } from "resium";
 import { OverlayLayer } from "../state";
 import { ActiveMapLayer } from "cesium-viewer/actions";
-import { RoverPosition } from "../rover-position";
+import { RoverPosition, RoverTrack } from "../rover-position";
 import { useSelector } from "react-redux";
 import { GeologyLayer } from "./geology";
 
@@ -119,8 +119,7 @@ class SyrtisTerrainProvider extends MapboxTerrainProvider {
 
   buildTileURL(tileCoords: TileCoordinates) {
     const { z, x, y } = tileCoords;
-    const hires = this.highResolution ? "@2x" : "";
-    return `${process.env.API_BASE_URL}/tiles/terrain/${z}/${x}/${y}${hires}.png`;
+    return `${process.env.API_BASE_URL}/tiles/dem.terrain-rgb/${z}/${x}/${y}.png`;
   }
 
   preprocessHeight(x, y, height) {
@@ -140,7 +139,7 @@ const CRISMLayer = (props: GeoLayerProps) => {
     new WebMapTileServiceImageryProvider({
       url:
         process.env.API_BASE_URL +
-        "/tiles/crism/{TileMatrix}/{TileCol}/{TileRow}.png",
+        "/tiles/crism-preview/{TileMatrix}/{TileCol}/{TileRow}.png",
       style: "default",
       format: "image/png",
       maximumLevel: 11,
@@ -167,6 +166,7 @@ const ImageryLayers = () => {
       h.if(overlays.has(OverlayLayer.CRISM))(CRISMLayer),
       h.if(overlays.has(OverlayLayer.Geology))(GeologyLayer, { visibleMaps }),
       h.if(overlays.has(OverlayLayer.Rover))(RoverPosition),
+      h.if(overlays.has(OverlayLayer.RoverTrack))(RoverTrack),
     ]),
   ]);
 };

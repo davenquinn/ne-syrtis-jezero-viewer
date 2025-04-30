@@ -1,5 +1,15 @@
 # Changelog
 
+## `[0.7.0]` 2025-04-30
+
+This is a major update to backend data services.
+
+- Move backend services to Macrostrat's new infrastructure managed by [CHTC](https://chtc.cs.wisc.edu/).
+- Move raster datasets from **MBTiles** to **PMTiles** format in order to stream data stored in S3 buckets.
+- Replaced API server with [PostgREST](https://postgrest.org/en/stable/) for simplicity.
+- Moved frontend packaging to [Yarn](https://yarnpkg.org) for a streamlined build process.
+- Small frontend improvements and stabilization.
+
 ## `[0.6.0]` 2021-04-15
 
 - Select a single geologic map layer for display

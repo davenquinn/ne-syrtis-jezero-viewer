@@ -28,6 +28,7 @@ enum OverlayLayer {
   CRISM = "crism",
   Geology = "geology",
   Rover = "rover",
+  RoverTrack = "rover-track",
 }
 
 interface MapFeature {

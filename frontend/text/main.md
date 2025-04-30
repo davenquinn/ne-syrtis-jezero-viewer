@@ -1,13 +1,14 @@
 <div data-location="initial">
 
-This is Jezero Crater, the landing site of the **Perseverance** rover, currently
-_en route_ to Mars after launching on July 30th, 2020. Jezero sits within
-northeast Syrtis Major, a region with a multifaceted and globally significant
-geological history.
+This is Jezero Crater, the landing site of the **Perseverance** rover, which
+landed on Mars on February 18th, 2021 after a 7½ month journey from Earth.
+Jezero sits within  northeast Syrtis Major, a region with a multifaceted
+and globally significant  geological history.
 
-If the rover can employ its direct observations in and around Jezero
-Crater to probe the broader history of the northeast Syrtis region,
-we will develop a much richer accounting of the history and fate of water (and
+As the rover observes its surroundings, it will probe the broader history
+of the northeast Syrtis region. New  discoveries at Jezero, placed
+within a regional history, will
+enrich our understanding of the fate of water (and
 _maybe_ life!) on early Mars.
 
 </div>

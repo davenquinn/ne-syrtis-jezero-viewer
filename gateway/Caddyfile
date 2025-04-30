@@ -1,0 +1,31 @@
+{
+  order pmtiles_proxy before reverse_proxy
+}
+
+# Caddy configuration for the Syrtis-Jezero app
+:80
+
+# Raster tiles
+handle_path /tiles/* {
+  # Caddy extension for serving PMTiles
+  # archives
+  pmtiles_proxy {
+    bucket {$TILESET_BASE_URL}
+    cache_size 256
+    public_url {$PUBLIC_URL:""}/tiles
+  }
+}
+
+handle_path /vector-tiles/* {
+  reverse_proxy vector_tiles:7800
+}
+
+# API
+handle_path /api/pg/* {
+  reverse_proxy postgrest:3000
+}
+
+# Send a description for the root page
+handle_path / {
+    respond "This is the API for the Syrtis-Jezero application"
+}
