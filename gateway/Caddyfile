@@ -1,12 +1,24 @@
+{
+  order pmtiles_proxy before reverse_proxy
+}
+
 # Caddy configuration for the Syrtis-Jezero app
 :80
 
+
+
+
 # Raster tiles
 handle_path /tiles/* {
-  reverse_proxy raster_tiles:8080
+  # Caddy extension for serving PMTiles
+  # archives
+  pmtiles_proxy {
+    bucket {$TILESET_BASE_URL}
+    cache_size 256
+    public_url {$PUBLIC_URL:""}/tiles
+  }
 }
 
-# Vector tiles
 handle_path /vector-tiles/* {
   reverse_proxy vector_tiles:7800
 }
