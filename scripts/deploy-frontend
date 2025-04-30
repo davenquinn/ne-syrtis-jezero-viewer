@@ -1,10 +1,17 @@
 #!/bin/bash -e
 
-export BUNDLE_DIR="$(pwd)/mars/syrtis-jezero"
-export API_BASE_URL=https://birdnest.geology.wisc.edu/mars-data
+
+# Create a temporary directory for the build
+BUNDLE_DIR=$(mktemp -d)
+export BUNDLE_DIR
+
+# Set the environment variables for the build
+
+
 export PUBLIC_URL=/mars/syrtis-jezero
 
 mkdir -p $BUNDLE_DIR
+
 
 npm --prefix frontend run build:web
 

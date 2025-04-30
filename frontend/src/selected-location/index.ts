@@ -44,7 +44,7 @@ function SelectedLocationInner(props: LocationProps) {
 
   if (res == null) return h("p", "Loading...");
 
-  if (!res) {
+  if (!res || !Array.isArray(res)) {
     return h("p", "Error fetching features!");
   }
   const selectedFeatures = res;

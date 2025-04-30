@@ -1,16 +1,12 @@
-all:
-	docker-compose up --build --force-recreate -d
-	docker-compose logs -f & API_BASE_URL=http://daven-quinn.local:4053 npm run dev:frontend
+.PHONY: start
 
-.PHONY: backend frontend clear_cache
-
-backend:
-	docker-compose up --build --force-recreate
+start:
+	docker compose up --build --force-recreate -d
+	docker compose logs -f
 
 update:
 	cd vector-tiles && make views
 	make clear_cache
-
 
 process-dem:
 	docker run --rm -ti -v $(shell pwd)/data:/data \

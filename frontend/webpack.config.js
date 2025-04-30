@@ -4,10 +4,12 @@ const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
 //UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const historyApiFallback = require("connect-history-api-fallback");
 const CopyPlugin = require("copy-webpack-plugin");
-const DotenvPlugin = require("dotenv-webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const GitRevisionPlugin = require("git-revision-webpack-plugin");
+const dotenv = require("dotenv");
 const pkg = require("./package.json");
+
+dotenv.config();
 
 let mode = process.env.NODE_ENV || "development";
 
